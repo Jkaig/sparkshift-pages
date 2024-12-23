@@ -1,0 +1,15 @@
+{
+    "applinks": {
+      "apps": [],
+      "details": [
+        {
+          "appID": "3PJ465CCC6.com.jeremykaigler.sparkshift",
+          "paths": [ "*" ]
+        },
+        {
+          "appID": "3PJ465CCC6.com.jeremykaigler.sparkshiftapp",
+          "paths": [ "*" ]
+        }
+      ]
+    }
+  }
