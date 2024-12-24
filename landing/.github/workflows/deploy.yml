@@ -9,37 +9,40 @@ permissions:
   contents: write
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      
-      - name: Setup Node
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          
-      - name: Install dependencies
+
+      - name: Install Dependencies
         run: |
           cd landing
           npm ci
-          
+
       - name: Build
         run: |
           cd landing
           npm run build
-          
-      - name: Prepare root files
+
+      - name: Prepare deployment
         run: |
-          mkdir -p landing/out
-          cp index.html landing/out/index.html
+          cp landing/out/landing/index.html landing/out/index.html
+          cp -r landing/out/landing/* landing/out/
+          rm -rf landing/out/landing
+          cp index.html landing/out/
           cp -r .well-known landing/out/
           cp CNAME landing/out/
-          
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./landing/out
-          force_orphan: true
+          cname: sparkshift.app
 
