@@ -22,17 +22,22 @@ jobs:
       - name: Install dependencies
         run: |
           cd landing
-          npm install
+          npm ci
           
       - name: Build
         run: |
           cd landing
           npm run build
           
+      - name: Prepare deployment
+        run: |
+          cp index.html landing/out/
+          cp -r .well-known landing/out/
+          
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./landing/out
-          destination_dir: landing
+          keep_files: true
 
