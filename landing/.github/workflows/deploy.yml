@@ -29,15 +29,17 @@ jobs:
           cd landing
           npm run build
           
-      - name: Prepare deployment
+      - name: Prepare root files
         run: |
-          cp index.html landing/out/
+          mkdir -p landing/out
+          cp index.html landing/out/index.html
           cp -r .well-known landing/out/
+          cp CNAME landing/out/
           
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./landing/out
-          keep_files: true
+          force_orphan: true
 
