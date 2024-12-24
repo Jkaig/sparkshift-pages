@@ -21,28 +21,24 @@ jobs:
           node-version: '18'
 
       - name: Install Dependencies
-        run: |
-          cd landing
-          npm ci
+        run: npm ci
 
       - name: Build
-        run: |
-          cd landing
-          npm run build
+        run: npm run build
 
       - name: Prepare deployment
         run: |
-          cp landing/out/landing/index.html landing/out/index.html
-          cp -r landing/out/landing/* landing/out/
-          rm -rf landing/out/landing
-          cp index.html landing/out/
-          cp -r .well-known landing/out/
-          cp CNAME landing/out/
+          cp out/landing/index.html out/index.html
+          cp -r out/landing/* out/
+          rm -rf out/landing
+          cp index.html out/
+          cp -r .well-known out/
+          echo "sparkshift.app" > out/CNAME
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./landing/out
+          publish_dir: ./out
           cname: sparkshift.app
 
