@@ -21,24 +21,33 @@ jobs:
           node-version: '18'
 
       - name: Install Dependencies
-        run: npm ci
+        run: |
+          cd landing
+          npm ci
 
       - name: Build
-        run: npm run build
+        run: |
+          cd landing
+          npm run build
 
       - name: Prepare deployment
         run: |
-          cp out/landing/index.html out/index.html
-          cp -r out/landing/* out/
-          rm -rf out/landing
-          cp index.html out/
-          cp -r .well-known out/
-          echo "sparkshift.app" > out/CNAME
+          # Create a temporary directory for the final output
+          mkdir -p temp_deploy
+          
+          # Copy the landing page files to their subdirectory
+          mkdir -p temp_deploy/landing
+          cp -r landing/out/* temp_deploy/landing/
+          
+          # Copy root files
+          cp index.html temp_deploy/
+          cp -r .well-known temp_deploy/
+          echo "sparkshift.app" > temp_deploy/CNAME
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
+          publish_dir: ./temp_deploy
           cname: sparkshift.app
 
