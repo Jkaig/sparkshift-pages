@@ -4,7 +4,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Remove all path prefixes and redirects
+  assetPrefix: '.',
+  trailingSlash: true,
 }
 
 module.exports = nextConfig
