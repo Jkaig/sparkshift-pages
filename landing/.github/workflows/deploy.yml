@@ -31,19 +31,7 @@ jobs:
         run: |
           cd landing
           npm run build
-          npm run start & npx wait-on http://localhost:3000
-          wget \
-            --recursive \
-            --no-clobber \
-            --page-requisites \
-            --html-extension \
-            --convert-links \
-            --restrict-file-names=windows \
-            --no-parent \
-            --domains localhost \
-            --no-host-directories \
-              http://localhost:3000
-          kill $(lsof -t -i:3000)
+          ls -la out  # List contents of out directory
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -51,9 +39,10 @@ jobs:
       - name: Prepare artifact
         run: |
           mkdir -p _site
-          cp -r landing/* _site/
+          cp -r landing/out/* _site/
           cp -r .well-known _site/
           echo "sparkshift.app" > _site/CNAME
+          ls -la _site  # List contents of _site directory
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
