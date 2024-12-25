@@ -4,8 +4,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Remove all path configurations to ensure clean export
-  distDir: 'out',
+  // Remove all path prefixes and redirects
 }
 
 module.exports = nextConfig

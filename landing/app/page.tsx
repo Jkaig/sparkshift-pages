@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
-import { AppleIcon, PlayIcon, CheckCircle, Menu, ShoppingCart, ChevronLeft, ChevronRight } from 'lucide-react'
+import { AppleIcon, PlayIcon, Menu, ShoppingCart, ChevronLeft, ChevronRight, CheckCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
 import LightningBackground from '@/components/LightningBackground'
 
@@ -223,7 +223,7 @@ export default function Home() {
       </main>
 
       <footer className="container mx-auto mt-32 py-6 px-6 text-center relative z-10">
-        <p>&copy; 2023 Spark Shift. All rights reserved.</p>
+        <p>&copy; 2024 Spark Shift. All rights reserved.</p>
       </footer>
     </div>
   )

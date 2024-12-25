@@ -39,33 +39,12 @@ jobs:
         run: |
           # Create the site directory
           mkdir -p _site
-          # Copy the Next.js build output directly to landing directory
-          mkdir -p _site/landing
-          cp -r landing/out/* _site/landing/
-          # Ensure all static assets are copied
-          cp -r landing/public/* _site/landing/
-          # Copy root files
+          # Copy the Next.js build output directly to root
+          cp -r landing/out/* _site/
+          # Copy the well-known directory
           cp -r .well-known _site/
+          # Add CNAME file
           echo "sparkshift.app" > _site/CNAME
-          # Create a new index.html in the root
-          cat > _site/index.html << 'EOL'
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>Spark Shift</title>
-              <meta http-equiv="refresh" content="0;url=/landing/">
-              <link rel="canonical" href="/landing/">
-          </head>
-          <body>
-              <script>
-                  window.location.replace("/landing/");
-              </script>
-              <p>Please click <a href="/landing/">here</a> if you are not redirected automatically.</p>
-          </body>
-          </html>
-          EOL
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
