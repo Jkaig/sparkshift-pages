@@ -6,7 +6,9 @@ on:
       - main
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
@@ -32,16 +34,22 @@ jobs:
 
       - name: Prepare deployment
         run: |
-          mkdir -p deploy
-          cp -r landing/out deploy/landing
-          cp index.html deploy/
-          cp -r .well-known deploy/
-          echo "sparkshift.app" > deploy/CNAME
+          # Create a temporary directory for the final output
+          mkdir -p temp_deploy
+          
+          # Copy the landing page files to their subdirectory
+          mkdir -p temp_deploy/landing
+          cp -r landing/out/* temp_deploy/landing/
+          
+          # Copy root files
+          cp index.html temp_deploy/
+          cp -r .well-known temp_deploy/
+          echo "sparkshift.app" > temp_deploy/CNAME
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./deploy
+          publish_dir: ./temp_deploy
           cname: sparkshift.app
 
