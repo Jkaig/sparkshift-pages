@@ -4,8 +4,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Remove assetPrefix and basePath as they're causing issues
-  trailingSlash: true,
+  // Remove all path configurations to ensure clean export
+  distDir: 'out',
 }
 
 module.exports = nextConfig

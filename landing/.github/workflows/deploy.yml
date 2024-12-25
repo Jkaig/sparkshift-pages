@@ -37,17 +37,35 @@ jobs:
 
       - name: Prepare artifact
         run: |
-          # Create the _site directory
+          # Create the site directory
           mkdir -p _site
-          # Copy the landing page files directly to _site
-          cp -r landing/out/* _site/
-          # Copy the root files
-          cp index.html _site/
-          cp -r .well-known _site/
-          echo "sparkshift.app" > _site/CNAME
-          # Create landing directory and copy files there too
+          # Copy the Next.js build output directly to landing directory
           mkdir -p _site/landing
           cp -r landing/out/* _site/landing/
+          # Ensure all static assets are copied
+          cp -r landing/public/* _site/landing/
+          # Copy root files
+          cp -r .well-known _site/
+          echo "sparkshift.app" > _site/CNAME
+          # Create a new index.html in the root
+          cat > _site/index.html << 'EOL'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Spark Shift</title>
+              <meta http-equiv="refresh" content="0;url=/landing/">
+              <link rel="canonical" href="/landing/">
+          </head>
+          <body>
+              <script>
+                  window.location.replace("/landing/");
+              </script>
+              <p>Please click <a href="/landing/">here</a> if you are not redirected automatically.</p>
+          </body>
+          </html>
+          EOL
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
