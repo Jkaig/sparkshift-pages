@@ -4,22 +4,16 @@ import '../app/globals.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
-    const handleOffline = () => {
-      console.log('App is offline')
-      // You can add more offline handling logic here
+    const handleError = (event: ErrorEvent) => {
+      console.error('Unhandled error:', event.error)
+      // Prevent default error handling to avoid potential reloads
+      event.preventDefault()
     }
 
-    const handleOnline = () => {
-      console.log('App is back online')
-      // You can add more online handling logic here
-    }
-
-    window.addEventListener('offline', handleOffline)
-    window.addEventListener('online', handleOnline)
-
+    window.addEventListener('error', handleError)
+    
     return () => {
-      window.removeEventListener('offline', handleOffline)
-      window.removeEventListener('online', handleOnline)
+      window.removeEventListener('error', handleError)
     }
   }, [])
 

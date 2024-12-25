@@ -1,10 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  output: 'export',
   images: {
-    domains: ['localhost', 'sparkshift.app'],
+    unoptimized: true,
   },
   trailingSlash: true,
+  // Disable automatic static optimization
+  experimental: {
+    strictNextHead: true,
+  },
 }
 
 module.exports = nextConfig
