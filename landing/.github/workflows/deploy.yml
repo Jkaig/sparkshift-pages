@@ -31,7 +31,7 @@ jobs:
         run: |
           cd landing
           npm run build
-          ls -la out  # List contents of out directory
+          npm run export
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -42,7 +42,6 @@ jobs:
           cp -r landing/out/* _site/
           cp -r .well-known _site/
           echo "sparkshift.app" > _site/CNAME
-          ls -la _site  # List contents of _site directory
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

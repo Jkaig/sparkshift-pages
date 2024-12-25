@@ -62,7 +62,7 @@ export default function Home() {
               <li><a href="#download" className={`hover:text-[#3498DB] transition-colors ${activeSection === 'download' ? 'text-[#3498DB]' : ''}`}>Download</a></li>
             </ul>
           </nav>
-          <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <Button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             <Menu className="h-6 w-6" />
           </Button>
         </div>
@@ -128,12 +128,12 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.8 }}
           >
             <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10">
-              <Button variant="ghost" size="icon" onClick={() => scrollImages('left')}>
+              <Button className="bg-transparent text-white hover:bg-white hover:bg-opacity-10" onClick={() => scrollImages('left')}>
                 <ChevronLeft className="h-6 w-6" />
               </Button>
             </div>
             <div className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10">
-              <Button variant="ghost" size="icon" onClick={() => scrollImages('right')}>
+              <Button className="bg-transparent text-white hover:bg-white hover:bg-opacity-10" onClick={() => scrollImages('right')}>
                 <ChevronRight className="h-6 w-6" />
               </Button>
             </div>
