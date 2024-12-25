@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spark Shift</title>
     <script>
-        // Check if we're already on the landing page to prevent redirect loops
-        if (!window.location.pathname.includes('/landing/')) {
-            window.location.href = '/landing/index.html';
+        // Get the current path
+        const currentPath = window.location.pathname;
+        // Only redirect if we're at the root
+        if (currentPath === '/' || currentPath === '/index.html') {
+            window.location.href = '/landing/';
         }
     </script>
     <style>
@@ -35,7 +37,7 @@
 <body>
     <div>
         <h1>Spark Shift</h1>
-        <p>If you are not redirected automatically, <a href="/landing/index.html">click here</a> to go to the Spark Shift landing page.</p>
+        <p>If you are not redirected automatically, <a href="/landing/">click here</a> to go to the Spark Shift landing page.</p>
     </div>
 </body>
 </html>

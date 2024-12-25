@@ -11,14 +11,14 @@ permissions:
   id-token: write
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
@@ -32,24 +32,28 @@ jobs:
           cd landing
           npm run build
 
-      - name: Prepare deployment
-        run: |
-          # Create a temporary directory for the final output
-          mkdir -p temp_deploy
-          
-          # Copy the landing page files to their subdirectory
-          mkdir -p temp_deploy/landing
-          cp -r landing/out/* temp_deploy/landing/
-          
-          # Copy root files
-          cp index.html temp_deploy/
-          cp -r .well-known temp_deploy/
-          echo "sparkshift.app" > temp_deploy/CNAME
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./temp_deploy
-          cname: sparkshift.app
+      - name: Prepare artifact
+        run: |
+          mkdir -p ./_site
+          cp -r landing/out/* ./_site/
+          cp index.html ./_site/
+          cp -r .well-known ./_site/
+          echo "sparkshift.app" > ./_site/CNAME
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
