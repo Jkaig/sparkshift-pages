@@ -43,13 +43,11 @@ jobs:
           mkdir -p _site/landing
           # Copy the Next.js build output to landing directory
           cp -r landing/out/* _site/landing/
-          # Ensure all static files are copied
-          cp -r landing/public/* _site/landing/
           # Copy the well-known directory to root
           cp -r .well-known _site/
           # Add CNAME file
           echo "sparkshift.app" > _site/CNAME
-          # Create a simple redirect at root
+          # Create a simple static HTML file at root that doesn't use JavaScript for redirection
           cat > _site/index.html << 'EOL'
           <!DOCTYPE html>
           <html lang="en">
@@ -57,10 +55,28 @@ jobs:
               <meta charset="UTF-8">
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
               <meta http-equiv="refresh" content="0;url=/landing/">
-              <title>Redirecting...</title>
+              <link rel="canonical" href="/landing/">
+              <title>Spark Shift</title>
+              <style>
+                  body {
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                      background: #001f3f;
+                      color: white;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      min-height: 100vh;
+                      margin: 0;
+                      text-align: center;
+                  }
+                  a { color: #3498DB; }
+              </style>
           </head>
           <body>
-              <script>window.location.href="/landing/";</script>
+              <div>
+                  <h1>Spark Shift</h1>
+                  <p>If you are not redirected, <a href="/landing/">click here</a>.</p>
+              </div>
           </body>
           </html>
           EOL
