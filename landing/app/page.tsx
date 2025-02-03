@@ -1,11 +1,11 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from 'react'
-import Image from 'next/image'
-import { Button } from "@/components/ui/button"
-import { AppleIcon, PlayIcon, CheckCircle, Menu, ShoppingCart, ChevronLeft, ChevronRight } from 'lucide-react'
-import { motion } from 'framer-motion'
-import LightningBackground from '@/components/LightningBackground'
+import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
+import { Button } from "@/components/ui/button";
+import { AppleIcon, PlayIcon, CheckCircle, Menu, ShoppingCart, ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import LightningBackground from '@/components/LightningBackground';
 
 interface Feature {
   title: string;
@@ -20,42 +20,42 @@ interface Testimonial {
 }
 
 export default function Home(): React.JSX.Element {
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
-  const [activeSection, setActiveSection] = useState<string>('')
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [activeSection, setActiveSection] = useState<string>('');
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'features', 'download']
+      const sections = ['hero', 'features', 'download'];
       const currentSection = sections.find(section => {
-        const element = document.getElementById(section)
+        const element = document.getElementById(section);
         if (element) {
-          const rect = element.getBoundingClientRect()
-          return rect.top <= 100 && rect.bottom >= 100
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom >= 100;
         }
-        return false
-      })
-      if (currentSection) setActiveSection(currentSection)
-    }
+        return false;
+      });
+      if (currentSection) setActiveSection(currentSection);
+    };
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleShopClick = () => {
-    window.open('https://spark-shift-merch.printify.me/products', '_blank')
-  }
+    window.open('https://spark-shift-merch.printify.me/products', '_blank');
+  };
 
   const scrollImages = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
-      const scrollAmount = 300
-      const currentScroll = scrollContainerRef.current.scrollLeft
+      const scrollAmount = 300;
+      const currentScroll = scrollContainerRef.current.scrollLeft;
       scrollContainerRef.current.scrollTo({
         left: direction === 'left' ? currentScroll - scrollAmount : currentScroll + scrollAmount,
         behavior: 'smooth'
-      })
+      });
     }
-  }
+  };
 
   const features: Feature[] = [
     {
@@ -88,7 +88,7 @@ export default function Home(): React.JSX.Element {
       description: "Connect with other apprentices and journeymen. Share experiences and grow together in the trade.",
       icon: "🤝"
     }
-  ]
+  ];
 
   const testimonials: Testimonial[] = [
     {
@@ -101,7 +101,7 @@ export default function Home(): React.JSX.Element {
       author: "Sarah M.",
       role: "Master Electrician"
     }
-  ]
+  ];
 
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-[#001f3f] to-[#001233] text-white overflow-x-hidden">
@@ -307,5 +307,5 @@ export default function Home(): React.JSX.Element {
         <p>&copy; 2023 Spark Shift. All rights reserved.</p>
       </footer>
     </div>
-  )
+  );
 }
