@@ -1,15 +1,27 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { AppleIcon, PlayIcon, CheckCircle, Menu, ShoppingCart, ChevronLeft, ChevronRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 import LightningBackground from '@/components/LightningBackground'
 
-export default function Home() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState('')
+interface Feature {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+}
+
+interface Testimonial {
+  quote: string;
+  author: string;
+  role: string;
+}
+
+export default function Home(): React.JSX.Element {
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+  const [activeSection, setActiveSection] = useState<string>('')
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -44,6 +56,52 @@ export default function Home() {
       })
     }
   }
+
+  const features: Feature[] = [
+    {
+      title: "Smart Hour Tracking",
+      description: "Log your hours with ease using our intelligent tracking system. Categorize work types and maintain detailed records of your progress.",
+      icon: "⚡"
+    },
+    {
+      title: "Digital Evaluations",
+      description: "Submit and receive evaluations digitally. Get feedback from journeymen and track your skill development over time.",
+      icon: "📝"
+    },
+    {
+      title: "Career Progress",
+      description: "Monitor your apprenticeship journey with detailed progress tracking and milestone achievements.",
+      icon: "📈"
+    },
+    {
+      title: "Offline Support",
+      description: "Work without interruption. Log hours and fill evaluations even when offline - we'll sync when you're back online.",
+      icon: "🔄"
+    },
+    {
+      title: "Secure Data",
+      description: "Your data is encrypted and securely stored. Access your records anytime, anywhere with cloud backup.",
+      icon: "🔒"
+    },
+    {
+      title: "Community Connect",
+      description: "Connect with other apprentices and journeymen. Share experiences and grow together in the trade.",
+      icon: "🤝"
+    }
+  ]
+
+  const testimonials: Testimonial[] = [
+    {
+      quote: "Spark Shift has revolutionized how I track my apprenticeship hours. It's intuitive and saves me so much time!",
+      author: "John D.",
+      role: "3rd Year Apprentice"
+    },
+    {
+      quote: "As a journeyman, reviewing apprentice evaluations has never been easier. The digital format is a game-changer.",
+      author: "Sarah M.",
+      role: "Master Electrician"
+    }
+  ]
 
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-[#001f3f] to-[#001233] text-white overflow-x-hidden">
@@ -84,49 +142,43 @@ export default function Home() {
 
       <main className="relative z-10">
         <section id="hero" className="container mx-auto mt-32 px-6 text-center">
-          <motion.h1 
-            className="text-5xl md:text-6xl font-bold mb-6"
+          <motion.div
+            className="max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Connect. Organize. Electrify.
-          </motion.h1>
-          <motion.p 
-            className="text-xl mb-12 text-[#3498DB]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            The ultimate app for electrical apprentices and journeymen
-          </motion.p>
-          
-          <motion.div 
-            className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-6 mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <Button className="bg-white text-black hover:bg-gray-200 transition-colors w-full md:w-auto">
-              <AppleIcon className="mr-2 h-5 w-5" /> Download for iOS
-            </Button>
-            <Button className="bg-white text-black hover:bg-gray-200 transition-colors w-full md:w-auto">
-              <PlayIcon className="mr-2 h-5 w-5" /> Download for Android
-            </Button>
-            <Button 
-              className="bg-[#3498DB] text-white hover:bg-[#2980B9] transition-colors w-full md:w-auto"
-              onClick={handleShopClick}
-            >
-              <ShoppingCart className="mr-2 h-5 w-5" /> Shop Merch Now
-            </Button>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#3498DB] to-[#2ECC71]">
+              Connect. Organize. Electrify.
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 text-gray-300">
+              Transform your electrical apprenticeship journey with the most comprehensive tracking and evaluation app
+            </p>
+            <div className="text-lg mb-12 space-y-4">
+              <div className="flex items-center justify-center space-x-2">
+                <CheckCircle className="text-[#2ECC71]" />
+                <span>Track your hours seamlessly</span>
+              </div>
+              <div className="flex items-center justify-center space-x-2">
+                <CheckCircle className="text-[#2ECC71]" />
+                <span>Submit and manage evaluations digitally</span>
+              </div>
+              <div className="flex items-center justify-center space-x-2">
+                <CheckCircle className="text-[#2ECC71]" />
+                <span>Connect with journeymen for reviews</span>
+              </div>
+            </div>
+            
+            <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-6 mb-12">
+              <a href="https://apps.apple.com" target="_blank" rel="noopener noreferrer" className="transform hover:scale-105 transition-transform">
+                <Image src="/app-store-badge.png" alt="Download on App Store" width={200} height={60} className="w-full md:w-auto" />
+              </a>
+              <a href="https://play.google.com" target="_blank" rel="noopener noreferrer" className="transform hover:scale-105 transition-transform">
+                <Image src="/google-play-badge.png" alt="Get it on Google Play" width={200} height={60} className="w-full md:w-auto" />
+              </a>
+            </div>
           </motion.div>
-
-          <motion.div 
-            className="relative mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-          >
+          <div className="relative mb-12">
             <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10">
               <Button className="bg-transparent text-white hover:bg-white hover:bg-opacity-10" onClick={() => scrollImages('left')}>
                 <ChevronLeft className="h-6 w-6" />
@@ -147,36 +199,65 @@ export default function Home() {
               <Image src="/home_screen.png" alt="Home Screen" width={300} height={600} className="rounded-xl shadow-lg flex-shrink-0 scroll-snap-align-start" />
               <Image src="/journeyman_review.png" alt="Journeyman Review" width={300} height={600} className="rounded-xl shadow-lg flex-shrink-0 scroll-snap-align-start" />
             </div>
-          </motion.div>
+          </div>
         </section>
 
-        <section id="features" className="container mx-auto mt-32 px-6 text-center">
-          <motion.h2 
-            className="text-4xl font-bold mb-12"
+        <section id="features" className="container mx-auto mt-32 px-6">
+          <motion.div
+            className="max-w-6xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Key Features
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { title: "Easy Login", description: "Secure and quick access with multiple sign-in options" },
-              { title: "Apprentice Evaluations", description: "Submit and track your progress with detailed evaluations" },
-              { title: "Hour Logging", description: "Easily log and manage your working hours" }
-            ].map((feature, index) => (
-              <motion.div 
-                key={index}
-                className="bg-white bg-opacity-10 p-6 rounded-lg hover:bg-opacity-20 transition-all duration-300 transform hover:-translate-y-2"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-              >
-                <h3 className="text-2xl font-semibold mb-4">{feature.title}</h3>
-                <p>{feature.description}</p>
-              </motion.div>
-            ))}
-          </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
+              Built for the <span className="text-[#3498DB]">Electrical Trade</span>
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {features.map((feature, index) => (
+                <motion.div 
+                  key={index}
+                  className="bg-white/10 backdrop-blur-lg p-8 rounded-xl hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-2"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <div className="text-4xl mb-4">{feature.icon}</div>
+                  <h3 className="text-2xl font-semibold mb-4">{feature.title}</h3>
+                  <p className="text-gray-300">{feature.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </section>
+
+        <section id="testimonials" className="container mx-auto mt-32 px-6">
+          <motion.div
+            className="max-w-6xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
+              Trusted by <span className="text-[#3498DB]">Electrical Professionals</span>
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {testimonials.map((testimonial, index) => (
+                <motion.div
+                  key={index}
+                  className="bg-white/10 backdrop-blur-lg p-8 rounded-xl"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                >
+                  <p className="text-xl mb-6 italic">"{testimonial.quote}"</p>
+                  <div>
+                    <p className="font-semibold">{testimonial.author}</p>
+                    <p className="text-[#3498DB]">{testimonial.role}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </section>
 
         <section id="download" className="container mx-auto mt-32 px-6 text-center">
@@ -228,4 +309,3 @@ export default function Home() {
     </div>
   )
 }
-

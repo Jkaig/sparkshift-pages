@@ -1,15 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
+  distDir: 'dist',
   images: {
     unoptimized: true,
   },
   trailingSlash: true,
-  // Disable automatic static optimization
-  experimental: {
-    strictNextHead: true,
-  },
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/' : '',
 }
 
 module.exports = nextConfig
-
