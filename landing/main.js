@@ -1,18 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const basePath = window.location.hostname === 'localhost' ? '/sparkshift-pages/' : '/sparkshift-pages/';
-    const validPaths = ['mobile-auth', 'model-view', 'dashboard'];
+    const loadingIndicator = document.querySelector('.loading-indicator');
+    const content = document.querySelector('.content');
+    
+    loadingIndicator.classList.add('visible');
+    content.style.opacity = '0.3';
 
-    document.body.classList.add('loading');
-
-    const fullPath = window.location.pathname;
-    const subPath = fullPath.replace(basePath, '');
-
-    if (!fullPath.startsWith(basePath)) {
-        window.location.href = basePath;
-    } else if (subPath && !validPaths.includes(subPath.split('/')[0])) {
-        showDeeplinkError();
+    // Original simple path handling
+    if (window.location.pathname !== '/') {
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 1500);
     } else {
-        loadModernInterface();
+        loadingIndicator.classList.remove('visible');
+        content.style.opacity = '1';
     }
 });
 
