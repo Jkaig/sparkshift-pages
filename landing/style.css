@@ -1,6 +1,6 @@
 :root {
     --primary: #3498DB;
-    --secondary: #2C3E50;
+    --secondary: #12132a;
     --accent: #E74C3C;
 }
 
@@ -8,7 +8,7 @@ body {
     font-family: 'Inter', system-ui, sans-serif;
     min-height: 100vh;
     margin: 0;
-    background: linear-gradient(135deg, #001f3f 0%, #002851 100%);
+    background: #0a0b1e;
     color: white;
     line-height: 1.6;
 }
