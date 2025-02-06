@@ -1,12 +1,14 @@
 {
   "name": "sparkshift-landing",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "parcel-build": "parcel build index.html",
+    "parcel-dev": "parcel index.html"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
@@ -19,6 +21,10 @@
     "react-dom": "^18.3.1",
     "tailwind-merge": "^2.0.0",
     "tailwindcss": "^3.3.5",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "parcel": "^2.8.3"
+  },
+  "devDependencies": {
+    "gh-pages": "^5.0.0"
   }
 }
