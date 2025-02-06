@@ -16,15 +16,16 @@
     "framer-motion": "^10.16.4",
     "lucide-react": "^0.292.0",
     "next": "^14.2.23",
+    "parcel": "^2.8.3",
     "postcss": "^8.4.31",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwind-merge": "^2.0.0",
     "tailwindcss": "^3.3.5",
-    "tailwindcss-animate": "^1.0.7",
-    "parcel": "^2.8.3"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.20",
     "gh-pages": "^5.0.0"
   }
 }
