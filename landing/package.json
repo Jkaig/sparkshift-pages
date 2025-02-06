@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "parcel index.html --public-url ./",
+    "build": "parcel build index.html --public-url ./",
     "start": "next start",
     "lint": "next lint",
     "parcel-build": "parcel build index.html",
