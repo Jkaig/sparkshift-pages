@@ -57,7 +57,7 @@ function showDeeplinkError() {
             <h2>🔗 Invalid Link</h2>
             <p>This QR code points to a resource that doesn't exist.</p>
             <div class="action-buttons">
-                <button onclick="window.location.href='/sparkshift-pages/'" class="cta-button">
+                <button onclick="loadModernInterface()" class="cta-button">
                     Go to Home
                 </button>
             </div>
