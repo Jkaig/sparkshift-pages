@@ -1,20 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const loadingIndicator = document.querySelector('.loading-indicator');
-    const content = document.querySelector('.content');
-    
-    loadingIndicator.classList.add('visible');
-    content.style.opacity = '0.3';
+    const basePath = window.location.hostname === 'localhost' ? '/sparkshift-pages/' : '/sparkshift-pages/';
+    const validPaths = ['mobile-auth', 'model-view', 'dashboard'];
 
-    const basePath = window.location.hostname === 'localhost' ? '/' : '/sparkshift-pages/';
-    const expectedPath = window.location.origin + basePath;
+    document.body.classList.add('loading');
 
-    if (window.location.href !== expectedPath) {
-        setTimeout(() => {
-            window.location.href = basePath;
-        }, 1500);
+    const fullPath = window.location.pathname;
+    const subPath = fullPath.replace(basePath, '');
+
+    if (!fullPath.startsWith(basePath)) {
+        window.location.href = basePath;
+    } else if (subPath && !validPaths.includes(subPath.split('/')[0])) {
+        showDeeplinkError();
     } else {
-        loadingIndicator.classList.remove('visible');
-        content.style.opacity = '1';
         loadModernInterface();
     }
 });
@@ -52,4 +49,21 @@ function loadModernInterface() {
             <p class="cta-note">14-day trial • No credit card required</p>
         </div>
     `;
+    document.body.classList.remove('loading');
+}
+
+function showDeeplinkError() {
+    const contentDiv = document.querySelector('.content');
+    contentDiv.innerHTML = `
+        <div class="deeplink-error">
+            <h2>🔗 Invalid Link</h2>
+            <p>This QR code points to a resource that doesn't exist.</p>
+            <div class="action-buttons">
+                <button onclick="window.location.href='/sparkshift-pages/'" class="cta-button">
+                    Go to Home
+                </button>
+            </div>
+        </div>
+    `;
+    document.body.classList.remove('loading');
 }
