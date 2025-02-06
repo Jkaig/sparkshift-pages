@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadingIndicator.classList.add('visible');
     content.style.opacity = '0.3';
 
-    const basePath = '/sparkshift-pages/';
+    const basePath = window.location.hostname === 'localhost' ? '/' : '/sparkshift-pages/';
     const expectedPath = window.location.origin + basePath;
 
     if (window.location.href !== expectedPath) {
