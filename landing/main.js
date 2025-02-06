@@ -1,46 +1,55 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Ensure single redirection attempt
-    if (!window.location.href.includes('/landing/')) {
-        window.location.href = '/landing/';
-    }
-
     const loadingIndicator = document.querySelector('.loading-indicator');
     const content = document.querySelector('.content');
     
-    // Show loading state
-    if (loadingIndicator && content) {
-        loadingIndicator.style.display = 'block';
-        content.style.opacity = '0.3';
+    loadingIndicator.classList.add('visible');
+    content.style.opacity = '0.3';
 
-        // Load actual content after a brief delay
+    const basePath = '/sparkshift-pages/';
+    const expectedPath = window.location.origin + basePath;
+
+    if (window.location.href !== expectedPath) {
         setTimeout(() => {
-            loadingIndicator.style.display = 'none';
-            content.style.opacity = '1';
-            loadMainContent();
-        }, 1000);
+            window.location.href = basePath;
+        }, 1500);
+    } else {
+        loadingIndicator.classList.remove('visible');
+        content.style.opacity = '1';
+        loadModernInterface();
     }
 });
 
-function loadMainContent() {
+function loadModernInterface() {
     const contentDiv = document.querySelector('.content');
-    if (contentDiv) {
-        contentDiv.innerHTML = `
-            <h1>Welcome to Spark Shift</h1>
-            <div class="features">
-                <div class="feature-card">
-                    <h2>🚀 Instant Deployment</h2>
-                    <p>Deploy machine learning models with one click</p>
-                </div>
-                <div class="feature-card">
-                    <h2>🔗 Smart Integrations</h2>
-                    <p>Connect with popular ML frameworks and data sources</p>
-                </div>
-                <div class="feature-card">
-                    <h2>📊 Real-time Analytics</h2>
-                    <p>Monitor model performance in live dashboards</p>
-                </div>
-            </div>
-            <button class="cta-button">Get Started</button>
-        `;
-    }
+    contentDiv.innerHTML = `
+        <header class="hero">
+            <h1>Transform ML Workflows with <span>SparkShift</span></h1>
+            <p class="subtitle">Enterprise-grade machine learning deployment made simple</p>
+        </header>
+        
+        <section class="features-grid">
+            <article class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>One-Click Deployment</h3>
+                <p>Deploy TensorFlow/PyTorch models with automated scaling</p>
+            </article>
+            
+            <article class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Live Analytics</h3>
+                <p>Real-time performance monitoring & drift detection</p>
+            </article>
+            
+            <article class="feature-card">
+                <div class="feature-icon">🔗</div>
+                <h3>Smart Integrations</h3>
+                <p>Connect with S3, BigQuery, Snowflake & more</p>
+            </article>
+        </section>
+        
+        <div class="cta-section">
+            <button class="cta-button">Start Free Trial</button>
+            <p class="cta-note">14-day trial • No credit card required</p>
+        </div>
+    `;
 }
