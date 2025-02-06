@@ -1,0 +1,20 @@
+body {
+    opacity: 1 !important;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.loading-indicator {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+body.loading .loading-indicator {
+    display: block;
+}
+
+body.loading > *:not(.loading-indicator) {
+    opacity: 0.3;
+}
