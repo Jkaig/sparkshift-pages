@@ -2,23 +2,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingIndicator = document.querySelector('.loading-indicator');
     const content = document.querySelector('.content');
     
-    // Environment detection with path normalization
-    const isLocalhost = window.location.hostname === 'localhost';
-    const basePath = isLocalhost ? '/' : '/sparkshift-pages';
-    const currentPath = window.location.pathname.replace(/\/$/, ''); // Remove trailing slash
-
+    // Show content immediately without redirects
     loadingIndicator.classList.add('visible');
     content.style.opacity = '0.3';
 
-    if (currentPath !== basePath) {
-        setTimeout(() => {
-            window.location.href = `${basePath}/`; // Enforce trailing slash
-        }, 1500);
-    } else {
+    // Load content after a brief delay
+    setTimeout(() => {
         loadingIndicator.classList.remove('visible');
         content.style.opacity = '1';
         loadModernInterface();
-    }
+    }, 1500);
 });
 
 function loadModernInterface() {
