@@ -244,7 +244,7 @@ body {
 }
 
 .store-badge {
-    height: 40px;
+    height: 60px;
     transition: transform 0.3s ease;
 }
 
@@ -253,7 +253,7 @@ body {
 }
 
 .hero-title {
-    color: var(--sparkshift-accent);
+    color: rgb(251, 252, 198);
     letter-spacing: 2px;
     font-family: 'Exo 2', sans-serif;
     font-size: 4rem;
@@ -348,6 +348,8 @@ body {
 }
 
 .hero-logo {
+    width: 180px;
+    height: auto;
     width: 150px;
     height: auto;
     margin-bottom: 2rem;
