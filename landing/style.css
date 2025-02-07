@@ -216,7 +216,7 @@ body {
 }
 
 .nav-button {
-    padding: 0.8rem 2rem;
+    padding: 0.6rem 1.5rem;
     border: none;
     border-radius: 12px;
     color: rgb(251, 252, 198);
@@ -228,7 +228,7 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 .nav-button:hover {
@@ -260,6 +260,10 @@ body {
 }
 
 .hero-title {
+    background: linear-gradient(135deg, rgb(251, 252, 198) 0%, rgb(251, 252, 198, 0.9) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     color: var(--sparkshift-gold);
     color: rgb(251, 252, 198);
     letter-spacing: 2px;
@@ -356,9 +360,7 @@ body {
 }
 
 .hero-logo {
-    width: 180px;
-    height: auto;
-    width: 150px;
+    width: 240px;
     height: auto;
     margin-bottom: 2rem;
     animation: float 6s ease-in-out infinite;
