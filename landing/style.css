@@ -133,7 +133,7 @@ body {
 }
 
 .store-badge {
-    height: 100px;
+    height: 140px;
     width: auto;
     transition: transform 0.2s ease;
 }
@@ -252,7 +252,7 @@ body {
 }
 
 .store-badge {
-    height: 100px;
+    height: 140px;
     transition: transform 0.3s ease;
 }
 
@@ -361,12 +361,40 @@ body {
     width: 240px;
     height: auto;
     margin-bottom: 2rem;
-    animation: float 6s ease-in-out infinite;
+    animation: float 6s ease-in-out infinite, lightning 2s ease-in;
+    filter: drop-shadow(0 0 10px rgba(251, 252, 198, 0.5));
 }
 
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-20px); }
+}
+
+@keyframes lightning {
+    0% {
+        filter: drop-shadow(0 0 0px rgba(251, 252, 198, 0));
+        transform: scale(0.95);
+    }
+    10% {
+        filter: drop-shadow(0 0 30px rgba(251, 252, 198, 0.8));
+        transform: scale(1.05);
+    }
+    20% {
+        filter: drop-shadow(0 0 5px rgba(251, 252, 198, 0.3));
+        transform: scale(1);
+    }
+    30% {
+        filter: drop-shadow(0 0 25px rgba(251, 252, 198, 0.7));
+        transform: scale(1.02);
+    }
+    40% {
+        filter: drop-shadow(0 0 10px rgba(251, 252, 198, 0.5));
+        transform: scale(1);
+    }
+    100% {
+        filter: drop-shadow(0 0 10px rgba(251, 252, 198, 0.5));
+        transform: scale(1);
+    }
 }
 
 .store-badges {
