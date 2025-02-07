@@ -15,8 +15,8 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 const analytics = firebase.analytics();
 
-// Initialize Stripe
-const stripe = Stripe('pk_test_your_stripe_key'); // Replace with your Stripe public key
+// Initialize Stripe with environment variable
+const stripe = Stripe(process.env.STRIPE_PUBLIC_KEY);
 
 // Auth state observer
 firebase.auth().onAuthStateChanged(user => {
@@ -78,9 +78,6 @@ async function handlePayment(planId) {
         alert(error.message);
     }
 }
-
-// Initialize Stripe
-const stripe = Stripe(process.env.STRIPE_PUBLIC_KEY);
 
 document.addEventListener('DOMContentLoaded', () => {
     const app = document.getElementById('app');
