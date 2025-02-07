@@ -2,6 +2,7 @@
     --primary: #3498DB;
     --secondary: #12132a;
     --accent: #E74C3C;
+    --sparkshift-gold: rgb(251, 252, 198);
 }
 
 body {
@@ -205,7 +206,8 @@ body {
 }
 
 .nav-logo {
-    height: 40px;
+    height: 60px;
+    margin-right: 1rem;
 }
 
 .nav-buttons {
@@ -244,7 +246,7 @@ body {
 }
 
 .store-badge {
-    height: 60px;
+    height: 80px;
     transition: transform 0.3s ease;
 }
 
@@ -253,6 +255,7 @@ body {
 }
 
 .hero-title {
+    color: var(--sparkshift-gold);
     color: rgb(251, 252, 198);
     letter-spacing: 2px;
     font-family: 'Exo 2', sans-serif;
