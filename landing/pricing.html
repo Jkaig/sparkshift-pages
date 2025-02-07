@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SparkShift - Pricing</title>
+    <meta name="description" content="Choose the perfect SparkShift plan for your electrical business needs">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <header>
+        <nav class="glass-nav">
+            <div class="nav-content">
+                <a href="index.html">
+                    <img src="../public/logo.png" alt="SparkShift" class="logo">
+                </a>
+                <div class="nav-links">
+                    <a href="index.html#features">Features</a>
+                    <a href="pricing.html" class="active">Pricing</a>
+                    <a href="resources.html">Resources</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pricing-section">
+        <h1>Choose Your Plan</h1>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h2>Basic</h2>
+                <div class="price">$29.99<span>/month</span></div>
+                <ul class="features-list">
+                    <li><i class="fas fa-check"></i> Smart Scheduling</li>
+                    <li><i class="fas fa-check"></i> Resource Library</li>
+                    <li><i class="fas fa-check"></i> Basic Support</li>
+                </ul>
+                <button class="subscribe-btn" data-plan="basic">Subscribe Now</button>
+            </div>
+            
+            <div class="pricing-card featured">
+                <div class="featured-badge">Most Popular</div>
+                <h2>Pro</h2>
+                <div class="price">$49.99<span>/month</span></div>
+                <ul class="features-list">
+                    <li><i class="fas fa-check"></i> All Basic Features</li>
+                    <li><i class="fas fa-check"></i> Advanced Analytics</li>
+                    <li><i class="fas fa-check"></i> Priority Support</li>
+                    <li><i class="fas fa-check"></i> Team Collaboration</li>
+                </ul>
+                <button class="subscribe-btn" data-plan="pro">Subscribe Now</button>
+            </div>
+            
+            <div class="pricing-card">
+                <h2>Enterprise</h2>
+                <div class="price">Custom</div>
+                <ul class="features-list">
+                    <li><i class="fas fa-check"></i> All Pro Features</li>
+                    <li><i class="fas fa-check"></i> Custom Integration</li>
+                    <li><i class="fas fa-check"></i> Dedicated Support</li>
+                    <li><i class="fas fa-check"></i> Custom Training</li>
+                </ul>
+                <button class="contact-btn">Contact Sales</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>SparkShift</h4>
+                <p>© 2025 SparkShift. All rights reserved.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

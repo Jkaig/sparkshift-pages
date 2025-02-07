@@ -79,6 +79,9 @@ async function handlePayment(planId) {
     }
 }
 
+// Initialize Stripe
+const stripe = Stripe(process.env.STRIPE_PUBLIC_KEY);
+
 document.addEventListener('DOMContentLoaded', () => {
     const app = document.getElementById('app');
     
