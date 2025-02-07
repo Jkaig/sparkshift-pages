@@ -183,7 +183,24 @@ body {
     background: radial-gradient(circle at center, rgba(52, 152, 219, 0.1) 0%, transparent 70%);
 }
 
+.store-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.store-badge {
+    height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.store-badge:hover {
+    transform: scale(1.05);
+}
+
 .hero-title {
+    color: var(--sparkshift-accent);
+    letter-spacing: 2px;
     font-family: 'Exo 2', sans-serif;
     font-size: 4rem;
     font-weight: 700;
