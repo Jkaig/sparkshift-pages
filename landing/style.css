@@ -133,7 +133,7 @@ body {
 }
 
 .store-badge {
-    height: 50px;
+    height: 60px;
     width: auto;
     transition: transform 0.2s ease;
 }
@@ -252,7 +252,7 @@ body {
 }
 
 .store-badge {
-    height: 50px;
+    height: 60px;
     transition: transform 0.3s ease;
 }
 
