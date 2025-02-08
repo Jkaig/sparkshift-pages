@@ -148,6 +148,64 @@ body {
     --gold: rgb(251, 252, 198);
 }
 
+/* Auth Styles */
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-left {
+    display: flex;
+    gap: 20px;
+}
+
+.auth-buttons {
+    margin-left: 20px;
+}
+
+.auth-button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.auth-button:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    .nav-content {
+        flex-direction: column;
+    }
+
+    .auth-buttons {
+        margin: 20px 0;
+    }
+
+    .auth-button {
+        width: 100%;
+        padding: 12px 24px;
+    }
+}
+
 /* Base styles */
 html, body {
     margin: 0;

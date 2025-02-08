@@ -7,6 +7,10 @@
     <meta name="description" content="Access electrical resources, guides, and documentation">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="js/firebase-auth.js" defer></script>
 </head>
 <body>
     <nav class="top-nav">
@@ -17,9 +21,14 @@
         </button>
         <div class="nav-content">
             <div class="nav-buttons">
-                <a href="index.html" class="nav-button">Home</a>
-                <a href="pricing.html" class="nav-button">Pricing</a>
-                <a href="resources.html" class="nav-button active">Resources</a>
+                <div class="nav-left">
+                    <a href="index.html" class="nav-button">Home</a>
+                    <a href="pricing.html" class="nav-button">Pricing</a>
+                    <a href="resources.html" class="nav-button active">Resources</a>
+                </div>
+                <div class="auth-buttons">
+                    <button id="signInButton" class="auth-button">Sign In</button>
+                </div>
             </div>
         </div>
     </nav>
