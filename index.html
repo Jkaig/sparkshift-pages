@@ -6,9 +6,10 @@
     <title>SparkShift - Electrical Apprentice Management</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="slideshow.js" defer></script>
 </head>
 <body>
-    <div class="top-nav">
+    <div class="top-nav nav-background">
         <div class="nav-content">
             <div class="nav-buttons">
                 <a href="#features" class="nav-button">Features</a>
@@ -25,6 +26,7 @@
             <p class="hero-subtitle">Connect. Organize. Electrify.</p>
             
             <div class="slideshow-container">
+                <a class="prev-button" onclick="plusSlides(-1)">&#10094;</a>
                 <div class="mySlides fade">
                     <img src="public/apprentice_evaluation.png" class="rounded-image" onclick="openFullscreen(this)">
                 </div>
@@ -37,6 +39,7 @@
                 <div class="mySlides fade">
                     <img src="public/login_screen.png" class="rounded-image" onclick="openFullscreen(this)">
                 </div>
+                <a class="next-button" onclick="plusSlides(1)">&#10095;</a>
             </div>
             <div class="dot-container">
                 <span class="dot" onclick="currentSlide(1)"></span>
@@ -110,27 +113,6 @@
     </div>
 
     <script>
-        // Existing slideshow script
-        let slideIndex = 0;
-        showSlides();
-
-        function showSlides() {
-            let i;
-            const slides = document.getElementsByClassName("mySlides");
-            const dots = document.getElementsByClassName("dot");
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slideIndex++;
-            if (slideIndex > slides.length) { slideIndex = 1 }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " active";
-            setTimeout(showSlides, 3000);
-        }
-
         function openFullscreen(img) {
             if (img.requestFullscreen) {
                 img.requestFullscreen();
