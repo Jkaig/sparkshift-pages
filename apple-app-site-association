@@ -1,15 +1,75 @@
 {
     "applinks": {
-      "apps": [],
-      "details": [
-        {
-          "appID": "3PJ465CCC6.com.jeremykaigler.sparkshift",
-          "paths": [ "*" ]
-        },
-        {
-          "appID": "3PJ465CCC6.com.jeremykaigler.sparkshiftapp",
-          "paths": [ "*" ]
-        }
-      ]
+        "apps": [],
+        "details": [
+            {
+                "appID": "3PJ465CCC6.com.jeremykaigler.sparkshift",
+                "paths": [
+                    "/app/*",
+                    "/deeplink/*",
+                    "/open/*"
+                ],
+                "components": [
+                    {
+                        "/": "/app/*",
+                        "exclude": true
+                    },
+                    {
+                        "/": "/landing/*",
+                        "exclude": true
+                    },
+                    {
+                        "/": "/pricing/*",
+                        "exclude": true
+                    },
+                    {
+                        "/": "/resources/*",
+                        "exclude": true
+                    },
+                    {
+                        "/": "/appstore/*",
+                        "exclude": true
+                    },
+                    {
+                        "/": "/playstore/*",
+                        "exclude": true
+                    }
+                ]
+            },
+            {
+                "appID": "3PJ465CCC6.com.jeremykaigler.sparkshiftapp",
+                "paths": [
+                    "/app/*",
+                    "/deeplink/*",
+                    "/open/*"
+                ],
+                "components": [
+                    {
+                        "/": "/app/*",
+                        "exclude": true
+                    },
+                    {
+                        "/": "/landing/*",
+                        "exclude": true
+                    },
+                    {
+                        "/": "/pricing/*",
+                        "exclude": true
+                    },
+                    {
+                        "/": "/resources/*",
+                        "exclude": true
+                    },
+                    {
+                        "/": "/appstore/*",
+                        "exclude": true
+                    },
+                    {
+                        "/": "/playstore/*",
+                        "exclude": true
+                    }
+                ]
+            }
+        ]
     }
-  }
+}
