@@ -91,38 +91,57 @@
             <img src="public/spark_shift_logo.png" alt="SparkShift Logo" class="hero-logo" />
             <h1 class="hero-title">SparkShift</h1>
             <p class="hero-subtitle">Connect. Organize. Electrify.</p>
-            <div class="app-info">
-                <h2>Streamline Your Apprenticeship Journey with SparkShift</h2>
-                <p>SparkShift is the comprehensive mobile app designed specifically for electrical apprentices and their contractors.</p>
-                <h3>Key Features:</h3>
-                <ul>
-                    <li>Digital OJR (On-the-Job Reports) submissions</li>
-                    <li>Automated evaluation tracking and approvals</li>
-                    <li>Smart notifications for important deadlines</li>
-                    <li>Secure PDF generation for documentation</li>
-                    <li>Real-time jobsite management</li>
-                    <li>Intelligent hours tracking and verification</li>
-                    <li>Monthly report automation</li>
-                </ul>
-                <h3>Perfect For:</h3>
-                <ul>
-                    <li>Electrical Apprentices</li>
-                    <li>Contractors and Supervisors</li>
-                    <li>Training Centers</li>
-                    <li>Apprenticeship Programs</li>
-                </ul>
-                <p>Stop juggling paperwork and focus on what matters—your craft. SparkShift handles the administrative burden so you can concentrate on becoming a skilled electrician.</p>
-                <h2>Exam Prep Packet Option (If Profitable)</h2>
-                <p>If you want to offer a one-time purchase option alongside the subscription, consider:</p>
-                <p><strong>State-Specific Quiz Packet (One-Time Purchase)</strong>: Priced slightly higher than one month's subscription, perhaps in the $35 - $45 per state range. This caters to users who prefer a one-time purchase over a subscription. However, your main focus should be the subscription to encourage daily, consistent use and recurring revenue.</p>
-                <h3>Marketing Angle for "Low Ball" Daily Use:</h3>
-                <ul>
-                    <li><strong>"Daily Dose Exam Prep"</strong>: Emphasize the short, daily quizzes as a manageable and effective way to prepare.</li>
-                    <li><strong>"Affordable Electrician Exam Success"</strong>: Highlight the low monthly price and accessibility.</li>
-                    <li><strong>"5-Minute Electrician Exam Prep"</strong>: Focus on the short time commitment and convenience for busy individuals.</li>
-                    <li><strong>"Track Your Progress, Master the Code"</strong>: Showcase the progress tracking and weakness identification features as key benefits.</li>
-                </ul>
+            <div class="slideshow-container">
+                <div class="mySlides fade">
+                    <img src="public/apprentice_evaluation.png" class="rounded-image" onclick="openFullscreen(this)">
+                </div>
+                <div class="mySlides fade">
+                    <img src="public/logged_hour.png" class="rounded-image" onclick="openFullscreen(this)">
+                </div>
+                <div class="mySlides fade">
+                    <img src="public/logged_hours.png" class="rounded-image" onclick="openFullscreen(this)">
+                </div>
+                <div class="mySlides fade">
+                    <img src="public/login_screen.png" class="rounded-image" onclick="openFullscreen(this)">
+                </div>
+                <div class="slideshow-indicators">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+                </div>
             </div>
+            <script>
+                let slideIndex = 0;
+                showSlides();
+                function showSlides() {
+                    let i;
+                    const slides = document.getElementsByClassName("mySlides");
+                    const dots = document.getElementsByClassName("dot");
+                    for (i = 0; i < slides.length; i++) {
+                        slides[i].style.display = "none";
+                    }
+                    slideIndex++;
+                    if (slideIndex > slides.length) {slideIndex = 1}
+                    for (i = 0; i < dots.length; i++) {
+                        dots[i].className = dots[i].className.replace(" active", "");
+                    }
+                    slides[slideIndex - 1].style.display = "block";
+                    dots[slideIndex - 1].className += " active";
+                    setTimeout(showSlides, 3000); // Change image every 3 seconds
+                }
+                function openFullscreen(img) {
+                    if (img.requestFullscreen) {
+                        img.requestFullscreen();
+                    } else if (img.mozRequestFullScreen) { // Firefox
+                        img.mozRequestFullScreen();
+                    } else if (img.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                        img.webkitRequestFullscreen();
+                    } else if (img.msRequestFullscreen) { // IE/Edge
+                        img.msRequestFullscreen();
+                    }
+                }
+            </script>
             <div class="store-buttons">
                 <a href="appstore/" class="store-button">
                     <img src="public/appstore_bagdge.svg" alt="Download on the App Store" class="store-badge">
