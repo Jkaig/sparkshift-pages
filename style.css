@@ -687,3 +687,9 @@ body {
     text-align: center;
     padding: 15px 0; /* Add padding for better touch targets */
 }
+
+.rounded-image {
+    border-radius: 15px; /* Rounded edges for images */
+    width: 100%; /* Ensure images are responsive */
+    height: auto;
+}
