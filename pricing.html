@@ -11,6 +11,11 @@
 </head>
 <body>
     <nav class="top-nav">
+        <button class="hamburger-menu" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         <div class="nav-content">
             <div class="nav-buttons">
                 <a href="index.html" class="nav-button">Home</a>
@@ -19,6 +24,11 @@
             </div>
         </div>
     </nav>
+    <script>
+        document.querySelector('.hamburger-menu').addEventListener('click', function() {
+            document.querySelector('.nav-buttons').classList.toggle('active');
+        });
+    </script>
 
     <main class="pricing-section">
         <h1>Choose Your Plan</h1>

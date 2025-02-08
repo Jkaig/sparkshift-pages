@@ -58,6 +58,11 @@
 </head>
 <body>
     <nav class="top-nav">
+        <button class="hamburger-menu" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         <div class="nav-content">
             <div class="nav-buttons">
                 <a href="index.html" class="nav-button active">Home</a>
@@ -66,6 +71,11 @@
             </div>
         </div>
     </nav>
+    <script>
+        document.querySelector('.hamburger-menu').addEventListener('click', function() {
+            document.querySelector('.nav-buttons').classList.toggle('active');
+        });
+    </script>
     <div class="hero-section">
         <div class="glass-card">
             <img src="public/spark_shift_logo.png" alt="SparkShift Logo" class="hero-logo" />
