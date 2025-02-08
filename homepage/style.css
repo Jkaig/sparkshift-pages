@@ -195,10 +195,45 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    padding: 1rem 2rem;
+    padding: 0.5rem;
     background: rgba(26, 26, 46, 0.8);
     backdrop-filter: blur(10px);
     z-index: 1000;
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.nav-button {
+    padding: 0.5rem 1rem;
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.nav-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 480px) {
+    .top-nav {
+        padding: 0.3rem;
+    }
+    .nav-buttons {
+        gap: 0.5rem;
+    }
+    .nav-button {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}
+
+.top-nav {
     border-bottom: 1px solid rgba(251, 252, 198, 0.1);
 }
 
