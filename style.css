@@ -152,8 +152,9 @@ body {
 /* Auth Styles */
 .nav-content {
     display: flex;
-    flex-grow: 1;
     justify-content: center; /* Center the nav buttons */
+    align-items: center;
+    width: 100%;
 }
 
 .nav-buttons {
@@ -166,16 +167,19 @@ body {
 }
 
 .nav-button, .auth-button {
-    padding: 10px 20px;
+    padding: 12px 24px;
     border-radius: 8px;
     background: var(--primary);
     color: white;
     border: none;
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.3s;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .nav-button:hover, .auth-button:hover {
     background: #2980b9; /* Darker shade on hover */
+    transform: translateY(-2px); /* Slight lift effect */
 }
 
 .top-nav {
