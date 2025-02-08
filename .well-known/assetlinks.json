@@ -10,16 +10,13 @@
                 "3E:E7:66:C0:0F:8B:EB:D3:F7:07:77:90:CB:99:D1:C2:64:FF:F3:20:5D:4A:B3:F6:06:4B:9E:C0:B8:51:D4:2D"
             ],
             "path_patterns": [
-                "/app/*",
-                "/deeplink/*",
-                "/open/*"
+                "*"
             ],
             "exclude_patterns": [
+                "/",
                 "/landing/*",
-                "/pricing/*",
-                "/resources/*",
-                "/appstore/*",
-                "/playstore/*"
+                "/pricing",
+                "/resources"
             ]
         }
     }
