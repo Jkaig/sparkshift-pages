@@ -11,7 +11,7 @@
                         "exclude": true
                     },
                     {
-                        "/": "/landing/*",
+                        "/": "/homepage/*",
                         "exclude": true
                     },
                     {
@@ -33,7 +33,7 @@
                         "exclude": true
                     },
                     {
-                        "/": "/landing/*",
+                        "/": "/homepage/*",
                         "exclude": true
                     },
                     {
