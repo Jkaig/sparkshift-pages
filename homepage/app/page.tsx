@@ -2,9 +2,11 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import { AppleIcon, PlayIcon, CheckCircle, Menu, ShoppingCart, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import PricingSection from '../components/pricing';
 import LightningBackground from '@/components/LightningBackground';
 
 interface Feature {
@@ -21,18 +23,50 @@ interface Testimonial {
 
 const MobileNav = () => (
   <motion.nav 
-    className="md:hidden fixed top-4 right-4 bg-[#001f3f] bg-opacity-90 backdrop-blur-md rounded-lg p-2 flex gap-2 z-50"
+    className="md:hidden fixed top-0 left-0 right-0 bg-[#001f3f] bg-opacity-95 backdrop-blur-md px-2 py-1 flex justify-center gap-1 z-50 border-b border-white/10"
     initial={{ opacity: 0, y: -20 }}
     animate={{ opacity: 1, y: 0 }}
   >
-    <Button size="sm" variant="ghost" className="text-white hover:bg-white/10">
+    <Button 
+      size="sm" 
+      variant="ghost" 
+      className="h-7 px-2 text-xs font-normal text-white/90 hover:bg-white/10 hover:text-white"
+      onClick={() => document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' })}
+    >
       Home
     </Button>
-    <Button size="sm" variant="ghost" className="text-white hover:bg-white/10">
+    <Button 
+      size="sm" 
+      variant="ghost" 
+      className="h-7 px-2 text-xs font-normal text-white/90 hover:bg-white/10 hover:text-white"
+      onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
+    >
       Features
     </Button>
-    <Button size="sm" variant="ghost" className="text-white hover:bg-white/10">
-      About
+    <Link href="/app">
+      <Button 
+        size="sm" 
+        variant="ghost" 
+        className="h-7 px-2 text-xs font-normal text-white/90 hover:bg-white/10 hover:text-white"
+      >
+        App
+      </Button>
+    </Link>
+    <Button 
+      size="sm" 
+      variant="ghost" 
+      className="h-7 px-2 text-xs font-normal text-white/90 hover:bg-white/10 hover:text-white"
+      onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+    >
+      Pricing
+    </Button>
+    <Button 
+      size="sm" 
+      variant="ghost" 
+      className="h-7 px-2 text-xs font-normal text-white/90 hover:bg-white/10 hover:text-white"
+      onClick={() => document.getElementById('download')?.scrollIntoView({ behavior: 'smooth' })}
+    >
+      Download
     </Button>
   </motion.nav>
 )
@@ -135,6 +169,8 @@ export default function Home(): React.JSX.Element {
             <ul className="flex space-x-6">
               <li><a href="#hero" className={`hover:text-[#3498DB] transition-colors ${activeSection === 'hero' ? 'text-[#3498DB]' : ''}`}>Home</a></li>
               <li><a href="#features" className={`hover:text-[#3498DB] transition-colors ${activeSection === 'features' ? 'text-[#3498DB]' : ''}`}>Features</a></li>
+              <li><a href="/app" className="hover:text-[#3498DB] transition-colors">App</a></li>
+              <li><a href="#pricing" className={`hover:text-[#3498DB] transition-colors ${activeSection === 'pricing' ? 'text-[#3498DB]' : ''}`}>Pricing</a></li>
               <li><a href="#download" className={`hover:text-[#3498DB] transition-colors ${activeSection === 'download' ? 'text-[#3498DB]' : ''}`}>Download</a></li>
             </ul>
           </nav>
@@ -144,6 +180,7 @@ export default function Home(): React.JSX.Element {
       <MobileNav />
 
       <main className="relative z-10">
+        {/* Hero Section */}
         <section id="hero" className="container mx-auto mt-32 px-6 text-center">
           <motion.div
             className="max-w-4xl mx-auto"
