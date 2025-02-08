@@ -152,59 +152,37 @@ body {
 /* Auth Styles */
 .nav-content {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+    flex-grow: 1;
+    justify-content: center; /* Center the nav buttons */
 }
 
 .nav-buttons {
     display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.nav-left {
-    display: flex;
-    gap: 20px;
+    gap: 20px; /* Space between buttons */
 }
 
 .auth-buttons {
-    margin-left: 20px;
+    margin-left: auto; /* Push the Sign In button to the far right */
 }
 
-.auth-button {
+.nav-button, .auth-button {
+    padding: 10px 20px;
+    border-radius: 8px;
     background: var(--primary);
     color: white;
     border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.3s ease;
+    transition: background 0.3s;
 }
 
-.auth-button:hover {
-    background: #2980b9;
-    transform: translateY(-1px);
+.nav-button:hover, .auth-button:hover {
+    background: #2980b9; /* Darker shade on hover */
 }
 
-@media (max-width: 768px) {
-    .nav-content {
-        flex-direction: column;
-    }
-
-    .auth-buttons {
-        margin: 20px 0;
-    }
-
-    .auth-button {
-        width: 100%;
-        padding: 12px 24px;
-    }
+.top-nav {
+    display: flex;
+    justify-content: space-between; /* Space between nav items */
+    align-items: center;
+    padding: 0 20px;
 }
 
 /* Base styles */
