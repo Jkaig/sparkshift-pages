@@ -159,34 +159,47 @@ body {
 
 .nav-buttons {
     display: flex;
-    gap: 20px; /* Space between buttons */
+    gap: 20px;
+    align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+    .nav-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+.nav-button, .auth-button {
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.nav-button:hover, .auth-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .auth-buttons {
     margin-left: auto; /* Push the Sign In button to the far right */
 }
 
-.nav-button, .auth-button {
-    padding: 12px 24px;
-    border-radius: 8px;
-    background: var(--primary);
-    color: white;
-    border: none;
-    transition: background 0.3s, transform 0.3s;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.nav-button:hover, .auth-button:hover {
-    background: #2980b9; /* Darker shade on hover */
-    transform: translateY(-2px); /* Slight lift effect */
-}
-
 .top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    padding: 10px 20px;
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(251, 252, 198, 0.1);
     display: flex;
-    justify-content: space-between; /* Space between nav items */
     align-items: center;
-    padding: 0 20px;
 }
 
 /* Base styles */
@@ -278,18 +291,6 @@ body {
     text-align: center;
     padding: 2rem;
     background: radial-gradient(circle at center, rgba(52, 152, 219, 0.1) 0%, transparent 70%);
-}
-
-.top-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    padding: 0 20px; /* Add padding to the top navigation */
-    background: rgba(26, 26, 46, 0.8);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-    border-bottom: 1px solid rgba(251, 252, 198, 0.1);
 }
 
 .nav-content {
@@ -650,63 +651,94 @@ body {
     overflow-x: hidden; /* Prevent horizontal overflow */
 }
 
-.top-nav {
-    padding: 0 20px; /* Add padding to the top navigation */
-}
-
-.nav-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center align the buttons */
-    padding: 0; /* Remove any padding that may cause overflow */
-}
-
-.nav-button {
-    width: 100%; /* Make buttons full width */
-    text-align: center;
-    padding: 15px 0; /* Add padding for better touch targets */
-}
-
-.rounded-image {
-    border-radius: 15px; /* Rounded edges for images */
-    width: 100%; /* Ensure images are responsive */
-    height: auto;
-}
-
 .slideshow-container {
     position: relative;
     width: 100%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
+    max-width: 600px;
+    height: 250px;
+    margin: 0 auto;
+    overflow: visible;  /* Changed from hidden to show buttons outside */
+    padding: 0 50px;   /* Add padding for the buttons */
 }
 
 .mySlides {
-    display: block;
-    width: 100%;
-    border-radius: 15px;
+    display: none;
+    width: 50%;
+    height: 100%;
+    left: 25%;
+    transition: transform 0.5s ease-in-out;
+    opacity: 0.7;
 }
 
-.slideshow-indicators {
+.mySlides img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    max-height: 200px;
+}
+
+.prev-button,
+.next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 3;
+    transition: background-color 0.3s ease;
+}
+
+.prev-button {
+    left: 5%;  /* Position outside the main slide */
+}
+
+.next-button {
+    right: 5%;  /* Position outside the main slide */
+}
+
+.prev-button:hover,
+.next-button:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.dot-container {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .dot {
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbb;
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: rgba(255, 255, 255, 0.3);
     border-radius: 50%;
     display: inline-block;
-    transition: background-color 0.6s ease;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .dot.active {
-    background-color: #717171;
+    background-color: white;
+    transform: scale(1.2);
 }
 
-/* Fix hamburger menu and slideshow dots styles */
+@media (max-width: 768px) {
+    .slideshow-container {
+        width: 90%;
+        padding: 0 5%;
+        height: 400px;
+    }
+
+    .mySlides.prev,
+    .mySlides.next {
+        display: none;
+    }
+}
+
 .hamburger-menu span {
     background-color: var(--text-light);
     display: block;
@@ -719,6 +751,16 @@ body {
 .slideshow-container {
     position: relative;
     margin-bottom: 30px;
+}
+
+.dot-container {
+    position: relative;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.nav-background {
+    background-color: black;
 }
 
 .dot-container {
