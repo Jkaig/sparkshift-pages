@@ -3,8 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SparkShift Pricing - Exam Prep Plans</title>
-    <link rel="stylesheet" href="../landing/style.css">
+    <title>SparkShift Pricing - Daily Electrician Exam Prep</title>
+    <link rel="stylesheet" href="../homepage/style.css">
+    <style>
+        .pricing-hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            color: white;
+        }
+        .pricing-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .pricing-hero p {
+            font-size: 1.2rem;
+            color: #ccc;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .value-props {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 2rem;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .value-prop {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 1.5rem;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+        .value-prop h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        .pricing-cards {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 4rem 2rem;
+            flex-wrap: wrap;
+        }
+        .price-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .price-card.popular {
+            transform: scale(1.05);
+            border: 2px solid #007bff;
+        }
+        .price-card h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+        .price small {
+            font-size: 1rem;
+            color: #666;
+        }
+        .price-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+        }
+        .price-card li {
+            padding: 0.5rem 0;
+            color: #666;
+        }
+        .price-card li:before {
+            content: "✓";
+            color: #007bff;
+            margin-right: 0.5rem;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+        }
+        .cta-button:hover {
+            background: #0056b3;
+        }
+        @media (max-width: 768px) {
+            .price-card.popular {
+                transform: none;
+            }
+            .value-prop {
+                min-width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="main-nav">
@@ -14,33 +126,58 @@
     </nav>
 
     <section class="pricing-hero">
-        <h1>Flexible Study Plans</h1>
-        <p>Choose the package that fits your goals</p>
+        <h1>5-Minute Daily Exam Prep</h1>
+        <p>Less than $1 a day for comprehensive electrician exam preparation</p>
     </section>
+
+    <div class="value-props">
+        <div class="value-prop">
+            <h3>Daily Practice</h3>
+            <p>Quick 5-minute quizzes designed for daily learning and retention</p>
+        </div>
+        <div class="value-prop">
+            <h3>Track Progress</h3>
+            <p>Monitor your improvement and identify areas that need focus</p>
+        </div>
+        <div class="value-prop">
+            <h3>Master the Code</h3>
+            <p>Comprehensive coverage of electrical code and exam topics</p>
+        </div>
+    </div>
 
     <div class="pricing-cards">
         <article class="price-card">
-            <h3>Basic</h3>
-            <div class="price">$14/mo</div>
+            <h3>Monthly Access</h3>
+            <div class="price">$19<small>/month</small></div>
+            <p>Perfect for consistent daily practice</p>
             <ul>
-                <li>10 Practice Tests</li>
-                <li>Basic Analytics</li>
-                <li>Email Support</li>
+                <li>Unlimited Daily Quizzes</li>
+                <li>Progress Tracking</li>
+                <li>Weakness Identification</li>
+                <li>Mobile & Desktop Access</li>
+                <li>Cancel Anytime</li>
             </ul>
-            <button class="cta-button">Start Free Trial</button>
+            <a href="#" class="cta-button">Start Your Journey</a>
         </article>
 
         <article class="price-card popular">
-            <h3>Pro</h3>
-            <div class="price">$29/mo</div>
+            <h3>Quiz Package</h3>
+            <div class="price">$39<small>/state</small></div>
+            <p>One-time purchase for focused study</p>
             <ul>
-                <li>Unlimited Practice Tests</li>
-                <li>AI Study Planner</li>
-                <li>24/7 Priority Support</li>
+                <li>Complete Question Bank</li>
+                <li>State-Specific Content</li>
+                <li>Detailed Explanations</li>
+                <li>Performance Analytics</li>
+                <li>Lifetime Access</li>
             </ul>
-            <button class="cta-button">Most Popular</button>
+            <a href="#" class="cta-button">Best Value</a>
         </article>
     </div>
-    <a href="https://apps.apple.com/us/app/sparkshift/id6737710285"></a>
+
+    <section class="pricing-hero" style="background: #f5f5f5; color: #333;">
+        <h2>Why Choose SparkShift?</h2>
+        <p>Join thousands of electricians who trust SparkShift for their daily exam preparation. Our affordable pricing and focused approach make exam success accessible to everyone.</p>
+    </section>
 </body>
 </html>
