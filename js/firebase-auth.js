@@ -54,3 +54,9 @@ function updateUIForUser(user) {
 firebase.auth().onAuthStateChanged(function(user) {
     updateUIForUser(user);
 });
+
+// Hamburger menu toggle
+document.querySelector('.hamburger-menu').addEventListener('click', function() {
+    this.classList.toggle('active');
+    document.querySelector('.nav-buttons').classList.toggle('active');
+});
