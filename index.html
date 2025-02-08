@@ -2,128 +2,93 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SparkShift - Electrical Apprentice Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="SparkShift: Top-rated journeyman exam prep app with AI-powered practice tests, smart study plans, and expert coaching. Connect with other electricians, organize your work, and access valuable resources.">
+    <meta name="keywords" content="journeyman exam, electrician certification, trade certification prep, practice tests, study plans, apprenticeship exams">
+    <meta name="theme-color" content="#1A1A2E">
+    <title>SparkShift - Connect. Organize. Electrify.</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="slideshow.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
-    <div class="top-nav nav-background">
+    <nav class="top-nav">
         <div class="nav-content">
+            <a href="index.html" class="nav-logo">
+                <img src="public/spark_shift_logo.png" alt="SparkShift Logo" class="nav-logo-img">
+            </a>
             <div class="nav-buttons">
-                <a href="#features" class="nav-button">Features</a>
-                <a href="#pricing" class="nav-button">Pricing</a>
-                <a href="#contact" class="nav-button">Contact</a>
+                <a href="index.html" class="nav-button active">Home</a>
+                <a href="pricing.html" class="nav-button">Pricing</a>
+                <a href="resources.html" class="nav-button">Resources</a>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <div class="hero">
-        <div class="hero-content">
-            <img src="public/spark_shift_logo.png" alt="SparkShift Logo" class="hero-logo" />
-            <h1 class="hero-title">SparkShift</h1>
-            <p class="hero-subtitle">Connect. Organize. Electrify.</p>
-            
-            <div class="slideshow-container">
-                <a class="prev-button" onclick="plusSlides(-1)">&#10094;</a>
-                <div class="mySlides fade">
-                    <img src="public/apprentice_evaluation.png" class="rounded-image" onclick="openFullscreen(this)">
-                </div>
-                <div class="mySlides fade">
-                    <img src="public/logged_hour.png" class="rounded-image" onclick="openFullscreen(this)">
-                </div>
-                <div class="mySlides fade">
-                    <img src="public/logged_hours.png" class="rounded-image" onclick="openFullscreen(this)">
-                </div>
-                <div class="mySlides fade">
-                    <img src="public/login_screen.png" class="rounded-image" onclick="openFullscreen(this)">
-                </div>
-                <a class="next-button" onclick="plusSlides(1)">&#10095;</a>
-            </div>
-            <div class="dot-container">
-                <span class="dot" onclick="currentSlide(1)"></span>
-                <span class="dot" onclick="currentSlide(2)"></span>
-                <span class="dot" onclick="currentSlide(3)"></span>
-                <span class="dot" onclick="currentSlide(4)"></span>
-            </div>
-
-            <div class="store-buttons">
-                <a href="appstore/" class="store-button">
-                    <img src="public/appstore_bagdge.svg" alt="Download on the App Store" class="store-badge">
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="features-section" id="features">
-        <h2>For Electrical Professionals</h2>
-        <div class="feature-grid">
-            <!-- Existing Features -->
-            <div class="feature-item">
-                <i class="fas fa-mobile-alt"></i>
-                <h3>Mobile OJR Tracking</h3>
-                <p>Submit and manage on-the-job reports from any device</p>
-            </div>
-
-            <!-- New SparkShift App Features -->
-            <div class="feature-item highlighted">
-                <h3>SparkShift Mobile App</h3>
-                <div class="feature-list">
-                    <p>📱 Digital OJR submissions</p>
-                    <p>⏱ Automated evaluation tracking</p>
-                    <p>🔔 Smart deadline notifications</p>
-                    <p>📄 Secure PDF generation</p>
+    <main>
+        <section class="hero-section">
+            <div class="glass-card">
+                <img src="public/spark_shift_logo.png" alt="SparkShift Logo" class="hero-logo">
+                <h1 class="hero-title">SparkShift</h1>
+                <p class="hero-subtitle">Connect. Organize. Electrify.</p>
+                <div class="store-buttons">
+                    <a href="appstore/" class="store-button">
+                        <img src="public/appstore_bagdge.svg" alt="Download on the App Store" class="store-badge">
+                    </a>
+                    <a href="playstore/" class="store-button">
+                        <img src="public/googleplay.svg" alt="Get it on Google Play" class="store-badge">
+                    </a>
                 </div>
             </div>
+        </section>
 
-            <!-- Exam Prep Options -->
-            <div class="feature-item exam-prep">
-                <h3>Exam Preparation</h3>
-                <div class="prep-options">
-                    <div class="option subscription">
-                        <h4>Daily Practice</h4>
-                        <p class="price">$19.99/month</p>
-                        <ul>
-                            <li>📅 Daily code quizzes</li>
-                            <li>📈 Progress tracking</li>
-                            <li>🎯 Weakness analysis</li>
-                        </ul>
+        <section class="features-section">
+            <div class="glass-card">
+                <h2>For Electrical Professionals</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-bolt"></i>
+                        <h3>Smart Scheduling</h3>
+                        <p>Efficiently manage your appointments and work orders</p>
                     </div>
-                    
-                    <div class="option packet">
-                        <h4>State Packet</h4>
-                        <p class="price">$39.99/state</p>
-                        <ul>
-                            <li>🗂️ Full practice exam</li>
-                            <li>📚 Code reference guide</li>
-                            <li>📝 Printable worksheets</li>
-                        </ul>
+                    <div class="feature-item">
+                        <i class="fas fa-tools"></i>
+                        <h3>Resource Library</h3>
+                        <p>Access comprehensive guides and exam prep materials</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-users"></i>
+                        <h3>Community Connect</h3>
+                        <p>Network with fellow electricians and industry experts</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Progress Tracking</h3>
+                        <p>Monitor your learning and certification journey</p>
                     </div>
                 </div>
             </div>
+        </section>
+    </main>
 
-            <!-- More existing features -->
-            <div class="feature-item">
-                <i class="fas fa-chart-line"></i>
-                <h3>Progress Analytics</h3>
-                <p>Track hours and skill development in real-time</p>
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>SparkShift</h4>
+                <p>&copy; 2025 SparkShift. All rights reserved.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
             </div>
         </div>
-    </div>
+    </footer>
 
-    <script>
-        function openFullscreen(img) {
-            if (img.requestFullscreen) {
-                img.requestFullscreen();
-            } else if (img.mozRequestFullScreen) {
-                img.mozRequestFullScreen();
-            } else if (img.webkitRequestFullscreen) {
-                img.webkitRequestFullscreen();
-            } else if (img.msRequestFullscreen) {
-                img.msRequestFullscreen();
-            }
-        }
-    </script>
+    <script src="main.js"></script>
 </body>
 </html>
+
