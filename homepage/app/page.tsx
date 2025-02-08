@@ -19,6 +19,24 @@ interface Testimonial {
   role: string;
 }
 
+const MobileNav = () => (
+  <motion.nav 
+    className="md:hidden fixed top-4 right-4 bg-[#001f3f] bg-opacity-90 backdrop-blur-md rounded-lg p-2 flex gap-2 z-50"
+    initial={{ opacity: 0, y: -20 }}
+    animate={{ opacity: 1, y: 0 }}
+  >
+    <Button size="sm" variant="ghost" className="text-white hover:bg-white/10">
+      Home
+    </Button>
+    <Button size="sm" variant="ghost" className="text-white hover:bg-white/10">
+      Features
+    </Button>
+    <Button size="sm" variant="ghost" className="text-white hover:bg-white/10">
+      About
+    </Button>
+  </motion.nav>
+)
+
 export default function Home(): React.JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>('');
@@ -120,25 +138,10 @@ export default function Home(): React.JSX.Element {
               <li><a href="#download" className={`hover:text-[#3498DB] transition-colors ${activeSection === 'download' ? 'text-[#3498DB]' : ''}`}>Download</a></li>
             </ul>
           </nav>
-          <Button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            <Menu className="h-6 w-6" />
-          </Button>
         </div>
-        {isMenuOpen && (
-          <motion.nav 
-            className="md:hidden bg-[#001f3f] bg-opacity-90 backdrop-blur-md"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-          >
-            <ul className="py-4 px-6 space-y-4">
-              <li><a href="#hero" className="block hover:text-[#3498DB] transition-colors" onClick={() => setIsMenuOpen(false)}>Home</a></li>
-              <li><a href="#features" className="block hover:text-[#3498DB] transition-colors" onClick={() => setIsMenuOpen(false)}>Features</a></li>
-              <li><a href="#download" className="block hover:text-[#3498DB] transition-colors" onClick={() => setIsMenuOpen(false)}>Download</a></li>
-            </ul>
-          </motion.nav>
-        )}
       </header>
+
+      <MobileNav />
 
       <main className="relative z-10">
         <section id="hero" className="container mx-auto mt-32 px-6 text-center">
