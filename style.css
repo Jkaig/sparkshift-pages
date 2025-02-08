@@ -200,8 +200,6 @@ html, body {
     z-index: 1000;
     cursor: pointer;
     padding: 10px;
-    background: none;
-    border: none;
 }
 
 .hamburger-menu span {
@@ -675,12 +673,14 @@ body {
     position: relative;
     width: 100%;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
 }
 
 .mySlides {
-    display: none;
+    display: block;
     width: 100%;
-    border-radius: 15px; /* Ensure images have rounded edges */
+    border-radius: 15px;
 }
 
 .slideshow-indicators {
