@@ -91,15 +91,85 @@
             <img src="public/spark_shift_logo.png" alt="SparkShift Logo" class="hero-logo" />
             <h1 class="hero-title">SparkShift</h1>
             <p class="hero-subtitle">Connect. Organize. Electrify.</p>
-            <div class="store-buttons">
-                    <a href="appstore/" class="store-button">
-                        <img src="public/appstore_bagdge.svg" alt="Download on the App Store" class="store-badge">
-                    </a>
-                    <a href="playstore/" class="store-button">
-                        <img src="public/googleplay.svg" alt="Get it on Google Play" class="store-badge">
-                    </a>
+            <div class="slideshow-container">
+                <div class="mySlides fade">
+                    <img src="public/app_icon copy.png" style="width:100%" onclick="openFullscreen(this)">
                 </div>
+                <div class="mySlides fade">
+                    <img src="public/apprentice_evaluation.png" style="width:100%" onclick="openFullscreen(this)">
+                </div>
+                <div class="mySlides fade">
+                    <img src="public/logged_hour.png" style="width:100%" onclick="openFullscreen(this)">
+                </div>
+                <div class="mySlides fade">
+                    <img src="public/logged_hours.png" style="width:100%" onclick="openFullscreen(this)">
+                </div>
+                <div class="mySlides fade">
+                    <img src="public/login_screen.png" style="width:100%" onclick="openFullscreen(this)">
+                </div>
+                <div class="mySlides fade">
+                    <img src="public/spark_shift_logo.png" style="width:100%" onclick="openFullscreen(this)">
+                </div>
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
 
+            <div class="slideshow-indicators">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+                <span class="dot" onclick="currentSlide(5)"></span>
+                <span class="dot" onclick="currentSlide(6)"></span>
+            </div>
+
+            <script>
+            let slideIndex = 1;
+            showSlides(slideIndex);
+
+            function plusSlides(n) {
+                showSlides(slideIndex += n);
+            }
+
+            function currentSlide(n) {
+                showSlides(slideIndex = n);
+            }
+
+            function showSlides(n) {
+                let i;
+                const slides = document.getElementsByClassName("mySlides");
+                const dots = document.getElementsByClassName("dot");
+                if (n > slides.length) {slideIndex = 1}
+                if (n < 1) {slideIndex = slides.length}
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].className = dots[i].className.replace(" active", "");
+                }
+                slides[slideIndex - 1].style.display = "block";
+                dots[slideIndex - 1].className += " active";
+            }
+
+            function openFullscreen(img) {
+                if (img.requestFullscreen) {
+                    img.requestFullscreen();
+                } else if (img.mozRequestFullScreen) { // Firefox
+                    img.mozRequestFullScreen();
+                } else if (img.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                    img.webkitRequestFullscreen();
+                } else if (img.msRequestFullscreen) { // IE/Edge
+                    img.msRequestFullscreen();
+                }
+            }
+            </script>
+            <div class="store-buttons">
+                <a href="appstore/" class="store-button">
+                    <img src="public/appstore_bagdge.svg" alt="Download on the App Store" class="store-badge">
+                </a>
+                <a href="playstore/" class="store-button">
+                    <img src="public/googleplay.svg" alt="Get it on Google Play" class="store-badge">
+                </a>
             </div>
         </div>
     </div>
