@@ -3,7 +3,8 @@ module.exports = function (api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
-      'expo-router/babel'
+      'expo-router/babel',
+      '@babel/plugin-transform-private-methods'
     ],
   };
 };
