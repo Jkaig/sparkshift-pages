@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { Button } from '@/homepage/components/ui/button';
-import { motion } from 'framer-motion';
+import Animated, { FadeInUp } from 'react-native-reanimated';
 
 const PricingTier = ({ title, price, features, buttonText }: {
   title: string;
@@ -9,11 +9,9 @@ const PricingTier = ({ title, price, features, buttonText }: {
   features: string[];
   buttonText: string;
 }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
-    className="flex flex-col p-6 bg-white rounded-lg shadow-lg"
+  <Animated.View
+    entering={FadeInUp.duration(500)}
+    style={styles.card}
   >
     <Text style={styles.title}>{title}</Text>
     <Text style={styles.price}>{price}</Text>
@@ -27,7 +25,7 @@ const PricingTier = ({ title, price, features, buttonText }: {
     <Button variant="default" size="lg">
       {buttonText}
     </Button>
-  </motion.div>
+  </Animated.View>
 );
 
 const Pricing = () => {
@@ -93,6 +91,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: '#000',
   },
   subheading: {
     fontSize: 18,
@@ -106,10 +105,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 20,
   },
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    width: 320,
+    marginBottom: 20,
+  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: '#000',
   },
   price: {
     fontSize: 36,

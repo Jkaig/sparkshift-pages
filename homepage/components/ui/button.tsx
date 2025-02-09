@@ -1,55 +1,107 @@
 import React, { forwardRef } from 'react';
-import { Pressable, View } from 'react-native';
+import { Pressable, View, StyleSheet } from 'react-native';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
 
-const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
-  {
-    variants: {
-      variant: {
-        default:
-          'bg-primary text-primary-foreground shadow hover:bg-primary/90',
-        destructive:
-          'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
-        outline:
-          'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
-        secondary:
-          'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
-        ghost: 'hover:bg-accent hover:text-accent-foreground',
-        link: 'text-primary underline-offset-4 hover:underline',
-      },
-      size: {
-        default: 'h-9 px-4 py-2',
-        sm: 'h-8 rounded-md px-3 text-xs',
-        lg: 'h-10 rounded-md px-8',
-        icon: 'h-9 w-9',
-      },
+const buttonVariants = cva('', {
+  variants: {
+    variant: {
+      default: 'primary',
+      destructive: 'destructive',
+      outline: 'outline',
+      secondary: 'secondary',
+      ghost: 'ghost',
+      link: 'link',
     },
-    defaultVariants: {
-      variant: 'default',
-      size: 'default',
+    size: {
+      default: 'default',
+      sm: 'small',
+      lg: 'large',
+      icon: 'icon',
     },
-  }
-);
+  },
+  defaultVariants: {
+    variant: 'default',
+    size: 'default',
+  },
+});
 
-interface ButtonProps
-  extends React.ComponentPropsWithoutRef<typeof Pressable>,
-    VariantProps<typeof buttonVariants> {
-  className?: string;
+interface ButtonProps extends React.ComponentPropsWithoutRef<typeof Pressable>,
+  VariantProps<typeof buttonVariants> {
+  children: React.ReactNode;
 }
 
 const Button = forwardRef<View, ButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
+  ({ variant, size, children, style, ...props }, ref) => {
+    const buttonStyle = [
+      styles.base,
+      variant === 'default' && styles.default,
+      variant === 'destructive' && styles.destructive,
+      variant === 'outline' && styles.outline,
+      variant === 'secondary' && styles.secondary,
+      variant === 'ghost' && styles.ghost,
+      variant === 'link' && styles.link,
+      size === 'sm' && styles.small,
+      size === 'lg' && styles.large,
+      size === 'icon' && styles.icon,
+      style,
+    ];
+
     return (
       <Pressable
-        className={cn(buttonVariants({ variant, size }), className)}
+        style={buttonStyle}
         ref={ref}
         {...props}
-      />
+      >
+        {children}
+      </Pressable>
     );
   }
 );
+
+const styles = StyleSheet.create({
+  base: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+  },
+  default: {
+    backgroundColor: '#0070f3',
+  },
+  destructive: {
+    backgroundColor: '#ff4444',
+  },
+  outline: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+  },
+  secondary: {
+    backgroundColor: '#f3f4f6',
+  },
+  ghost: {
+    backgroundColor: 'transparent',
+  },
+  link: {
+    backgroundColor: 'transparent',
+    paddingVertical: 0,
+    paddingHorizontal: 0,
+  },
+  small: {
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+  },
+  large: {
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+  },
+  icon: {
+    width: 40,
+    height: 40,
+    padding: 0,
+  },
+});
 
 Button.displayName = 'Button';
 
