@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Slider } from "@/components/ui/slider"
-import { useState } from "react"
+import { Badge } from "@/components/ui/badge"
+import { Link } from 'expo-router'
 
 const states = [
   { value: "ca", label: "California" },
@@ -24,6 +25,7 @@ export default function TestPrepPage() {
   return (
     <div className="container py-12 space-y-12">
       <section className="text-center space-y-4">
+        <Badge variant="outline" className="mb-4">Premium Feature</Badge>
         <h1 className="text-4xl font-bold">Electrician Exam Prep</h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
           Practice with state-specific questions and track your progress
@@ -31,7 +33,16 @@ export default function TestPrepPage() {
       </section>
 
       <section className="grid md:grid-cols-2 gap-8">
-        <Card>
+        <Card className="relative">
+          <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-10">
+            <div className="text-center space-y-4 p-6">
+              <h3 className="text-xl font-semibold">Start Your Free Trial</h3>
+              <p className="text-muted-foreground">Get 14 days of unlimited access to all features</p>
+              <Button asChild>
+                <Link href="/login">Try Free for 14 Days</Link>
+              </Button>
+            </div>
+          </div>
           <CardHeader>
             <CardTitle>Daily Quiz</CardTitle>
             <CardDescription>5-15 minute practice sessions tailored to your state</CardDescription>
@@ -39,7 +50,7 @@ export default function TestPrepPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <label className="text-sm font-medium">Select Your State</label>
-              <Select>
+              <Select disabled>
                 <SelectTrigger>
                   <SelectValue placeholder="Choose a state" />
                 </SelectTrigger>
@@ -55,7 +66,7 @@ export default function TestPrepPage() {
             
             <div className="space-y-2">
               <label className="text-sm font-medium">Focus Area</label>
-              <Select>
+              <Select disabled>
                 <SelectTrigger>
                   <SelectValue placeholder="Choose a topic" />
                 </SelectTrigger>
@@ -71,14 +82,23 @@ export default function TestPrepPage() {
 
             <div className="space-y-2">
               <label className="text-sm font-medium">Quiz Duration (minutes)</label>
-              <Slider defaultValue={[15]} max={30} min={5} step={5} />
+              <Slider defaultValue={[15]} max={30} min={5} step={5} disabled />
             </div>
 
-            <Button className="w-full mt-4">Start Daily Quiz</Button>
+            <Button className="w-full mt-4" disabled>Start Daily Quiz</Button>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="relative">
+          <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-10">
+            <div className="text-center space-y-4 p-6">
+              <h3 className="text-xl font-semibold">Unlock Full Tests</h3>
+              <p className="text-muted-foreground">Subscribe to access practice tests and more</p>
+              <Button asChild>
+                <Link href="/pricing">View Plans</Link>
+              </Button>
+            </div>
+          </div>
           <CardHeader>
             <CardTitle>Practice Test Generator</CardTitle>
             <CardDescription>Create a full-length practice exam</CardDescription>
@@ -86,7 +106,7 @@ export default function TestPrepPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <label className="text-sm font-medium">Select Your State</label>
-              <Select>
+              <Select disabled>
                 <SelectTrigger>
                   <SelectValue placeholder="Choose a state" />
                 </SelectTrigger>
@@ -103,7 +123,7 @@ export default function TestPrepPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <label className="text-sm font-medium">Number of Questions</label>
-                <Select>
+                <Select disabled>
                   <SelectTrigger>
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
@@ -117,7 +137,7 @@ export default function TestPrepPage() {
 
               <div className="space-y-2">
                 <label className="text-sm font-medium">Time Limit</label>
-                <Select>
+                <Select disabled>
                   <SelectTrigger>
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
@@ -130,17 +150,24 @@ export default function TestPrepPage() {
               </div>
             </div>
 
-            <Button className="w-full mt-4">Generate Practice Test</Button>
+            <Button className="w-full mt-4" disabled>Generate Practice Test</Button>
           </CardContent>
         </Card>
       </section>
 
       <section className="max-w-3xl mx-auto text-center space-y-6">
-        <h2 className="text-2xl font-bold">Your Progress</h2>
+        <h2 className="text-2xl font-bold">Ready to Pass Your Exam?</h2>
         <p className="text-muted-foreground">
-          Sign in to track your progress and see detailed analytics of your performance
+          Join thousands of electricians who've successfully prepared for their exam with our platform
         </p>
-        <Button variant="outline">Sign In to View Progress</Button>
+        <div className="flex gap-4 justify-center">
+          <Button variant="outline" asChild>
+            <Link href="/resources">Try Free Resources</Link>
+          </Button>
+          <Button asChild>
+            <Link href="/pricing">Get Full Access</Link>
+          </Button>
+        </div>
       </section>
     </div>
   )

@@ -19,6 +19,25 @@ module.exports = async function (env, argv) {
     chunkFilename: '_expo/static/js/[name].[contenthash].js'
   };
 
+  // Add browser targets for better compatibility
+  config.target = ['web', 'es5'];
+
+  // Add polyfills for Safari
+  config.resolve.fallback = {
+    ...config.resolve.fallback,
+    "crypto": require.resolve("crypto-browserify"),
+    "stream": require.resolve("stream-browserify"),
+    "buffer": require.resolve("buffer/")
+  };
+
+  // Ensure proper routing
+  config.devServer = {
+    ...config.devServer,
+    historyApiFallback: {
+      index: '/'
+    }
+  };
+
   // Add .well-known to static files and handle client-side routing
   config.plugins[0].options.patterns = [
     ...(config.plugins[0].options.patterns || []),
@@ -33,6 +52,10 @@ module.exports = async function (env, argv) {
     {
       from: 'public',
       to: ''
+    },
+    {
+      from: 'public/_redirects',
+      to: '_redirects'
     }
   ];
 
@@ -48,12 +71,6 @@ module.exports = async function (env, argv) {
       ]
     })
   );
-
-  // Add support for client-side routing
-  config.devServer = {
-    ...config.devServer,
-    historyApiFallback: true,
-  };
 
   return config;
 };
