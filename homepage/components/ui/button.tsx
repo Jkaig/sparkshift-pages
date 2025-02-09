@@ -32,7 +32,7 @@ interface ButtonProps extends React.ComponentPropsWithoutRef<typeof Pressable>,
 
 const Button = forwardRef<View, ButtonProps>(
   ({ variant, size, children, style, ...props }, ref) => {
-    const baseStyle = StyleSheet.flatten([
+    const baseStyles = [
       styles.base,
       variant === 'default' && styles.default,
       variant === 'destructive' && styles.destructive,
@@ -43,15 +43,11 @@ const Button = forwardRef<View, ButtonProps>(
       size === 'sm' && styles.small,
       size === 'lg' && styles.large,
       size === 'icon' && styles.icon,
-    ]);
-
-    const mergedStyle = style 
-      ? [baseStyle, style]
-      : baseStyle;
+    ];
 
     return (
       <Pressable
-        style={mergedStyle}
+        style={StyleSheet.compose(StyleSheet.flatten(baseStyles), style)}
         ref={ref}
         {...props}
       >
