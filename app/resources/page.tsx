@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Link } from 'expo-router';
+import { routes } from '../../lib/routes';
 
 const resources = [
   {
@@ -49,13 +50,13 @@ export default function ResourcesPage() {
 
       <section className="flex justify-center">
         <div className="flex w-full max-w-sm items-center space-x-2">
-          <Input type="text" placeholder="Search resources" />
+          <Input type="search" placeholder="Search resources..." />
           <Button type="submit">Search</Button>
         </div>
       </section>
 
       <section>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 gap-6">
           {resources.map((resource, index) => (
             <Card key={index}>
               <CardHeader>
@@ -66,29 +67,16 @@ export default function ResourcesPage() {
                 <CardDescription>{resource.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                <Button className="w-full">Access Resource</Button>
+                <Button asChild>
+                  <Link href={routes.screens.pricing}>
+                    Upgrade to Premium
+                  </Link>
+                </Button>
               </CardContent>
             </Card>
           ))}
         </div>
       </section>
-
-      <section>
-        <Card>
-          <CardHeader>
-            <CardTitle>Premium Resources</CardTitle>
-            <CardDescription>
-              Unlock access to our complete library of premium resources, including advanced training materials and
-              exclusive content.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button asChild>
-              <Link href="/pricing">Upgrade to Premium</Link>
-            </Button>
-          </CardContent>
-        </Card>
-      </section>
     </div>
-  )
+  );
 }

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Link } from 'expo-router';
+import { routes } from '../lib/routes';
 
 export default function Home() {
   return (
@@ -11,10 +12,10 @@ export default function Home() {
           Empowering Electrical Professionals with Smart Solutions
         </p>
         <div className="flex justify-center gap-4">
-          <Link href="/pricing" asChild>
+          <Link href={routes.screens.pricing} asChild>
             <Button>View Pricing</Button>
           </Link>
-          <Link href="/contact" asChild>
+          <Link href={routes.screens.contact} asChild>
             <Button variant="outline">Contact Sales</Button>
           </Link>
         </div>
@@ -44,10 +45,10 @@ export default function Home() {
 
       <section className="text-center space-y-4">
         <h2 className="text-3xl font-semibold">Ready to transform your electrical business?</h2>
-        <Link href="/signup" asChild>
+        <Link href={routes.auth.signup} asChild>
           <Button size="lg">Get Started</Button>
         </Link>
       </section>
     </div>
-  )
+  );
 }

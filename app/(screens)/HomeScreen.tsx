@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, useWindowDimensions } from 'react-native';
 import { Link } from 'expo-router';
 import Animated, { FadeInUp } from 'react-native-reanimated';
+import { routes } from '../../lib/routes';
 
 interface FeatureCardProps {
   title: string;
@@ -33,7 +34,7 @@ export default function HomeScreen() {
           Empowering Electrical Professionals with Smart Solutions
         </Text>
         <View style={styles.buttonContainer}>
-          <Link href="/pricing" asChild>
+          <Link href={routes.screens.pricing} asChild>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>View Pricing</Text>
             </TouchableOpacity>
@@ -64,7 +65,7 @@ export default function HomeScreen() {
         style={styles.cta}
       >
         <Text style={styles.ctaText}>Ready to transform your electrical business?</Text>
-        <Link href="/contact" asChild>
+        <Link href={routes.screens.contact} asChild>
           <TouchableOpacity style={styles.ctaButton}>
             <Text style={styles.ctaButtonText}>Get Started</Text>
           </TouchableOpacity>

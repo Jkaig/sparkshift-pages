@@ -1,14 +1,15 @@
 import React from 'react';
-import { TextInput, StyleSheet, TextInputProps, View, Text, TextStyle, ViewStyle } from 'react-native';
+import { TextInput, StyleSheet, TextInputProps, View, Text, TextStyle, Platform } from 'react-native';
 
-interface InputProps extends TextInputProps {
+interface InputProps extends Omit<TextInputProps, 'style'> {
   label?: string;
   error?: string;
   type?: string;
-  required?: boolean;
+  name?: string;
   id?: string;
   placeholder?: string;
-  style?: ViewStyle;
+  style?: TextStyle;
+  required?: boolean;
   keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad';
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
   secureTextEntry?: boolean;
@@ -16,42 +17,64 @@ interface InputProps extends TextInputProps {
   onChangeText?: (text: string) => void;
 }
 
-export function Input({ 
+const baseInputStyle: TextStyle = {
+  height: 40,
+  paddingHorizontal: 12,
+  fontSize: 16,
+  backgroundColor: '#fff',
+};
+
+const webInputStyle: TextStyle = Platform.select({
+  web: {
+    ...baseInputStyle,
+    outline: 'none',
+  },
+  default: baseInputStyle,
+}) as TextStyle;
+
+export function Input({
   label,
   error,
-  style,
-  type,
-  required,
+  type = 'text',
+  name,
   id,
   placeholder,
+  style,
+  required,
   keyboardType = 'default',
   autoCapitalize = 'none',
   secureTextEntry,
   value,
   onChangeText,
-  ...props 
+  ...props
 }: InputProps) {
-  const combinedStyle = [
-    styles.input,
-    error && styles.inputError,
-    style as TextStyle,
-  ].filter(Boolean) as TextStyle[];
+  const inputStyle: TextStyle = {
+    ...webInputStyle,
+    ...(error ? { borderColor: '#ff0000' } : { borderColor: '#ccc' }),
+    ...(style || {}),
+    borderWidth: 1,
+    borderRadius: 4,
+  };
 
   return (
     <View style={styles.container}>
-      {label && <Text style={styles.label}>{label}</Text>}
+      {label && (
+        <Text style={styles.label}>
+          {label}
+          {required && <Text style={styles.required}> *</Text>}
+        </Text>
+      )}
       <TextInput
-        style={combinedStyle}
+        style={inputStyle}
         placeholder={placeholder}
         keyboardType={keyboardType}
         autoCapitalize={autoCapitalize}
         secureTextEntry={secureTextEntry}
         value={value}
         onChangeText={onChangeText}
-        placeholderTextColor="#A3A3A3"
         {...props}
       />
-      {error && <Text style={styles.errorText}>{error}</Text>}
+      {error && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 }
@@ -62,24 +85,14 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 14,
-    fontWeight: '500',
-    color: '#1F2937',
-    marginBottom: 4,
+    marginBottom: 8,
+    color: '#000',
   },
-  input: {
-    backgroundColor: '#F9FAFB',
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-    color: '#1F2937',
+  required: {
+    color: '#ff0000',
   },
-  inputError: {
-    borderColor: '#EF4444',
-  },
-  errorText: {
-    color: '#EF4444',
+  error: {
+    color: '#ff0000',
     fontSize: 12,
     marginTop: 4,
   },

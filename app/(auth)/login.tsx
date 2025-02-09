@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Link } from 'expo-router';
+import { routes } from '../../lib/routes';
 import { Input } from '../../components/ui/input';
 import { Button } from '../../components/ui/button';
 import Animated, { FadeInUp } from 'react-native-reanimated';
@@ -38,7 +39,7 @@ export default function LoginScreen() {
         <Button onPress={handleLogin}>
           Log In
         </Button>
-        <Link href="/signup" asChild>
+        <Link href={routes.auth.signup} asChild>
           <Button variant="outline">
             Create Account
           </Button>
@@ -51,10 +52,10 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    padding: 16,
+    backgroundColor: '#fff',
   },
   form: {
     width: '100%',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ViewStyle } from 'react-native';
+import { View, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
 
 export interface CardProps {
   children: React.ReactNode;
@@ -14,12 +14,12 @@ export interface CardHeaderProps {
 
 export interface CardTitleProps {
   children: React.ReactNode;
-  style?: ViewStyle;
+  style?: TextStyle;
 }
 
 export interface CardDescriptionProps {
   children: React.ReactNode;
-  style?: ViewStyle;
+  style?: TextStyle;
 }
 
 export interface CardContentProps {

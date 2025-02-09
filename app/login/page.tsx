@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Link } from 'expo-router';
+import { routes } from '../../lib/routes';
 
 export default function LoginPage() {
   return (
@@ -15,19 +16,32 @@ export default function LoginPage() {
         <CardContent>
           <form className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" required />
+              <Input
+                id="email"
+                label="Email"
+                type="email"
+                required
+                keyboardType="email-address"
+                autoCapitalize="none"
+                placeholder="Enter your email"
+              />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" required />
+              <Input
+                id="password"
+                label="Password"
+                type="password"
+                required
+                secureTextEntry
+                placeholder="Enter your password"
+              />
             </div>
             <Button type="submit" className="w-full">
               Login
             </Button>
           </form>
           <div className="mt-4 text-center">
-            <Link href="/forgot-password" asChild>
+            <Link href={routes.auth.forgotPassword} asChild>
               <a className="text-sm text-muted-foreground hover:underline">
                 Forgot password?
               </a>
@@ -35,7 +49,7 @@ export default function LoginPage() {
           </div>
           <div className="mt-4 text-center">
             <span className="text-sm text-muted-foreground">Don't have an account? </span>
-            <Link href="/signup" asChild>
+            <Link href={routes.auth.signup} asChild>
               <a className="text-sm text-primary hover:underline">
                 Sign up
               </a>
@@ -44,5 +58,5 @@ export default function LoginPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

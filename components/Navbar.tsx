@@ -1,27 +1,28 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { Link } from 'expo-router';
+import { routes } from '../lib/routes';
 
 export function Navbar() {
   return (
     <View style={styles.navbar}>
-      <Link href="/" asChild>
+      <Link href={routes.screens.home} asChild>
         <Pressable>
           <Text style={styles.logo}>SparkShift</Text>
         </Pressable>
       </Link>
       <View style={styles.links}>
-        <Link href="/pricing" asChild>
+        <Link href={routes.screens.pricing} asChild>
           <Pressable>
             <Text style={styles.link}>Pricing</Text>
           </Pressable>
         </Link>
-        <Link href="/resources" asChild>
+        <Link href={routes.screens.resources} asChild>
           <Pressable>
             <Text style={styles.link}>Resources</Text>
           </Pressable>
         </Link>
-        <Link href="/contact" asChild>
+        <Link href={routes.screens.contact} asChild>
           <Pressable>
             <Text style={styles.link}>Contact</Text>
           </Pressable>
@@ -42,14 +43,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
+    borderBottomColor: '#e5e5e5',
   },
   logo: {
     fontSize: 24,
-    fontWeight: '700',
-    color: '#1F2937',
+    fontWeight: 'bold',
+    color: '#000',
   },
   links: {
     flexDirection: 'row',
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
   },
   link: {
     fontSize: 16,
-    color: '#4B5563',
+    color: '#666',
   },
   loginButton: {
     backgroundColor: '#007AFF',

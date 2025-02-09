@@ -30,7 +30,6 @@
       "favicon": "./assets/favicon.png",
       "bundler": "metro",
       "output": "static",
-      "publicPath": "/sparkshift-pages",
       "name": "SparkShift",
       "description": "Empowering electrical professionals with innovative solutions",
       "themeColor": "#007AFF"
@@ -39,16 +38,8 @@
       "expo-router"
     ],
     "experiments": {
-      "typedRoutes": true,
-      "tsconfigPaths": true
-    },
-    "extra": {
-      "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "0f5778e3-27c5-4cf3-b2ab-7c8cbc979872"
-      }
+      "tsconfigPaths": true,
+      "typedRoutes": true
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Slot, Stack } from 'expo-router';
+import { Slot } from 'expo-router';
 import { useEffect } from 'react';
 import { LogBox } from 'react-native';
 import { ThemeProvider } from '@react-navigation/native';
@@ -31,58 +31,12 @@ const theme = {
 
 export default function RootLayout() {
   useEffect(() => {
-    LogBox.ignoreLogs(['Async Storage has been extracted from react-native core']);
+    LogBox.ignoreLogs(['Warning: ...']); // Ignore specific logs
   }, []);
 
   return (
     <ThemeProvider value={theme}>
-      <Stack
-        screenOptions={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: '#fff',
-          },
-          headerTintColor: '#000',
-          contentStyle: { backgroundColor: '#fff' },
-        }}
-      >
-        <Stack.Screen
-          name="index"
-          options={{
-            title: 'SparkShift',
-          }}
-        />
-        <Stack.Screen
-          name="(auth)/login"
-          options={{
-            title: 'Login',
-          }}
-        />
-        <Stack.Screen
-          name="pricing"
-          options={{
-            title: 'Pricing',
-          }}
-        />
-        <Stack.Screen
-          name="resources"
-          options={{
-            title: 'Resources',
-          }}
-        />
-        <Stack.Screen
-          name="contact"
-          options={{
-            title: 'Contact',
-          }}
-        />
-        <Stack.Screen
-          name="review"
-          options={{
-            title: 'Review',
-          }}
-        />
-      </Stack>
+      <Slot />
     </ThemeProvider>
   );
 }

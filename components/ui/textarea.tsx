@@ -1,9 +1,10 @@
 import React from 'react';
-import { TextInput, StyleSheet, TextInputProps, ViewStyle } from 'react-native';
+import { TextInput, TextInputProps, StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { cn } from '../../lib/utils';
 
-interface TextareaProps extends TextInputProps {
+interface TextareaProps extends Omit<TextInputProps, 'style'> {
   placeholder?: string;
-  style?: ViewStyle;
+  style?: TextStyle;
   value?: string;
   onChangeText?: (text: string) => void;
   minHeight?: number;
@@ -24,7 +25,7 @@ export function Textarea({
     error && styles.error,
     { minHeight },
     style,
-  ].filter(Boolean) as ViewStyle[];
+  ].filter(Boolean) as TextStyle[];
 
   return (
     <TextInput
