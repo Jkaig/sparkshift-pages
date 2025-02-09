@@ -40,4 +40,5 @@ jobs:
         with:
           branch: gh-pages
           folder: dist
-          cname: sparkshift.app
+          clean: true
+          clean-exclude: CNAME
