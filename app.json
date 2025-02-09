@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "SparkShift",
-    "slug": "sparkshiftnative",
+    "slug": "sparkshift-pages",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -9,28 +9,56 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#1A1A2E"
+      "backgroundColor": "#1a1a1a"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.jeremykaigler.sparkshift",
+      "buildNumber": "1.0.0",
+      "associatedDomains": [
+        "applinks:sparkshift.app",
+        "applinks:www.sparkshift.app"
+      ]
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#1A1A2E"
-      }
+        "backgroundColor": "#1a1a1a"
+      },
+      "package": "com.jeremykaigler.sparkshiftapp",
+      "versionCode": 1,
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "*.sparkshift.app",
+              "pathPrefix": "/"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png",
-      "bundler": "metro",
-      "output": "static",
-      "build": {
-        "babel": {
-          "include": ["@expo/vector-icons"]
-        }
+      "bundler": "metro"
+    },
+    "scheme": "sparkshift",
+    "plugins": [
+      "expo-router"
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "your-project-id"
       }
     }
   }
