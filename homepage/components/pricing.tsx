@@ -1,175 +1,130 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { Button } from "@/homepage/components/ui/button";
-import { Check } from "lucide-react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { Button } from '@/homepage/components/ui/button';
+import { motion } from 'framer-motion';
 
-const tiers = [
-  {
-    name: "Free",
-    id: "tier-free",
-    href: "#",
-    price: { monthly: "$0", annually: "$0" },
-    description: "Get started with basic evaluations",
-    features: [
-      "3 evaluations per month",
-      "Basic analytics",
-      "Email support",
-      "Basic templates",
-    ],
-    featured: false,
-  },
-  {
-    name: "Professional",
-    id: "tier-professional",
-    href: "#",
-    price: { monthly: "$15", annually: "$144" },
-    description: "Perfect for growing teams",
-    features: [
-      "Unlimited evaluations",
-      "Advanced analytics",
-      "Priority support",
-      "Custom templates",
-      "Team collaboration",
-      "API access",
-    ],
-    featured: true,
-  },
-  {
-    name: "Enterprise",
-    id: "tier-enterprise",
-    href: "#",
-    price: { monthly: "Custom", annually: "Custom" },
-    description: "For large organizations",
-    features: [
-      "Everything in Professional",
-      "Custom integrations",
-      "Dedicated support",
-      "SLA",
-      "Custom reporting",
-      "On-premise deployment",
-    ],
-    featured: false,
-  },
-];
+const PricingTier = ({ title, price, features, buttonText }: {
+  title: string;
+  price: string;
+  features: string[];
+  buttonText: string;
+}) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    className="flex flex-col p-6 bg-white rounded-lg shadow-lg"
+  >
+    <Text style={styles.title}>{title}</Text>
+    <Text style={styles.price}>{price}</Text>
+    <View style={styles.featureList}>
+      {features.map((feature, index) => (
+        <Text key={index} style={styles.feature}>
+          {feature}
+        </Text>
+      ))}
+    </View>
+    <Button variant="default" size="lg">
+      {buttonText}
+    </Button>
+  </motion.div>
+);
 
-export default function Pricing() {
+const Pricing = () => {
+  const tiers = [
+    {
+      title: 'Basic',
+      price: 'Free',
+      features: [
+        'Basic time tracking',
+        'Simple reporting',
+        'Up to 3 projects',
+        'Email support'
+      ],
+      buttonText: 'Get Started'
+    },
+    {
+      title: 'Pro',
+      price: '$9.99/mo',
+      features: [
+        'Advanced time tracking',
+        'Detailed analytics',
+        'Unlimited projects',
+        'Priority support',
+        'Team collaboration'
+      ],
+      buttonText: 'Try Pro'
+    },
+    {
+      title: 'Enterprise',
+      price: 'Custom',
+      features: [
+        'Custom solutions',
+        'Dedicated support',
+        'SLA guarantee',
+        'Advanced security',
+        'API access'
+      ],
+      buttonText: 'Contact Sales'
+    }
+  ];
+
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Simple, transparent pricing</Text>
-        <Text style={styles.subtitle}>
-          Choose the plan that's right for your team
-        </Text>
-      </View>
-
+      <Text style={styles.heading}>Choose Your Plan</Text>
+      <Text style={styles.subheading}>
+        Select the perfect plan for your needs
+      </Text>
       <View style={styles.tiersContainer}>
-        {tiers.map((tier) => (
-          <motion.div
-            key={tier.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <View
-              style={[
-                styles.tierCard,
-                tier.featured && styles.featuredTierCard,
-              ]}
-            >
-              <View style={styles.tierHeader}>
-                <Text style={styles.tierName}>{tier.name}</Text>
-                <Text style={styles.tierPrice}>{tier.price.monthly}</Text>
-                <Text style={styles.tierDescription}>{tier.description}</Text>
-              </View>
-
-              <View style={styles.featuresContainer}>
-                {tier.features.map((feature) => (
-                  <View key={feature} style={styles.featureRow}>
-                    <Check size={20} />
-                    <Text style={styles.featureText}>{feature}</Text>
-                  </View>
-                ))}
-              </View>
-
-              <Button
-                variant={tier.featured ? "default" : "outline"}
-                style={styles.button}
-              >
-                Get started
-              </Button>
-            </View>
-          </motion.div>
+        {tiers.map((tier, index) => (
+          <PricingTier key={index} {...tier} />
         ))}
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
-    padding: 24,
-    alignItems: "center",
+    padding: 20,
+    alignItems: 'center',
   },
-  header: {
-    alignItems: "center",
-    marginBottom: 48,
+  heading: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
-  title: {
-    fontSize: 36,
-    fontWeight: "bold",
-    marginBottom: 16,
-  },
-  subtitle: {
+  subheading: {
     fontSize: 18,
-    color: "#666",
+    color: '#666',
+    marginBottom: 40,
+    textAlign: 'center',
   },
   tiersContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    gap: 24,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 20,
   },
-  tierCard: {
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    padding: 24,
-    width: 320,
-    borderWidth: 1,
-    borderColor: "#eee",
-  },
-  featuredTierCard: {
-    borderColor: "#000",
-    borderWidth: 2,
-  },
-  tierHeader: {
-    marginBottom: 24,
-  },
-  tierName: {
+  title: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  price: {
+    fontSize: 36,
+    fontWeight: 'bold',
+    color: '#0070f3',
+    marginBottom: 20,
+  },
+  featureList: {
+    marginBottom: 20,
+  },
+  feature: {
+    fontSize: 16,
     marginBottom: 8,
-  },
-  tierPrice: {
-    fontSize: 48,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
-  tierDescription: {
-    color: "#666",
-  },
-  featuresContainer: {
-    marginBottom: 24,
-  },
-  featureRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 12,
-  },
-  featureText: {
-    marginLeft: 12,
-  },
-  button: {
-    width: "100%",
+    color: '#444',
   },
 });
+
+export default Pricing;
