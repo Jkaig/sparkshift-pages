@@ -7,34 +7,40 @@ import { routes } from '../../lib/routes';
 
 const resources = [
   {
-    title: "Apprentice Evaluation",
-    description: "Comprehensive guide for evaluating apprentice performance and progress tracking.",
-    category: "Training",
+    title: "Free Practice Questions",
+    description: "Sample questions from our state-specific exam prep materials.",
+    category: "Practice",
+    free: true,
   },
   {
-    title: "Journeyman Review",
-    description: "Detailed materials to help prepare for journeyman certification exams.",
-    category: "Certification",
+    title: "Study Schedule Template",
+    description: "Customizable study schedule to help you prepare effectively.",
+    category: "Planning",
+    free: true,
   },
   {
-    title: "Safety Guidelines",
-    description: "Up-to-date electrical safety protocols and best practices.",
-    category: "Safety",
+    title: "NEC Code Overview",
+    description: "Basic overview of the National Electrical Code and key concepts.",
+    category: "Code",
+    free: true,
   },
   {
-    title: "Code Updates",
-    description: "Latest electrical code changes and compliance requirements.",
-    category: "Compliance",
+    title: "Math Formula Sheet",
+    description: "Essential formulas for electrical calculations.",
+    category: "Calculations",
+    free: true,
   },
   {
-    title: "Business Tools",
-    description: "Templates and tools for managing your electrical business effectively.",
-    category: "Business",
+    title: "State Requirements Guide",
+    description: "Comprehensive guide to electrician licensing requirements by state.",
+    category: "Licensing",
+    free: true,
   },
   {
-    title: "Technical Library",
-    description: "Extensive collection of technical documentation and guides.",
-    category: "Technical",
+    title: "Test-Taking Strategies",
+    description: "Tips and techniques for mastering the electrician exam.",
+    category: "Strategy",
+    free: true,
   },
 ]
 
@@ -42,41 +48,55 @@ export default function ResourcesPage() {
   return (
     <div className="container py-12 space-y-12">
       <section className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">Resources</h1>
+        <h1 className="text-4xl font-bold">Free Exam Prep Resources</h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Access our comprehensive collection of electrical industry resources
+          Start preparing for your electrician exam with our free resources
         </p>
       </section>
 
       <section className="flex justify-center">
-        <div className="flex w-full max-w-sm items-center space-x-2">
-          <Input type="search" placeholder="Search resources..." />
-          <Button type="submit">Search</Button>
+        <div className="w-full max-w-xl">
+          <Input
+            type="search"
+            placeholder="Search resources..."
+            className="w-full"
+          />
         </div>
       </section>
 
       <section>
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {resources.map((resource, index) => (
             <Card key={index}>
               <CardHeader>
                 <div className="flex justify-between items-start">
-                  <CardTitle>{resource.title}</CardTitle>
-                  <Badge>{resource.category}</Badge>
+                  <div>
+                    <CardTitle>{resource.title}</CardTitle>
+                    <CardDescription className="mt-2">{resource.description}</CardDescription>
+                  </div>
+                  {resource.free && (
+                    <Badge variant="secondary">Free</Badge>
+                  )}
                 </div>
-                <CardDescription>{resource.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                <Button asChild>
-                  <Link href={routes.screens.pricing}>
-                    Upgrade to Premium
-                  </Link>
-                </Button>
+                <Badge variant="outline" className="mb-4">{resource.category}</Badge>
+                <Button className="w-full">Access Resource</Button>
               </CardContent>
             </Card>
           ))}
         </div>
       </section>
+
+      <section className="text-center space-y-6 bg-muted p-8 rounded-lg">
+        <h2 className="text-2xl font-bold">Need More Practice?</h2>
+        <p className="text-muted-foreground max-w-2xl mx-auto">
+          Get access to our complete library of state-specific practice questions, full-length practice tests, and detailed explanations.
+        </p>
+        <Button asChild>
+          <Link href={routes.pricing}>View Pricing Plans</Link>
+        </Button>
+      </section>
     </div>
-  );
+  )
 }
