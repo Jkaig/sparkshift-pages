@@ -47,7 +47,7 @@ const Button = forwardRef<View, ButtonProps>(
 
     return (
       <Pressable
-        style={StyleSheet.compose(StyleSheet.flatten(baseStyles), style)}
+        style={style ? [StyleSheet.flatten(baseStyles), style] : StyleSheet.flatten(baseStyles)}
         ref={ref}
         {...props}
       >
