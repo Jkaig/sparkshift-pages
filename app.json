@@ -1,59 +1,35 @@
 {
   "expo": {
-    "name": "SparkShift",
+    "name": "sparkshift-pages",
     "slug": "sparkshift-pages",
     "version": "1.0.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "dark",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "scheme": "sparkshift",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.jeremykaigler.sparkshift",
-      "buildNumber": "1.0.0",
-      "associatedDomains": [
-        "applinks:sparkshift.app",
-        "applinks:www.sparkshift.app"
-      ]
+      "supportsTablet": true
     },
     "android": {
-      "package": "com.jeremykaigler.sparkshiftapp",
-      "versionCode": 1,
-      "intentFilters": [
-        {
-          "action": "VIEW",
-          "autoVerify": true,
-          "data": [
-            {
-              "scheme": "https",
-              "host": "*.sparkshift.app",
-              "pathPrefix": "/"
-            }
-          ],
-          "category": ["BROWSABLE", "DEFAULT"]
-        }
-      ]
-    },
-    "web": {
-      "bundler": "metro",
-      "output": "static"
-    },
-    "scheme": "sparkshift",
-    "plugins": [
-      "expo-router"
-    ],
-    "extra": {
-      "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "your-project-id"
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
       }
     },
-    "experiments": {
-      "tsconfigPaths": true
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
     },
-    "entryPoint": "./index.js"
+    "plugins": [
+      "expo-router"
+    ]
   }
 }

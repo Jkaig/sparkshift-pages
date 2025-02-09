@@ -1,6 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, useWindowDimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, useWindowDimensions } from 'react-native';
 import { Link } from 'expo-router';
+import Animated, { FadeInUp } from 'react-native-reanimated';
+
+interface FeatureCardProps {
+  title: string;
+  description: string;
+}
+
+const FeatureCard: React.FC<FeatureCardProps> = ({ title, description }) => (
+  <Animated.View 
+    entering={FadeInUp.duration(800)}
+    style={styles.featureCard}
+  >
+    <Text style={styles.featureTitle}>{title}</Text>
+    <Text style={styles.featureText}>{description}</Text>
+  </Animated.View>
+);
 
 export default function HomeScreen() {
   const { width } = useWindowDimensions();
@@ -8,7 +24,10 @@ export default function HomeScreen() {
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.hero}>
+      <Animated.View 
+        entering={FadeInUp.duration(1000)}
+        style={styles.hero}
+      >
         <Text style={styles.title}>SparkShift</Text>
         <Text style={styles.subtitle}>
           Empowering Electrical Professionals with Smart Solutions
@@ -20,40 +39,37 @@ export default function HomeScreen() {
             </TouchableOpacity>
           </Link>
         </View>
-      </View>
+      </Animated.View>
 
       <View style={styles.features}>
         <Text style={styles.sectionTitle}>Features</Text>
         <View style={[styles.featureGrid, isMobile && styles.featureGridMobile]}>
-          <View style={styles.featureCard}>
-            <Text style={styles.featureTitle}>Smart Scheduling</Text>
-            <Text style={styles.featureText}>
-              Efficiently manage your appointments and work schedule
-            </Text>
-          </View>
-          <View style={styles.featureCard}>
-            <Text style={styles.featureTitle}>Resource Library</Text>
-            <Text style={styles.featureText}>
-              Access a comprehensive collection of electrical resources
-            </Text>
-          </View>
-          <View style={styles.featureCard}>
-            <Text style={styles.featureTitle}>Progress Tracking</Text>
-            <Text style={styles.featureText}>
-              Monitor your professional development and certifications
-            </Text>
-          </View>
+          <FeatureCard
+            title="Smart Scheduling"
+            description="Efficiently manage your appointments and work schedule"
+          />
+          <FeatureCard
+            title="Resource Library"
+            description="Access a comprehensive collection of electrical resources"
+          />
+          <FeatureCard
+            title="Progress Tracking"
+            description="Monitor your professional development and certifications"
+          />
         </View>
       </View>
 
-      <View style={styles.cta}>
+      <Animated.View 
+        entering={FadeInUp.duration(1200)}
+        style={styles.cta}
+      >
         <Text style={styles.ctaText}>Ready to transform your electrical business?</Text>
         <Link href="/contact" asChild>
           <TouchableOpacity style={styles.ctaButton}>
             <Text style={styles.ctaButtonText}>Get Started</Text>
           </TouchableOpacity>
         </Link>
-      </View>
+      </Animated.View>
     </ScrollView>
   );
 }
@@ -101,7 +117,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   sectionTitle: {
-    fontSize: 32,
+    fontSize: 36,
     fontWeight: 'bold',
     color: '#ffffff',
     marginBottom: 30,
@@ -126,9 +142,9 @@ const styles = StyleSheet.create({
   },
   featureTitle: {
     fontSize: 24,
-    fontWeight: '600',
+    fontWeight: 'bold',
     color: '#ffffff',
-    marginBottom: 15,
+    marginBottom: 10,
   },
   featureText: {
     fontSize: 16,
@@ -143,20 +159,20 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   ctaText: {
-    fontSize: 24,
+    fontSize: 28,
     color: '#ffffff',
-    marginBottom: 20,
     textAlign: 'center',
+    marginBottom: 30,
   },
   ctaButton: {
-    backgroundColor: '#34C759',
+    backgroundColor: '#007AFF',
     paddingHorizontal: 40,
-    paddingVertical: 15,
-    borderRadius: 25,
+    paddingVertical: 20,
+    borderRadius: 30,
   },
   ctaButtonText: {
     color: '#ffffff',
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });

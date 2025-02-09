@@ -1,36 +1,13 @@
 import React, { forwardRef } from 'react';
-import { Pressable, View, StyleSheet } from 'react-native';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { Pressable, View, StyleSheet, PressableProps } from 'react-native';
 
-const buttonVariants = cva('', {
-  variants: {
-    variant: {
-      default: 'primary',
-      destructive: 'destructive',
-      outline: 'outline',
-      secondary: 'secondary',
-      ghost: 'ghost',
-      link: 'link',
-    },
-    size: {
-      default: 'default',
-      sm: 'small',
-      lg: 'large',
-      icon: 'icon',
-    },
-  },
-  defaultVariants: {
-    variant: 'default',
-    size: 'default',
-  },
-});
-
-interface ButtonProps extends React.ComponentPropsWithoutRef<typeof Pressable>,
-  VariantProps<typeof buttonVariants> {
+export interface ButtonProps extends PressableProps {
+  variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+  size?: 'default' | 'sm' | 'lg' | 'icon';
   children: React.ReactNode;
 }
 
-const Button = forwardRef<View, ButtonProps>(
+export const Button = forwardRef<View, ButtonProps>(
   ({ variant = 'default', size = 'default', children, style, ...props }, ref) => {
     const variantStyles = {
       default: styles.default,
@@ -48,20 +25,15 @@ const Button = forwardRef<View, ButtonProps>(
       icon: styles.icon,
     };
 
-    const baseStyles = StyleSheet.flatten([
-      styles.base,
-      variantStyles[variant as keyof typeof variantStyles],
-      sizeStyles[size as keyof typeof sizeStyles],
-    ]);
-
     return (
       <Pressable
-        style={({ pressed }) => [
-          baseStyles,
-          pressed && styles.pressed,
-          typeof style === 'function' ? style({ pressed }) : style,
-        ]}
         ref={ref}
+        style={[
+          styles.base,
+          variantStyles[variant],
+          sizeStyles[size],
+          style,
+        ]}
         {...props}
       >
         {children}
@@ -70,8 +42,11 @@ const Button = forwardRef<View, ButtonProps>(
   }
 );
 
+Button.displayName = 'Button';
+
 const styles = StyleSheet.create({
   base: {
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8,
@@ -79,26 +54,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   default: {
-    backgroundColor: '#0070f3',
+    backgroundColor: '#007AFF',
   },
   destructive: {
-    backgroundColor: '#ff4444',
+    backgroundColor: '#FF3B30',
   },
   outline: {
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: '#007AFF',
   },
   secondary: {
-    backgroundColor: '#f3f4f6',
+    backgroundColor: '#E5E5EA',
   },
   ghost: {
     backgroundColor: 'transparent',
   },
   link: {
     backgroundColor: 'transparent',
-    paddingVertical: 0,
     paddingHorizontal: 0,
+    paddingVertical: 0,
   },
   small: {
     paddingVertical: 8,
@@ -109,15 +84,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   icon: {
+    padding: 8,
     width: 40,
     height: 40,
-    padding: 0,
-  },
-  pressed: {
-    opacity: 0.5,
   },
 });
-
-Button.displayName = 'Button';
-
-export { Button, buttonVariants, type ButtonProps };

@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { initializeApp } from 'firebase/app';
+import { getAnalytics } from 'firebase/analytics';
 
 const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
@@ -12,7 +12,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;
 
-// Initialize Analytics and export it
-export const analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;
+export { app, analytics };

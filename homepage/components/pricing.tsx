@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
-import { Button } from '@/homepage/components/ui/button';
+import { Button } from './ui/button';
 import Animated, { FadeInUp } from 'react-native-reanimated';
 
 const PricingTier = ({ title, price, features, buttonText }: {
