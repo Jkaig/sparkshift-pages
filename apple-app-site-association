@@ -1,0 +1,51 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "3PJ465CCC6.com.jeremykaigler.sparkshift",
+                "paths": [ "*" ],
+                "components": [
+                    {
+                        "/": "/",
+                        "exclude": true
+                    },
+                    {
+                        "/": "/homepage/*",
+                        "exclude": true
+                    },
+                    {
+                        "/": "/pricing",
+                        "exclude": true
+                    },
+                    {
+                        "/": "/resources",
+                        "exclude": true
+                    }
+                ]
+            },
+            {
+                "appID": "3PJ465CCC6.com.jeremykaigler.sparkshiftapp",
+                "paths": [ "*" ],
+                "components": [
+                    {
+                        "/": "/",
+                        "exclude": true
+                    },
+                    {
+                        "/": "/homepage/*",
+                        "exclude": true
+                    },
+                    {
+                        "/": "/pricing",
+                        "exclude": true
+                    },
+                    {
+                        "/": "/resources",
+                        "exclude": true
+                    }
+                ]
+            }
+        ]
+    }
+}
