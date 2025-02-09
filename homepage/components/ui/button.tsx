@@ -31,23 +31,36 @@ interface ButtonProps extends React.ComponentPropsWithoutRef<typeof Pressable>,
 }
 
 const Button = forwardRef<View, ButtonProps>(
-  ({ variant, size, children, style, ...props }, ref) => {
-    const baseStyles = [
+  ({ variant = 'default', size = 'default', children, style, ...props }, ref) => {
+    const variantStyles = {
+      default: styles.default,
+      destructive: styles.destructive,
+      outline: styles.outline,
+      secondary: styles.secondary,
+      ghost: styles.ghost,
+      link: styles.link,
+    };
+
+    const sizeStyles = {
+      default: {},
+      sm: styles.small,
+      lg: styles.large,
+      icon: styles.icon,
+    };
+
+    const baseStyles = StyleSheet.flatten([
       styles.base,
-      variant === 'default' && styles.default,
-      variant === 'destructive' && styles.destructive,
-      variant === 'outline' && styles.outline,
-      variant === 'secondary' && styles.secondary,
-      variant === 'ghost' && styles.ghost,
-      variant === 'link' && styles.link,
-      size === 'sm' && styles.small,
-      size === 'lg' && styles.large,
-      size === 'icon' && styles.icon,
-    ];
+      variantStyles[variant as keyof typeof variantStyles],
+      sizeStyles[size as keyof typeof sizeStyles],
+    ]);
 
     return (
       <Pressable
-        style={style ? [StyleSheet.flatten(baseStyles), style] : StyleSheet.flatten(baseStyles)}
+        style={({ pressed }) => [
+          baseStyles,
+          pressed && styles.pressed,
+          typeof style === 'function' ? style({ pressed }) : style,
+        ]}
         ref={ref}
         {...props}
       >
@@ -99,6 +112,9 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     padding: 0,
+  },
+  pressed: {
+    opacity: 0.5,
   },
 });
 
