@@ -30,7 +30,7 @@
       "favicon": "./assets/favicon.png",
       "bundler": "metro",
       "output": "static",
-      "publicPath": "/",
+      "publicPath": "/_expo/static",
       "name": "SparkShift",
       "description": "Empowering electrical professionals with innovative solutions",
       "themeColor": "#007AFF"
