@@ -45,9 +45,9 @@ const Button = forwardRef<View, ButtonProps>(
       size === 'icon' && styles.icon,
     ]);
 
-    const mergedStyle = typeof style === 'function' 
-      ? (state) => [baseStyle, style(state)]
-      : [baseStyle, style];
+    const mergedStyle = style 
+      ? [baseStyle, style]
+      : baseStyle;
 
     return (
       <Pressable
