@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, StyleSheet, TextInputProps, View, Text, TextStyle } from 'react-native';
+import { TextInput, StyleSheet, TextInputProps, View, Text, TextStyle, ViewStyle } from 'react-native';
 
 interface InputProps extends TextInputProps {
   label?: string;
@@ -7,6 +7,13 @@ interface InputProps extends TextInputProps {
   type?: string;
   required?: boolean;
   id?: string;
+  placeholder?: string;
+  style?: ViewStyle;
+  keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad';
+  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
+  secureTextEntry?: boolean;
+  value?: string;
+  onChangeText?: (text: string) => void;
 }
 
 export function Input({ 
@@ -16,6 +23,12 @@ export function Input({
   type,
   required,
   id,
+  placeholder,
+  keyboardType = 'default',
+  autoCapitalize = 'none',
+  secureTextEntry,
+  value,
+  onChangeText,
   ...props 
 }: InputProps) {
   const combinedStyle = [
@@ -29,6 +42,12 @@ export function Input({
       {label && <Text style={styles.label}>{label}</Text>}
       <TextInput
         style={combinedStyle}
+        placeholder={placeholder}
+        keyboardType={keyboardType}
+        autoCapitalize={autoCapitalize}
+        secureTextEntry={secureTextEntry}
+        value={value}
+        onChangeText={onChangeText}
         placeholderTextColor="#A3A3A3"
         {...props}
       />

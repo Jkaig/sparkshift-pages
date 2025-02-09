@@ -1,71 +1,77 @@
 import React from 'react';
-import { View, Text, StyleSheet, ViewProps } from 'react-native';
+import { View, Text, StyleSheet, ViewStyle } from 'react-native';
 
-interface CardProps extends ViewProps {
-  variant?: 'default' | 'destructive';
+export interface CardProps {
   children: React.ReactNode;
+  style?: ViewStyle;
   className?: string;
 }
 
-export function Card({ variant = 'default', style, children, className, ...props }: CardProps) {
+export interface CardHeaderProps {
+  children: React.ReactNode;
+  style?: ViewStyle;
+}
+
+export interface CardTitleProps {
+  children: React.ReactNode;
+  style?: ViewStyle;
+}
+
+export interface CardDescriptionProps {
+  children: React.ReactNode;
+  style?: ViewStyle;
+}
+
+export interface CardContentProps {
+  children: React.ReactNode;
+  style?: ViewStyle;
+}
+
+export function Card({ children, style, ...props }: CardProps) {
   return (
-    <View
-      style={[
-        styles.card,
-        variant === 'destructive' && styles.destructive,
-        style,
-      ]}
-      {...props}
-    >
+    <View style={[styles.card, style]} {...props}>
       {children}
     </View>
   );
 }
 
-interface CardHeaderProps extends ViewProps {
-  children: React.ReactNode;
-}
-
-export function CardHeader({ style, children, ...props }: CardHeaderProps) {
+export function CardHeader({ children, style }: CardHeaderProps) {
   return (
-    <View style={[styles.header, style]} {...props}>
+    <View style={[styles.header, style]}>
       {children}
     </View>
   );
 }
 
-interface CardContentProps extends ViewProps {
-  children: React.ReactNode;
-}
-
-export function CardContent({ style, children, ...props }: CardContentProps) {
+export function CardTitle({ children, style }: CardTitleProps) {
   return (
-    <View style={[styles.content, style]} {...props}>
+    <Text style={[styles.title, style]}>
       {children}
-    </View>
+    </Text>
   );
 }
 
-interface CardTitleProps {
-  children: React.ReactNode;
+export function CardDescription({ children, style }: CardDescriptionProps) {
+  return (
+    <Text style={[styles.description, style]}>
+      {children}
+    </Text>
+  );
 }
 
-export function CardTitle({ children }: CardTitleProps) {
-  return <Text style={styles.title}>{children}</Text>;
-}
-
-interface CardDescriptionProps {
-  children: React.ReactNode;
-}
-
-export function CardDescription({ children }: CardDescriptionProps) {
-  return <Text style={styles.description}>{children}</Text>;
+export function CardContent({ children, style }: CardContentProps) {
+  return (
+    <View style={[styles.content, style]}>
+      {children}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#FFFFFF',
     borderRadius: 8,
+    padding: 16,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -75,26 +81,21 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
-  destructive: {
-    borderColor: '#EF4444',
-    borderWidth: 1,
-  },
   header: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
-  },
-  content: {
-    padding: 16,
+    marginBottom: 12,
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '600',
-    color: '#1F2937',
+    color: '#1A202C',
     marginBottom: 4,
   },
   description: {
     fontSize: 14,
-    color: '#6B7280',
+    color: '#4A5568',
+    marginBottom: 8,
+  },
+  content: {
+    marginTop: 8,
   },
 });

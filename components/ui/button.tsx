@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, Text, StyleSheet, PressableProps, ViewStyle } from 'react-native';
+import { Pressable, Text, StyleSheet, PressableProps, ViewStyle, TextStyle } from 'react-native';
 
 interface ButtonProps extends PressableProps {
   variant?: 'primary' | 'secondary' | 'outline';
@@ -8,6 +8,9 @@ interface ButtonProps extends PressableProps {
   type?: 'button' | 'submit' | 'reset';
   className?: string;
   asChild?: boolean;
+  style?: ViewStyle;
+  textStyle?: TextStyle;
+  onPress?: () => void;
 }
 
 export function Button({ 
@@ -15,6 +18,8 @@ export function Button({
   size = 'md', 
   children,
   style,
+  textStyle,
+  onPress,
   type = 'button',
   className,
   asChild,
@@ -52,12 +57,14 @@ export function Button({
   return (
     <Pressable
       style={combinedStyle}
+      onPress={onPress}
       {...props}
     >
       {typeof children === 'string' ? (
         <Text style={[
           styles.text,
-          variant === 'outline' && styles.outlineText
+          variant === 'outline' && styles.outlineText,
+          textStyle
         ]}>
           {children}
         </Text>
