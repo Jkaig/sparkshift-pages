@@ -1,12 +1,22 @@
 const createExpoWebpackConfigAsync = require('@expo/webpack-config');
-const path = require('path');
 
 module.exports = async function (env, argv) {
-  const config = await createExpoWebpackConfigAsync(env, argv);
-  
+  const config = await createExpoWebpackConfigAsync({
+    ...env,
+    babel: {
+      dangerouslyAddModulePathsToTranspile: ['@expo/vector-icons']
+    }
+  }, argv);
+
+  // Customize the config before returning it.
+  if (env.mode === 'production') {
+    // Production-specific settings
+    config.output.publicPath = '/';
+  }
+
   // Add .well-known to static files
   config.plugins[0].options.patterns = [
-    ...config.plugins[0].options.patterns,
+    ...(config.plugins[0].options.patterns || []),
     {
       from: '.well-known',
       to: '.well-known'
@@ -14,24 +24,11 @@ module.exports = async function (env, argv) {
     {
       from: 'apple-app-site-association',
       to: 'apple-app-site-association'
+    },
+    {
+      from: 'CNAME',
+      to: 'CNAME'
     }
-  ];
-
-  // Customize the config before returning it.
-  config.output = {
-    ...config.output,
-    publicPath: '/'
-  };
-
-  // Add support for importing .web.js files
-  config.resolve.extensions = [
-    '.web.js',
-    '.js',
-    '.jsx',
-    '.json',
-    '.tsx',
-    '.ts',
-    '.native.js'
   ];
 
   return config;

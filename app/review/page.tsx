@@ -4,11 +4,12 @@
 export const dynamic = 'force-dynamic';
 
 import { useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useLocalSearchParams } from 'expo-router';
+import { View, Text } from 'react-native';
 
 function ReviewContent() {
-  const searchParams = useSearchParams();
-  const evaluationId = searchParams.get('evaluationId');
+  const params = useLocalSearchParams();
+  const evaluationId = params.get('evaluationId');
 
   useEffect(() => {
     if (evaluationId) {
@@ -18,30 +19,30 @@ function ReviewContent() {
   }, [evaluationId]);
 
   return (
-    <div style={{ padding: '2rem', textAlign: 'center' }}>
+    <View style={{ padding: 32, textAlign: 'center' }}>
       {evaluationId ? (
         <>
-          <h1>Your review is ready!</h1>
-          <p>If the app does not open automatically, click the button below.</p>
-          <button
-            onClick={() =>
+          <Text>Your review is ready!</Text>
+          <Text>If the app does not open automatically, click the button below.</Text>
+          <Text
+            onPress={() =>
               (window.location.href = `sparkshift://review?evaluationId=${evaluationId}`)
             }
-            style={{ padding: '0.5rem 1rem', fontSize: '1rem', cursor: 'pointer' }}
+            style={{ padding: 8, fontSize: 16, textDecorationLine: 'underline' }}
           >
             Open in Sparkshift App
-          </button>
+          </Text>
         </>
       ) : (
-        <p>Evaluation ID not found. Please check your link.</p>
+        <Text>Evaluation ID not found. Please check your link.</Text>
       )}
-    </div>
+    </View>
   );
 }
 
 export default function ReviewPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Text>Loading...</Text>}>
       <ReviewContent />
     </Suspense>
   );

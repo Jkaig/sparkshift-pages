@@ -1,16 +1,16 @@
 {
   "name": "sparkshift-pages",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "expo-router/entry",
   "homepage": "https://sparkshift.app",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build:web": "npx expo export:web",
+    "build:web": "npx expo export --platform web",
     "predeploy": "npm run build:web",
-    "deploy": "gh-pages -d web-build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@expo/webpack-config": "^19.0.0",
@@ -33,7 +33,8 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/react": "~18.2.45",
-    "gh-pages": "^6.1.1"
+    "gh-pages": "^6.1.1",
+    "webpack-cli": "^5.1.4"
   },
   "private": true,
   "resolutions": {

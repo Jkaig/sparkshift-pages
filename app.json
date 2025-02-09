@@ -4,13 +4,7 @@
     "slug": "sparkshift-pages",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#1a1a1a"
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -24,10 +18,6 @@
       ]
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#1a1a1a"
-      },
       "package": "com.jeremykaigler.sparkshiftapp",
       "versionCode": 1,
       "intentFilters": [
@@ -46,7 +36,6 @@
       ]
     },
     "web": {
-      "favicon": "./assets/favicon.png",
       "bundler": "metro"
     },
     "scheme": "sparkshift",
@@ -60,6 +49,10 @@
       "eas": {
         "projectId": "your-project-id"
       }
-    }
+    },
+    "experiments": {
+      "tsconfigPaths": true
+    },
+    "entryPoint": "./index.js"
   }
 }
