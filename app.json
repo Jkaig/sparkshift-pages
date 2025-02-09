@@ -36,7 +36,9 @@
       ]
     },
     "web": {
-      "bundler": "metro"
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/favicon.png"
     },
     "scheme": "sparkshift",
     "plugins": [
