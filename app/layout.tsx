@@ -1,19 +1,13 @@
-import type { Metadata } from 'next'
-import React from 'react'
+import { Stack } from 'expo-router';
+import { useEffect } from 'react';
+import { app } from './firebase';
 
-export const metadata: Metadata = {
-  title: 'SparkShift',
-  description: 'SparkShift - Coming Soon',
-}
+export default function RootLayout() {
+  useEffect(() => {
+    if (app) {
+      console.log('Firebase initialized');
+    }
+  }, []);
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  )
+  return <Stack />;
 }
