@@ -8,7 +8,9 @@ module.exports = function(api) {
       ['module:react-native-dotenv', {
         moduleName: '@env',
         path: '.env',
-        safe: true,
+        blacklist: null,
+        whitelist: null,
+        safe: false,
         allowUndefined: true
       }]
     ]

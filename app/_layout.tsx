@@ -1,4 +1,4 @@
-import { Slot } from 'expo-router';
+import { Slot, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { LogBox } from 'react-native';
 import { ThemeProvider } from '@react-navigation/native';
@@ -36,7 +36,53 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={theme}>
-      <Slot />
+      <Stack
+        screenOptions={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: '#fff',
+          },
+          headerTintColor: '#000',
+          contentStyle: { backgroundColor: '#fff' },
+        }}
+      >
+        <Stack.Screen
+          name="index"
+          options={{
+            title: 'SparkShift',
+          }}
+        />
+        <Stack.Screen
+          name="(auth)/login"
+          options={{
+            title: 'Login',
+          }}
+        />
+        <Stack.Screen
+          name="pricing"
+          options={{
+            title: 'Pricing',
+          }}
+        />
+        <Stack.Screen
+          name="resources"
+          options={{
+            title: 'Resources',
+          }}
+        />
+        <Stack.Screen
+          name="contact"
+          options={{
+            title: 'Contact',
+          }}
+        />
+        <Stack.Screen
+          name="review"
+          options={{
+            title: 'Review',
+          }}
+        />
+      </Stack>
     </ThemeProvider>
   );
 }

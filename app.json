@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "sparkshift-pages",
+    "name": "SparkShift",
     "slug": "sparkshift-pages",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -16,20 +16,39 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sparkshift.app"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.sparkshift.app"
     },
     "web": {
       "favicon": "./assets/favicon.png",
-      "bundler": "metro"
+      "bundler": "metro",
+      "output": "static",
+      "publicPath": "/",
+      "name": "SparkShift",
+      "description": "Empowering electrical professionals with innovative solutions",
+      "themeColor": "#007AFF"
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "tsconfigPaths": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "0f5778e3-27c5-4cf3-b2ab-7c8cbc979872"
+      }
+    }
   }
 }
