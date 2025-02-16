@@ -1,115 +1,59 @@
-import React from 'react';
-import { Pressable, Text, StyleSheet, PressableProps, ViewStyle, TextStyle } from 'react-native';
+import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils"
 
-interface ButtonProps extends PressableProps {
-  variant?: 'primary' | 'secondary' | 'outline';
-  size?: 'sm' | 'md' | 'lg';
-  children: React.ReactNode;
-  type?: 'button' | 'submit' | 'reset';
-  className?: string;
-  asChild?: boolean;
-  style?: ViewStyle;
-  textStyle?: TextStyle;
-  onPress?: () => void;
+const buttonVariants = cva(
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline:
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
+        primary: "bg-primary text-primary-foreground hover:bg-primary/90",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        md: "h-10 px-4 py-2",
+        lg: "h-11 rounded-md px-8",
+        icon: "h-10 w-10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+)
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean
+  onClick?: () => void | Promise<void>
 }
 
-export function Button({ 
-  variant = 'primary', 
-  size = 'md', 
-  children,
-  style,
-  textStyle,
-  onPress,
-  type = 'button',
-  className,
-  asChild,
-  ...props 
-}: ButtonProps) {
-  const getVariantStyle = () => {
-    switch (variant) {
-      case 'secondary':
-        return styles.secondary;
-      case 'outline':
-        return styles.outline;
-      default:
-        return styles.primary;
-    }
-  };
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, onClick, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button"
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        onClick={onClick}
+        {...props}
+      />
+    )
+  }
+)
+Button.displayName = "Button"
 
-  const getSizeStyle = () => {
-    switch (size) {
-      case 'sm':
-        return styles.small;
-      case 'lg':
-        return styles.large;
-      default:
-        return styles.medium;
-    }
-  };
-
-  const combinedStyle = [
-    styles.base,
-    getVariantStyle(),
-    getSizeStyle(),
-    style as ViewStyle,
-  ];
-
-  return (
-    <Pressable
-      style={combinedStyle}
-      onPress={onPress}
-      {...props}
-    >
-      {typeof children === 'string' ? (
-        <Text style={[
-          styles.text,
-          variant === 'outline' && styles.outlineText,
-          textStyle
-        ]}>
-          {children}
-        </Text>
-      ) : (
-        children
-      )}
-    </Pressable>
-  );
-}
-
-const styles = StyleSheet.create({
-  base: {
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  primary: {
-    backgroundColor: '#007AFF',
-  },
-  secondary: {
-    backgroundColor: '#E5E5EA',
-  },
-  outline: {
-    backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: '#007AFF',
-  },
-  small: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-  },
-  medium: {
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-  },
-  large: {
-    paddingVertical: 16,
-    paddingHorizontal: 24,
-  },
-  text: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  outlineText: {
-    color: '#007AFF',
-  },
-});
+export { Button, buttonVariants }

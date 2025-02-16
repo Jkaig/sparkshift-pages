@@ -2,9 +2,26 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Link } from 'expo-router'
+import Link from 'next/link'
 
-const plans = [
+interface Plan {
+  name: string;
+  price: string;
+  period: string;
+  description: string;
+  features: string[];
+  popular?: boolean;
+  cta: string;
+  trial?: string;
+  special?: boolean;
+}
+
+interface Faq {
+  question: string;
+  answer: string;
+}
+
+const plans: Plan[] = [
   {
     name: "Monthly Subscription",
     price: "$19.99",
@@ -57,7 +74,7 @@ const plans = [
   }
 ]
 
-const faqs = [
+const faqs: Faq[] = [
   {
     question: "How are the daily quizzes structured?",
     answer: "Each quiz takes 5-15 minutes to complete and focuses on different areas of the electrician exam. Questions are carefully curated for your specific state's requirements."
@@ -103,7 +120,7 @@ export default function PricingPage() {
                 <div className="flex justify-between items-start">
                   <div>
                     <CardTitle>{plan.name}</CardTitle>
-                    <CardDescription className="mt-2">{plan.description}</CardDescription>
+                    <CardDescription>{plan.description}</CardDescription>
                   </div>
                   {plan.popular && <Badge>Most Popular</Badge>}
                   {plan.special && <Badge variant="secondary">Special Offer</Badge>}
@@ -137,10 +154,9 @@ export default function PricingPage() {
                 </ul>
                 <Button 
                   className="w-full text-lg py-6" 
-                  variant={plan.popular ? "default" : "outline"}
-                  asChild
+                  variant={plan.popular ? "primary" : "outline"}
                 >
-                  <Link href={plan.special ? "/login?verify=mobile" : "/login"}>{plan.cta}</Link>
+                  <Link href={plan.special ? "/login/verify" : "/login"}>{plan.cta}</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -165,7 +181,7 @@ export default function PricingPage() {
         <p className="text-muted-foreground">
           Try our exam prep risk-free. If you're not satisfied within the first 14 days, we'll refund your subscription - no questions asked.
         </p>
-        <Button variant="link" asChild>
+        <Button variant="outline" asChild>
           <Link href="/contact">Need help choosing? Contact us</Link>
         </Button>
       </section>

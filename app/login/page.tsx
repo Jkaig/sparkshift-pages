@@ -4,8 +4,17 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Link } from 'expo-router';
 import { routes } from '../../lib/routes';
+import { useState } from 'react';
 
 export default function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle login
+  };
+
   return (
     <div className="container py-12">
       <Card className="max-w-md mx-auto">
@@ -14,16 +23,16 @@ export default function LoginPage() {
           <CardDescription>Enter your credentials to access your account</CardDescription>
         </CardHeader>
         <CardContent>
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Input
                 id="email"
                 label="Email"
                 type="email"
                 required
-                keyboardType="email-address"
-                autoCapitalize="none"
                 placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="space-y-2">
@@ -32,8 +41,9 @@ export default function LoginPage() {
                 label="Password"
                 type="password"
                 required
-                secureTextEntry
                 placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <Button type="submit" className="w-full">

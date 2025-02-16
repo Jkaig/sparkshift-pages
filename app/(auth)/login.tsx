@@ -23,20 +23,21 @@ export default function LoginScreen() {
       <View style={styles.form}>
         <Input
           label="Email"
-          placeholder="Enter your email"
+          placeholder="name@example.com"
           value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
+          onChange={(e) => setEmail(e.target.value)}
+          type="email"
+          autoComplete="email"
+          autoCorrect="off"
         />
         <Input
           label="Password"
           placeholder="Enter your password"
           value={password}
-          onChangeText={setPassword}
-          secureTextEntry
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
         />
-        <Button onPress={handleLogin}>
+        <Button onClick={handleLogin}>
           Log In
         </Button>
         <Link href={routes.auth.signup} asChild>

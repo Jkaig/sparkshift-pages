@@ -20,15 +20,25 @@ export default function ContactPage() {
           <View style={{ gap: 16 }}>
             <View>
               <Label>Name</Label>
-              <Input placeholder="Your name" />
+              <Input 
+                type="text" 
+                placeholder="Your name" 
+              />
             </View>
             
             <View>
               <Label>Email</Label>
               <Input 
+                type="email" 
                 placeholder="Your email" 
-                keyboardType="email-address"
-                autoCapitalize="none"
+              />
+            </View>
+            
+            <View>
+              <Label>Phone Number</Label>
+              <Input 
+                type="tel" 
+                placeholder="Your phone number" 
               />
             </View>
             

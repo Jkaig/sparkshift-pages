@@ -14,7 +14,7 @@ module.exports = async function (env, argv) {
   config.output = {
     ...config.output,
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',  // Changed to root path since we're using a custom domain
+    publicPath: '/',
     filename: '_expo/static/js/[name].[contenthash].js',
     chunkFilename: '_expo/static/js/[name].[contenthash].js'
   };
@@ -30,43 +30,33 @@ module.exports = async function (env, argv) {
     "buffer": require.resolve("buffer/")
   };
 
-  // Ensure proper routing
+  // Configure dev server
   config.devServer = {
     ...config.devServer,
-    historyApiFallback: {
-      index: '/'
-    }
+    static: {
+      directory: path.join(__dirname, 'dist'),
+      publicPath: '/'
+    },
+    historyApiFallback: true,
+    hot: true,
+    compress: true
   };
 
-  // Add .well-known to static files and handle client-side routing
-  config.plugins[0].options.patterns = [
-    ...(config.plugins[0].options.patterns || []),
-    {
-      from: '.well-known',
-      to: '.well-known'
-    },
-    {
-      from: 'apple-app-site-association',
-      to: 'apple-app-site-association'
-    },
-    {
-      from: 'public',
-      to: ''
-    },
-    {
-      from: 'public/_redirects',
-      to: '_redirects'
-    }
-  ];
-
-  // Add CNAME file for custom domain
+  // Copy static files
   config.plugins.push(
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: 'CNAME',
-          to: 'CNAME',
-          toType: 'file'
+          from: path.resolve(__dirname, 'public'),
+          to: path.resolve(__dirname, 'dist')
+        },
+        {
+          from: '.well-known',
+          to: '.well-known'
+        },
+        {
+          from: 'apple-app-site-association',
+          to: 'apple-app-site-association'
         }
       ]
     })

@@ -1,100 +1,111 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { Link } from 'expo-router';
-import { routes } from '../../lib/routes';
+import Link from 'next/link'
 
 const resources = [
   {
-    title: "Free Practice Questions",
-    description: "Sample questions from our state-specific exam prep materials.",
-    category: "Practice",
-    free: true,
+    title: "Study Guides",
+    description: "Comprehensive guides covering all exam topics",
+    features: [
+      "State-specific content",
+      "Practice problems",
+      "Code references",
+      "Study tips"
+    ],
+    free: true
   },
   {
-    title: "Study Schedule Template",
-    description: "Customizable study schedule to help you prepare effectively.",
-    category: "Planning",
-    free: true,
+    title: "Practice Tests",
+    description: "Full-length practice exams with detailed explanations",
+    features: [
+      "Timed tests",
+      "Score tracking",
+      "Answer explanations",
+      "Performance analytics"
+    ]
   },
   {
-    title: "NEC Code Overview",
-    description: "Basic overview of the National Electrical Code and key concepts.",
-    category: "Code",
-    free: true,
+    title: "Code References",
+    description: "Quick access to relevant code sections",
+    features: [
+      "NEC references",
+      "State amendments",
+      "Code updates",
+      "Search functionality"
+    ]
   },
   {
-    title: "Math Formula Sheet",
-    description: "Essential formulas for electrical calculations.",
-    category: "Calculations",
-    free: true,
-  },
-  {
-    title: "State Requirements Guide",
-    description: "Comprehensive guide to electrician licensing requirements by state.",
-    category: "Licensing",
-    free: true,
-  },
-  {
-    title: "Test-Taking Strategies",
-    description: "Tips and techniques for mastering the electrician exam.",
-    category: "Strategy",
-    free: true,
-  },
+    title: "Video Lessons",
+    description: "In-depth video explanations of key concepts",
+    features: [
+      "Expert instructors",
+      "Visual demonstrations",
+      "Step-by-step solutions",
+      "Mobile-friendly"
+    ]
+  }
 ]
 
 export default function ResourcesPage() {
   return (
     <div className="container py-12 space-y-12">
       <section className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">Free Exam Prep Resources</h1>
+        <Badge variant="outline" className="mb-4">Resources</Badge>
+        <h1 className="text-4xl font-bold">Study Materials</h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Start preparing for your electrician exam with our free resources
+          Everything you need to prepare for your electrician exam
         </p>
       </section>
 
-      <section className="flex justify-center">
-        <div className="w-full max-w-xl">
-          <Input
-            type="search"
-            placeholder="Search resources..."
-            className="w-full"
-          />
-        </div>
-      </section>
-
-      <section>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {resources.map((resource, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle>{resource.title}</CardTitle>
-                    <CardDescription className="mt-2">{resource.description}</CardDescription>
-                  </div>
-                  {resource.free && (
-                    <Badge variant="secondary">Free</Badge>
-                  )}
+      <section className="grid md:grid-cols-2 gap-6">
+        {resources.map((resource) => (
+          <Card key={resource.title}>
+            <CardHeader>
+              <div className="flex justify-between items-start">
+                <div>
+                  <CardTitle>{resource.title}</CardTitle>
+                  <CardDescription>{resource.description}</CardDescription>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <Badge variant="outline" className="mb-4">{resource.category}</Badge>
-                <Button className="w-full">Access Resource</Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                {resource.free && <Badge>Free</Badge>}
+              </div>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-3 mb-6">
+                {resource.features.map((feature) => (
+                  <li key={feature} className="flex items-center">
+                    <svg
+                      className="w-4 h-4 mr-3 text-green-500"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M5 13l4 4L19 7" />
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <Button variant={resource.free ? "outline" : "default"} asChild>
+                <Link href={resource.free ? "/resources/free" : "/pricing"}>
+                  {resource.free ? "Access Free Content" : "Subscribe to Access"}
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        ))}
       </section>
 
-      <section className="text-center space-y-6 bg-muted p-8 rounded-lg">
-        <h2 className="text-2xl font-bold">Need More Practice?</h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          Get access to our complete library of state-specific practice questions, full-length practice tests, and detailed explanations.
+      <section className="text-center space-y-4 max-w-2xl mx-auto">
+        <h2 className="text-2xl font-bold">Need More Help?</h2>
+        <p className="text-muted-foreground">
+          Our team is here to support your exam preparation journey
         </p>
-        <Button asChild>
-          <Link href={routes.pricing}>View Pricing Plans</Link>
+        <Button variant="outline" asChild>
+          <Link href="/contact">Contact Support</Link>
         </Button>
       </section>
     </div>
