@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://sparkshift.app/sitemap.xml
+
+# Prevent access to API routes
+Disallow: /api/
+Disallow: /_next/

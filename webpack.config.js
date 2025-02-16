@@ -1,12 +1,13 @@
 const createExpoWebpackConfigAsync = require('@expo/webpack-config');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = async function (env, argv) {
   const config = await createExpoWebpackConfigAsync({
     ...env,
     babel: {
-      dangerouslyAddModulePathsToTranspile: ['@expo/vector-icons']
+      dangerouslyAddModulePathsToTranspile: ['@expo/vector-icons', 'expo-router']
     }
   }, argv);
 
@@ -41,6 +42,19 @@ module.exports = async function (env, argv) {
     hot: true,
     compress: true
   };
+
+  // Add support for expo-router
+  config.resolve.alias = {
+    ...config.resolve.alias,
+    'expo-router': path.resolve(__dirname, 'node_modules/expo-router'),
+  };
+
+  // Configure Expo Router context
+  config.plugins.push(
+    new webpack.DefinePlugin({
+      'process.env.EXPO_ROUTER_APP_ROOT': JSON.stringify('./app'),
+    })
+  );
 
   // Copy static files
   config.plugins.push(

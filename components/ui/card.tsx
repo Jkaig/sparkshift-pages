@@ -1,126 +1,162 @@
-import * as React from "react"
+import React from 'react';
 import { View, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
-import { cn } from "@/lib/utils"
+import { useTheme } from '@/lib/hooks/useTheme';
 
 export interface CardProps {
   children: React.ReactNode;
   style?: ViewStyle;
-  className?: string;
+  variant?: 'default' | 'elevated';
 }
 
 export interface CardHeaderProps {
   children: React.ReactNode;
   style?: ViewStyle;
-  className?: string;
 }
 
 export interface CardTitleProps {
   children: React.ReactNode;
   style?: TextStyle;
-  className?: string;
 }
 
 export interface CardDescriptionProps {
   children: React.ReactNode;
   style?: TextStyle;
-  className?: string;
 }
 
 export interface CardContentProps {
   children: React.ReactNode;
   style?: ViewStyle;
-  className?: string;
 }
 
-export const Card = React.forwardRef<View, CardProps>(({ className, style, children, ...props }, ref) => (
-  <View
-    ref={ref}
-    style={[styles.card, style]}
-    className={cn("rounded-lg border bg-card text-card-foreground shadow-sm", className)}
-    {...props}
-  >
-    {children}
-  </View>
-))
-Card.displayName = "Card"
+export const Card = React.forwardRef<View, CardProps>(
+  ({ children, style, variant = 'default', ...props }, ref) => {
+    const theme = useTheme();
+    
+    const cardStyles = [
+      styles.card,
+      {
+        backgroundColor: theme.colors.background.card,
+        borderRadius: theme.borderRadius.lg,
+        ...(variant === 'elevated' ? theme.shadows.md : {}),
+      },
+      style,
+    ];
 
-export const CardHeader = React.forwardRef<View, CardHeaderProps>(({ className, style, children, ...props }, ref) => (
-  <View
-    ref={ref}
-    style={[styles.header, style]}
-    className={cn("flex flex-col space-y-1.5 p-6", className)}
-    {...props}
-  >
-    {children}
-  </View>
-))
-CardHeader.displayName = "CardHeader"
+    return (
+      <View ref={ref} style={cardStyles} {...props}>
+        {children}
+      </View>
+    );
+  }
+);
 
-export const CardTitle = React.forwardRef<Text, CardTitleProps>(({ className, style, children, ...props }, ref) => (
-  <Text
-    ref={ref}
-    style={[styles.title, style]}
-    className={cn("text-2xl font-semibold leading-none tracking-tight", className)}
-    {...props}
-  >
-    {children}
-  </Text>
-))
-CardTitle.displayName = "CardTitle"
+export const CardHeader = React.forwardRef<View, CardHeaderProps>(
+  ({ children, style, ...props }, ref) => {
+    const theme = useTheme();
+    
+    return (
+      <View
+        ref={ref}
+        style={[
+          styles.header,
+          { padding: theme.spacing.lg },
+          style,
+        ]}
+        {...props}
+      >
+        {children}
+      </View>
+    );
+  }
+);
 
-export const CardDescription = React.forwardRef<Text, CardDescriptionProps>(({ className, style, children, ...props }, ref) => (
-  <Text
-    ref={ref}
-    style={[styles.description, style]}
-    className={cn("text-sm text-muted-foreground", className)}
-    {...props}
-  >
-    {children}
-  </Text>
-))
-CardDescription.displayName = "CardDescription"
+export const CardTitle = React.forwardRef<Text, CardTitleProps>(
+  ({ children, style, ...props }, ref) => {
+    const theme = useTheme();
+    
+    return (
+      <Text
+        ref={ref}
+        style={[
+          styles.title,
+          {
+            color: theme.colors.text.light,
+            fontSize: theme.typography.fontSize.xl,
+            fontWeight: theme.typography.fontWeight.bold,
+          },
+          style,
+        ]}
+        {...props}
+      >
+        {children}
+      </Text>
+    );
+  }
+);
 
-export const CardContent = React.forwardRef<View, CardContentProps>(({ className, style, children, ...props }, ref) => (
-  <View
-    ref={ref}
-    style={[styles.content, style]}
-    className={cn("p-6 pt-0", className)}
-    {...props}
-  >
-    {children}
-  </View>
-))
-CardContent.displayName = "CardContent"
+export const CardDescription = React.forwardRef<Text, CardDescriptionProps>(
+  ({ children, style, ...props }, ref) => {
+    const theme = useTheme();
+    
+    return (
+      <Text
+        ref={ref}
+        style={[
+          styles.description,
+          {
+            color: theme.colors.text.secondaryLight,
+            fontSize: theme.typography.fontSize.sm,
+          },
+          style,
+        ]}
+        {...props}
+      >
+        {children}
+      </Text>
+    );
+  }
+);
+
+export const CardContent = React.forwardRef<View, CardContentProps>(
+  ({ children, style, ...props }, ref) => {
+    const theme = useTheme();
+    
+    return (
+      <View
+        ref={ref}
+        style={[
+          styles.content,
+          { padding: theme.spacing.lg },
+          style,
+        ]}
+        {...props}
+      >
+        {children}
+      </View>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 8,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    overflow: 'hidden',
   },
   header: {
-    marginBottom: 12,
+    marginBottom: 0,
   },
   title: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#1A202C',
     marginBottom: 4,
   },
   description: {
-    fontSize: 14,
-    color: '#4A5568',
     marginBottom: 8,
   },
   content: {
-    marginTop: 8,
+    marginTop: 0,
   },
 });
+
+Card.displayName = 'Card';
+CardHeader.displayName = 'CardHeader';
+CardTitle.displayName = 'CardTitle';
+CardDescription.displayName = 'CardDescription';
+CardContent.displayName = 'CardContent';

@@ -1,42 +1,16 @@
-import { Slot } from 'expo-router';
-import { useEffect } from 'react';
-import { LogBox } from 'react-native';
-import { ThemeProvider } from '@react-navigation/native';
-
-const theme = {
-  dark: false,
-  colors: {
-    primary: '#007AFF',
-    background: '#ffffff',
-    card: '#ffffff',
-    text: '#000000',
-    border: '#cccccc',
-    notification: '#ff3b30',
-  },
-  fonts: {
-    regular: {
-      fontFamily: 'System',
-      fontWeight: '400',
-    },
-    medium: {
-      fontFamily: 'System',
-      fontWeight: '500',
-    },
-    bold: {
-      fontFamily: 'System',
-      fontWeight: '700',
-    },
-  },
-};
+import { Stack } from 'expo-router/stack';
+import { AuthProvider } from '../lib/providers/AuthProvider';
+import { ThemeProvider } from '../lib/providers/ThemeProvider';
 
 export default function RootLayout() {
-  useEffect(() => {
-    LogBox.ignoreLogs(['Warning: ...']); // Ignore specific logs
-  }, []);
-
   return (
-    <ThemeProvider value={theme}>
-      <Slot />
+    <ThemeProvider>
+      <AuthProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        </Stack>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

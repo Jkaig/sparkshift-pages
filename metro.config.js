@@ -1,10 +1,11 @@
-// Learn more https://docs.expo.io/guides/customizing-metro
 const { getDefaultConfig } = require('@expo/metro-config');
 
-const config = getDefaultConfig(__dirname);
+const config = getDefaultConfig(__dirname, {
+  // Enable CSS support
+  isCSSEnabled: true
+});
 
-// Enable CSS support
-config.transformer.unstable_allowRequireContext = true;
-config.resolver.sourceExts.push('mjs', 'cjs');
+// Add support for expo-router
+config.resolver.assetExts.push('cjs');
 
 module.exports = config;
