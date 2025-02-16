@@ -1,5 +1,10 @@
 import { db } from './firebase';
 import { collection, addDoc, query, where, getDocs, updateDoc, doc } from 'firebase/firestore';
+import OpenAI from 'openai';
+
+const openai = new OpenAI({
+  apiKey: process.env.EXPO_PUBLIC_OPENAI_API_KEY
+});
 
 export interface Question {
   id: string;
@@ -36,44 +41,69 @@ export interface TopicMastery {
 
 export const generateQuestions = async (
   state: string,
-  category: string,
-  count: number = 10
+  duration: string,
+  userId?: string
 ): Promise<Question[]> => {
-  // This would typically call an AI service (e.g., OpenAI API)
-  // For now, we'll use mock data
-  const mockQuestions: Partial<Question>[] = Array.from({ length: count }, (_, i) => ({
-    state,
-    category,
-    subcategory: 'General',
-    difficulty: 'intermediate',
-    question: `Sample question ${i + 1} for ${state} ${category}`,
-    options: [
-      'Sample answer 1',
-      'Sample answer 2',
-      'Sample answer 3',
-      'Sample answer 4'
-    ],
-    correctAnswer: Math.floor(Math.random() * 4),
-    explanation: 'Detailed explanation of the correct answer',
-    references: ['NEC 2020 Article XXX'],
-  }));
-
-  const questions: Question[] = [];
+  const questionCount = Math.floor(parseInt(duration) * 2); // 2 questions per minute
   
-  for (const q of mockQuestions) {
-    const docRef = await addDoc(collection(db, 'questions'), {
-      ...q,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-    
-    questions.push({
-      id: docRef.id,
-      ...q as Question
-    });
-  }
+  try {
+    // Get user's previous performance if available
+    let weakTopics: string[] = [];
+    if (userId) {
+      const topicMastery = await getTopicMastery(userId);
+      weakTopics = topicMastery
+        .filter(topic => topic.confidenceScore < 0.7)
+        .map(topic => topic.topic);
+    }
 
-  return questions;
+    // Generate questions using OpenAI
+    const prompt = `Generate ${questionCount} electrical exam questions for ${state} state electrical license exam. 
+    ${weakTopics.length > 0 ? `Focus on these topics: ${weakTopics.join(', ')}. ` : ''}
+    Include state-specific code requirements and recent NEC updates.
+    Format as JSON array with properties: question, options (array of 4), correctAnswer (0-3), explanation, references.`;
+
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4",
+      messages: [
+        {
+          role: "system",
+          content: "You are an expert electrical exam question generator. Create challenging but fair questions that test real-world knowledge and code compliance."
+        },
+        {
+          role: "user",
+          content: prompt
+        }
+      ],
+      temperature: 0.7,
+    });
+
+    const generatedQuestions = JSON.parse(completion.choices[0].message.content || '[]');
+
+    // Store questions in Firestore
+    const questions: Question[] = [];
+    
+    for (const q of generatedQuestions) {
+      const docRef = await addDoc(collection(db, 'questions'), {
+        ...q,
+        state,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+      
+      questions.push({
+        id: docRef.id,
+        ...q,
+        state,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+    }
+
+    return questions;
+  } catch (error) {
+    console.error('Error generating questions:', error);
+    throw error;
+  }
 };
 
 export const submitAnswer = async (

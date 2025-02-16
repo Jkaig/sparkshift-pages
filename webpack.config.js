@@ -16,8 +16,8 @@ module.exports = async function (env, argv) {
     ...config.output,
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: '_expo/static/js/[name].[contenthash].js',
-    chunkFilename: '_expo/static/js/[name].[contenthash].js'
+    filename: 'static/js/[name].[contenthash:8].js',
+    chunkFilename: 'static/js/[name].[contenthash:8].chunk.js'
   };
 
   // Add browser targets for better compatibility
@@ -35,18 +35,25 @@ module.exports = async function (env, argv) {
   config.devServer = {
     ...config.devServer,
     static: {
-      directory: path.join(__dirname, 'dist'),
+      directory: path.join(__dirname, 'public'),
       publicPath: '/'
     },
     historyApiFallback: true,
     hot: true,
-    compress: true
+    compress: true,
+    client: {
+      overlay: {
+        errors: true,
+        warnings: false,
+      },
+    },
   };
 
   // Add support for expo-router
   config.resolve.alias = {
     ...config.resolve.alias,
     'expo-router': path.resolve(__dirname, 'node_modules/expo-router'),
+    '@': path.resolve(__dirname),
   };
 
   // Configure Expo Router context
@@ -56,23 +63,38 @@ module.exports = async function (env, argv) {
     })
   );
 
+  // Optimize chunks
+  config.optimization = {
+    ...config.optimization,
+    splitChunks: {
+      chunks: 'all',
+      name: false,
+    },
+    runtimeChunk: {
+      name: entrypoint => `runtime-${entrypoint.name}`,
+    },
+  };
+
   // Copy static files
   config.plugins.push(
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'public'),
-          to: path.resolve(__dirname, 'dist')
+          from: 'public',
+          to: '',
+          globOptions: {
+            ignore: ['**/index.html'],
+          },
         },
         {
           from: '.well-known',
-          to: '.well-known'
+          to: '.well-known',
         },
         {
-          from: 'apple-app-site-association',
-          to: 'apple-app-site-association'
-        }
-      ]
+          from: 'assets',
+          to: 'assets',
+        },
+      ],
     })
   );
 

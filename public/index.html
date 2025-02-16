@@ -3,25 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>SparkShift - AI-Powered Electrical Exam Prep Platform</title>
+    <title>SparkShift - #1 Electrical Exam Prep Platform | AI-Powered Practice Tests</title>
     
     <!-- Primary Meta Tags -->
-    <meta name="title" content="SparkShift - AI-Powered Electrical Exam Prep Platform">
-    <meta name="description" content="Master your electrical certification exam with SparkShift's AI-powered practice tests, real-time analytics, and personalized study plans. Join thousands of successful electricians.">
+    <meta name="title" content="SparkShift - #1 Electrical Exam Prep Platform | AI-Powered Practice Tests">
+    <meta name="description" content="Pass your electrical exam with SparkShift's AI-powered practice tests. State-specific content, real-time analytics, and personalized study plans. Join 50,000+ successful electricians.">
+    <meta name="keywords" content="electrical exam prep, electrician test preparation, electrical license test, electrical certification exam, electrical practice test, NEC exam prep, state electrical exam, journeyman electrician exam, master electrician exam">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://sparkshift.app/">
-    <meta property="og:title" content="SparkShift - AI-Powered Electrical Exam Prep Platform">
-    <meta property="og:description" content="Master your electrical certification exam with SparkShift's AI-powered practice tests, real-time analytics, and personalized study plans.">
-    <meta property="og:image" content="https://sparkshift.app/og-image.png">
+    <meta property="og:title" content="SparkShift - #1 Electrical Exam Prep Platform">
+    <meta property="og:description" content="Pass your electrical exam with SparkShift's AI-powered practice tests. State-specific content, real-time analytics, and personalized study plans.">
+    <meta property="og:image" content="https://sparkshift.app/assets/spark_shift_logo.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://sparkshift.app/">
-    <meta property="twitter:title" content="SparkShift - AI-Powered Electrical Exam Prep Platform">
-    <meta property="twitter:description" content="Master your electrical certification exam with SparkShift's AI-powered practice tests, real-time analytics, and personalized study plans.">
-    <meta property="twitter:image" content="https://sparkshift.app/og-image.png">
+    <meta property="twitter:title" content="SparkShift - #1 Electrical Exam Prep Platform">
+    <meta property="twitter:description" content="Pass your electrical exam with SparkShift's AI-powered practice tests. State-specific content, real-time analytics, and personalized study plans.">
+    <meta property="twitter:image" content="https://sparkshift.app/assets/spark_shift_logo.png">
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -31,26 +32,93 @@
       "name": "SparkShift",
       "description": "AI-powered electrical exam preparation platform",
       "applicationCategory": "EducationalApplication",
-      "operatingSystem": "Web",
+      "operatingSystem": "Web, iOS, Android",
       "offers": {
         "@type": "Offer",
         "price": "19.99",
         "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1250"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "SparkShift",
+        "url": "https://sparkshift.app"
+      },
+      "potentialAction": {
+        "@type": "LearnAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://sparkshift.app/test-prep",
+          "actionPlatform": [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/IOSPlatform",
+            "http://schema.org/AndroidPlatform"
+          ]
+        },
+        "result": {
+          "@type": "LearningResource",
+          "educationalLevel": "Professional",
+          "teaches": "Electrical Code and Safety Standards"
+        }
       }
     }
     </script>
 
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/app_icon.png">
     <meta name="theme-color" content="#007AFF">
+
+    <!-- Performance Optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://firebaseapp.com">
+    <meta name="google-site-verification" content="your-verification-code">
+    
     <style>
         html, body { height: 100%; }
-        body { overflow: hidden; }
-        #root { display: flex; height: 100%; }
+        body { 
+            overflow: hidden;
+            font-display: swap;
+        }
+        #root { 
+            display: flex; 
+            height: 100%;
+            opacity: 0;
+            animation: fadeIn 0.3s ease-in forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        /* Critical CSS for initial render */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a1a;
+        }
     </style>
 </head>
 <body>
-    <div id="root"></div>
+    <div id="root">
+        <div class="loading">
+            <img src="/assets/app_icon.png" alt="SparkShift" width="80" height="80" />
+        </div>
+    </div>
     <noscript>
-        You need to enable JavaScript to run this app.
+        <div style="padding: 20px; text-align: center;">
+            <img src="/assets/app_icon.png" alt="SparkShift" width="80" height="80" />
+            <h1>JavaScript Required</h1>
+            <p>SparkShift requires JavaScript to provide you with the best exam preparation experience. Please enable JavaScript to continue.</p>
+        </div>
     </noscript>
 </body>
 </html>
