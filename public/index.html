@@ -3,26 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>SparkShift - #1 Electrical Exam Prep Platform | AI-Powered Practice Tests</title>
+    <title>SparkShift - #1 Electrical Exam Prep Platform | Pass Your Exam</title>
     
     <!-- Primary Meta Tags -->
-    <meta name="title" content="SparkShift - #1 Electrical Exam Prep Platform | AI-Powered Practice Tests">
-    <meta name="description" content="Pass your electrical exam with SparkShift's AI-powered practice tests. State-specific content, real-time analytics, and personalized study plans. Join 50,000+ successful electricians.">
-    <meta name="keywords" content="electrical exam prep, electrician test preparation, electrical license test, electrical certification exam, electrical practice test, NEC exam prep, state electrical exam, journeyman electrician exam, master electrician exam">
+    <meta name="title" content="SparkShift - #1 Electrical Exam Prep Platform | Pass Your Exam">
+    <meta name="description" content="Master your electrical license exam with SparkShift's AI-powered practice tests. State-specific content, real-time analytics, and personalized study plans. Join thousands of successful electricians.">
+    <meta name="keywords" content="electrical exam prep, electrician test preparation, electrical license test, electrical certification exam, electrical practice test, NEC exam prep, state electrical exam, journeyman electrician exam, master electrician exam, electrical code study guide">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://sparkshift.app/">
-    <meta property="og:title" content="SparkShift - #1 Electrical Exam Prep Platform">
-    <meta property="og:description" content="Pass your electrical exam with SparkShift's AI-powered practice tests. State-specific content, real-time analytics, and personalized study plans.">
-    <meta property="og:image" content="https://sparkshift.app/assets/spark_shift_logo.png">
+    <meta property="og:title" content="SparkShift - Pass Your Electrical Exam with Confidence">
+    <meta property="og:description" content="Master your electrical license exam with SparkShift's AI-powered practice tests. State-specific content, real-time analytics, and personalized study plans.">
+    <meta property="og:image" content="https://sparkshift.app/assets/spark_shift_social.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://sparkshift.app/">
-    <meta property="twitter:title" content="SparkShift - #1 Electrical Exam Prep Platform">
-    <meta property="twitter:description" content="Pass your electrical exam with SparkShift's AI-powered practice tests. State-specific content, real-time analytics, and personalized study plans.">
-    <meta property="twitter:image" content="https://sparkshift.app/assets/spark_shift_logo.png">
+    <meta property="twitter:title" content="SparkShift - Pass Your Electrical Exam with Confidence">
+    <meta property="twitter:description" content="Master your electrical license exam with SparkShift's AI-powered practice tests. State-specific content, real-time analytics, and personalized study plans.">
+    <meta property="twitter:image" content="https://sparkshift.app/assets/spark_shift_social.png">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="author" content="SparkShift">
+    <meta name="robots" content="index, follow">
+    <meta name="revisit-after" content="7 days">
+    <link rel="canonical" href="https://sparkshift.app/">
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -36,17 +42,24 @@
       "offers": {
         "@type": "Offer",
         "price": "19.99",
-        "priceCurrency": "USD"
+        "priceCurrency": "USD",
+        "priceValidUntil": "2024-12-31"
       },
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.8",
-        "ratingCount": "1250"
+        "ratingCount": "1250",
+        "reviewCount": "850"
       },
       "author": {
         "@type": "Organization",
         "name": "SparkShift",
-        "url": "https://sparkshift.app"
+        "url": "https://sparkshift.app",
+        "sameAs": [
+          "https://facebook.com/sparkshift",
+          "https://twitter.com/sparkshift",
+          "https://linkedin.com/company/sparkshift"
+        ]
       },
       "potentialAction": {
         "@type": "LearnAction",
@@ -62,26 +75,35 @@
         "result": {
           "@type": "LearningResource",
           "educationalLevel": "Professional",
-          "teaches": "Electrical Code and Safety Standards"
+          "teaches": "Electrical Code and Safety Standards",
+          "educationalUse": "Test Preparation"
         }
       }
     }
     </script>
 
     <!-- Favicon and App Icons -->
-    <link rel="icon" type="image/png" href="/assets/favicon.png">
-    <link rel="apple-touch-icon" href="/assets/app_icon.png">
-    <meta name="theme-color" content="#007AFF">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <meta name="theme-color" content="#0A0B1E">
 
     <!-- Performance Optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://firebaseapp.com">
+    <link rel="preload" as="image" href="/assets/icon.png">
     <meta name="google-site-verification" content="your-verification-code">
     
     <style>
-        html, body { height: 100%; }
+        /* Critical CSS */
+        html, body { 
+            height: 100%;
+            margin: 0;
+            background: #0A0B1E;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
         body { 
-            overflow: hidden;
+            overflow-x: hidden;
             font-display: swap;
         }
         #root { 
@@ -93,7 +115,6 @@
         @keyframes fadeIn {
             to { opacity: 1; }
         }
-        /* Critical CSS for initial render */
         .loading {
             position: fixed;
             top: 0;
@@ -103,19 +124,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #1a1a1a;
+            background: #0A0B1E;
         }
     </style>
 </head>
 <body>
     <div id="root">
         <div class="loading">
-            <img src="/assets/app_icon.png" alt="SparkShift" width="80" height="80" />
+            <img src="/assets/icon.png" alt="SparkShift" width="80" height="80" />
         </div>
     </div>
     <noscript>
-        <div style="padding: 20px; text-align: center;">
-            <img src="/assets/app_icon.png" alt="SparkShift" width="80" height="80" />
+        <div style="padding: 20px; text-align: center; color: #fff;">
+            <img src="/assets/icon.png" alt="SparkShift" width="80" height="80" />
             <h1>JavaScript Required</h1>
             <p>SparkShift requires JavaScript to provide you with the best exam preparation experience. Please enable JavaScript to continue.</p>
         </div>

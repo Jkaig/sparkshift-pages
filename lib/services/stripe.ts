@@ -7,7 +7,7 @@ let stripePromise: Promise<Stripe | null>;
 
 export const getStripe = () => {
   if (!stripePromise) {
-    stripePromise = loadStripe(Constants.expoConfig?.extra?.EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+    stripePromise = loadStripe(process.env.EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
   }
   return stripePromise;
 };
@@ -21,8 +21,8 @@ export const createCheckoutSession = async (priceId: string) => {
   const userData = userDoc.data();
   const hasSparkShiftVerification = userData?.sparkshiftMobileVerified || false;
 
-  // Apply $7 discount if user is verified mobile subscriber
-  const discountAmount = hasSparkShiftVerification ? 700 : 0; // $7.00 discount in cents
+  // Apply $5 discount if user is verified mobile subscriber
+  const discountAmount = hasSparkShiftVerification ? 500 : 0; // $5.00 discount in cents
 
   const checkoutSession = {
     price: priceId,
@@ -30,6 +30,7 @@ export const createCheckoutSession = async (priceId: string) => {
     cancel_url: window.location.origin + '/cancel',
     customer_email: user.email,
     client_reference_id: user.uid,
+    allow_promotion_codes: true,
     metadata: {
       userId: user.uid,
       hasDiscount: hasSparkShiftVerification,
@@ -58,7 +59,7 @@ export const verifySparkShiftSubscription = async (userId: string) => {
           sparkshiftMobileVerified: true,
           updatedAt: new Date(),
           discountEligible: true,
-          discountAmount: 700, // $7.00 in cents
+          discountAmount: 500, // $5.00 in cents
         });
         return true;
       }

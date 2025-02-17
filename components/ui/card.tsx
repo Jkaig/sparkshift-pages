@@ -1,162 +1,65 @@
 import React from 'react';
-import { View, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
-import { useTheme } from '@/lib/hooks/useTheme';
+import { View, StyleSheet, ViewStyle } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import Animated, { FadeIn } from 'react-native-reanimated';
+import { theme } from '@/lib/theme';
 
-export interface CardProps {
-  children: React.ReactNode;
+interface CardProps {
+  variant?: 'default' | 'elevated' | 'gradient';
   style?: ViewStyle;
-  variant?: 'default' | 'elevated';
-}
-
-export interface CardHeaderProps {
   children: React.ReactNode;
-  style?: ViewStyle;
 }
 
-export interface CardTitleProps {
-  children: React.ReactNode;
-  style?: TextStyle;
-}
+export const Card = React.forwardRef<View, CardProps>(({
+  variant = 'default',
+  style,
+  children,
+}, ref) => {
+  const cardContent = (
+    <Animated.View
+      entering={FadeIn.duration(400)}
+      style={[
+        styles.card,
+        variant === 'elevated' && styles.elevated,
+        style,
+      ]}
+    >
+      {children}
+    </Animated.View>
+  );
 
-export interface CardDescriptionProps {
-  children: React.ReactNode;
-  style?: TextStyle;
-}
-
-export interface CardContentProps {
-  children: React.ReactNode;
-  style?: ViewStyle;
-}
-
-export const Card = React.forwardRef<View, CardProps>(
-  ({ children, style, variant = 'default', ...props }, ref) => {
-    const theme = useTheme();
-    
-    const cardStyles = [
-      styles.card,
-      {
-        backgroundColor: theme.colors.background.card,
-        borderRadius: theme.borderRadius.lg,
-        ...(variant === 'elevated' ? theme.shadows.md : {}),
-      },
-      style,
-    ];
-
+  if (variant === 'gradient') {
     return (
-      <View ref={ref} style={cardStyles} {...props}>
-        {children}
-      </View>
-    );
-  }
-);
-
-export const CardHeader = React.forwardRef<View, CardHeaderProps>(
-  ({ children, style, ...props }, ref) => {
-    const theme = useTheme();
-    
-    return (
-      <View
-        ref={ref}
-        style={[
-          styles.header,
-          { padding: theme.spacing.lg },
-          style,
-        ]}
-        {...props}
+      <LinearGradient
+        colors={theme.colors.background.gradient}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.gradientContainer}
       >
-        {children}
-      </View>
+        {cardContent}
+      </LinearGradient>
     );
   }
-);
 
-export const CardTitle = React.forwardRef<Text, CardTitleProps>(
-  ({ children, style, ...props }, ref) => {
-    const theme = useTheme();
-    
-    return (
-      <Text
-        ref={ref}
-        style={[
-          styles.title,
-          {
-            color: theme.colors.text.light,
-            fontSize: theme.typography.fontSize.xl,
-            fontWeight: theme.typography.fontWeight.bold,
-          },
-          style,
-        ]}
-        {...props}
-      >
-        {children}
-      </Text>
-    );
-  }
-);
-
-export const CardDescription = React.forwardRef<Text, CardDescriptionProps>(
-  ({ children, style, ...props }, ref) => {
-    const theme = useTheme();
-    
-    return (
-      <Text
-        ref={ref}
-        style={[
-          styles.description,
-          {
-            color: theme.colors.text.secondaryLight,
-            fontSize: theme.typography.fontSize.sm,
-          },
-          style,
-        ]}
-        {...props}
-      >
-        {children}
-      </Text>
-    );
-  }
-);
-
-export const CardContent = React.forwardRef<View, CardContentProps>(
-  ({ children, style, ...props }, ref) => {
-    const theme = useTheme();
-    
-    return (
-      <View
-        ref={ref}
-        style={[
-          styles.content,
-          { padding: theme.spacing.lg },
-          style,
-        ]}
-        {...props}
-      >
-        {children}
-      </View>
-    );
-  }
-);
+  return cardContent;
+});
 
 const styles = StyleSheet.create({
   card: {
+    backgroundColor: theme.colors.background.card,
+    borderRadius: theme.borderRadius.lg,
+    padding: theme.spacing.lg,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  elevated: {
+    ...theme.shadows.lg,
+    backgroundColor: theme.colors.background.card,
+  },
+  gradientContainer: {
+    borderRadius: theme.borderRadius.lg,
     overflow: 'hidden',
-  },
-  header: {
-    marginBottom: 0,
-  },
-  title: {
-    marginBottom: 4,
-  },
-  description: {
-    marginBottom: 8,
-  },
-  content: {
-    marginTop: 0,
   },
 });
 
 Card.displayName = 'Card';
-CardHeader.displayName = 'CardHeader';
-CardTitle.displayName = 'CardTitle';
-CardDescription.displayName = 'CardDescription';
-CardContent.displayName = 'CardContent';

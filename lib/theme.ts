@@ -1,46 +1,46 @@
+// Update theme with enhanced colors and animations
 export const theme = {
   colors: {
-    // Primary Colors
     primary: {
       main: '#0A0B1E',      // Deep Navy Blue
       light: '#5DADE2',     // Sky Blue
       default: '#3498DB',   // Bright Blue
       dark: '#154360',      // Deep Blue
+      gradient: ['#3498DB', '#2980B9'], // Gradient for buttons
     },
-    // Secondary Colors
     secondary: {
       main: '#A93226',      // Deep Red
       light: '#EB984E',     // Soft Orange
+      gradient: ['#EB984E', '#D35400'], // Gradient for secondary elements
     },
-    // Background Colors
     background: {
       main: '#0A0B1E',      // Deep Navy
       card: '#16213E',      // Slightly Lighter Navy
       secondary: '#1A1B3E', // Navy Blue
       light: '#F5F6FA',     // Off-White
       dialog: '#16213E',    // Navy Blue
+      gradient: ['#0A0B1E', '#16213E'], // Gradient for backgrounds
     },
-    // Text Colors
     text: {
       dark: '#2C3E50',      // Deep Grey
       light: '#FFFFFF',     // Pure White
       secondaryDark: '#555555', // Medium Grey
       secondaryLight: '#AAAAAA', // Light Grey
+      gradient: ['#FFFFFF', '#E0E0E0'], // Gradient for text effects
     },
-    // Accent Colors
     accent: {
-      red: '#E74C3C',       // Bright Red
-      blue: '#3498DB',      // Bright Blue
+      success: '#059669',   // Green
+      error: '#dc2626',     // Red
+      warning: '#f59e0b',   // Amber
+      info: '#3b82f6',      // Blue
+      gradient: {
+        success: ['#059669', '#047857'],
+        error: ['#dc2626', '#b91c1c'],
+        warning: ['#f59e0b', '#d97706'],
+        info: ['#3b82f6', '#2563eb'],
+      },
     },
-    // Border Colors
-    border: '#3A3B5E',      // Muted Blue-Grey
-    // Status Colors
-    success: '#059669',     // Green
-    error: '#dc2626',       // Red
-    warning: '#f59e0b',     // Amber
-    info: '#3b82f6',        // Blue
   },
-  // Spacing
   spacing: {
     xs: 4,
     sm: 8,
@@ -49,15 +49,13 @@ export const theme = {
     xl: 32,
     xxl: 48,
   },
-  // Border Radius
   borderRadius: {
     sm: 4,
     md: 8,
     lg: 12,
     xl: 16,
-    full: 9999,
+    pill: 9999,
   },
-  // Typography
   typography: {
     fontFamily: {
       sans: 'System',
@@ -66,20 +64,30 @@ export const theme = {
     fontSize: {
       xs: 12,
       sm: 14,
-      md: 16,
+      base: 16,
       lg: 18,
       xl: 20,
-      xxl: 24,
-      xxxl: 32,
+      '2xl': 24,
+      '3xl': 32,
+      '4xl': 40,
+      '5xl': 48,
     },
     fontWeight: {
       normal: '400',
       medium: '500',
       semibold: '600',
       bold: '700',
+      extrabold: '800',
+    },
+    lineHeight: {
+      none: 1,
+      tight: 1.25,
+      snug: 1.375,
+      normal: 1.5,
+      relaxed: 1.625,
+      loose: 2,
     },
   },
-  // Shadows
   shadows: {
     sm: {
       shadowColor: '#000',
@@ -102,13 +110,31 @@ export const theme = {
       shadowRadius: 8,
       elevation: 8,
     },
+    glow: {
+      shadowColor: '#3498DB',
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0.3,
+      shadowRadius: 12,
+      elevation: 12,
+    },
   },
-  // Gradients
-  gradients: {
-    primary: ['#0A0B1E', '#16213E'],
-    accent: ['#3498DB', '#5DADE2'],
-    success: ['#059669', '#34D399'],
-    error: ['#dc2626', '#ef4444'],
+  animation: {
+    duration: {
+      fast: 150,
+      normal: 300,
+      slow: 500,
+    },
+    easing: {
+      easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
+      easeOut: 'cubic-bezier(0.0, 0, 0.2, 1)',
+      easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
+    },
+  },
+  blur: {
+    sm: 4,
+    md: 8,
+    lg: 12,
+    xl: 16,
   },
 };
 
