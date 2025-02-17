@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://sparkshift.app/sitemap.xml
+
+# Prevent access to API routes
+Disallow: /api/
+Disallow: /_next/
+
+# Allow crawling of important pages
+Allow: /test-prep
+Allow: /resources
+Allow: /pricing
+Allow: /contact
+
+# Rate limiting
+Crawl-delay: 1
+
+# Host
+Host: https://sparkshift.app
