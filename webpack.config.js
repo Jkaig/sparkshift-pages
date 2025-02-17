@@ -30,6 +30,15 @@ module.exports = async function (env, argv) {
     'app': path.resolve(__dirname, 'app')
   };
 
+  // Configure image handling
+  config.module.rules.push({
+    test: /\.(png|jpe?g|gif|webp)$/i,
+    type: 'asset/resource',
+    generator: {
+      filename: 'assets/[name].[hash][ext]'
+    }
+  });
+
   // Add entry point for polyfills
   const originalEntry = config.entry;
   config.entry = async () => {
