@@ -2,17 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet, Pressable, Image, useWindowDimensions } from 'react-native';
 import { Link } from 'expo-router';
 import { routes } from '../lib/routes';
-import Animated, { FadeInUp } from 'react-native-reanimated';
 
 export function Footer() {
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
 
   return (
-    <Animated.View 
-      entering={FadeInUp.duration(500)}
-      style={styles.footer}
-    >
+    <View style={styles.footer}>
       <View style={styles.content}>
         <Image 
           source={require('../assets/icon.png')}
@@ -20,7 +16,7 @@ export function Footer() {
           resizeMode="contain"
         />
         <Text style={styles.copyright}>
-          © {new Date().getFullYear()} SparkShift. All rights reserved.
+          {new Date().getFullYear()} SparkShift. All rights reserved.
         </Text>
       </View>
       
@@ -73,7 +69,7 @@ export function Footer() {
           SparkShift is available on Web, iOS, and Android
         </Text>
       )}
-    </Animated.View>
+    </View>
   );
 }
 

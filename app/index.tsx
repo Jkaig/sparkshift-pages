@@ -1,18 +1,51 @@
-import { View, Text, StyleSheet, Pressable, Image, useWindowDimensions, ScrollView } from 'react-native';
+import '../polyfills/global';
+import { View, Text, StyleSheet, Pressable, Image, useWindowDimensions, ScrollView, Animated } from 'react-native';
 import { Link } from 'expo-router';
-import Animated, { FadeInUp, FadeInRight } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
+import { useEffect, useRef } from 'react';
 
 export default function Index() {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const fadeAnimUp = useRef(new Animated.Value(0)).current;
+  const fadeAnimRight = useRef(new Animated.Value(0)).current;
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+    Animated.timing(fadeAnimUp, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+    Animated.timing(fadeAnimRight, {
+      toValue: 1,
+      duration: 800,
+      useNativeDriver: true,
+    }).start();
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.heroSection}>
         <Animated.View 
-          entering={FadeInUp.duration(1000)}
-          style={[styles.content, isMobile && styles.contentMobile]}
+          style={[
+            styles.content,
+            isMobile && styles.contentMobile,
+            {
+              opacity: fadeAnim,
+              transform: [{
+                translateY: fadeAnim.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [50, 0],
+                }),
+              }],
+            },
+          ]}
         >
           <Image 
             source={require('../assets/icon.png')}
@@ -28,8 +61,18 @@ export default function Index() {
           
           <View style={styles.features}>
             <Animated.View 
-              entering={FadeInRight.delay(200).duration(800)}
-              style={styles.feature}
+              style={[
+                styles.feature,
+                {
+                  opacity: fadeAnimRight,
+                  transform: [{
+                    translateX: fadeAnimRight.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [50, 0],
+                    }),
+                  }],
+                },
+              ]}
             >
               <Ionicons name="flash" size={24} color="#5DADE2" />
               <View style={styles.featureContent}>
@@ -41,8 +84,18 @@ export default function Index() {
             </Animated.View>
             
             <Animated.View 
-              entering={FadeInRight.delay(400).duration(800)}
-              style={styles.feature}
+              style={[
+                styles.feature,
+                {
+                  opacity: fadeAnimRight,
+                  transform: [{
+                    translateX: fadeAnimRight.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [100, 0],
+                    }),
+                  }],
+                },
+              ]}
             >
               <Ionicons name="stats-chart" size={24} color="#5DADE2" />
               <View style={styles.featureContent}>
@@ -54,8 +107,18 @@ export default function Index() {
             </Animated.View>
             
             <Animated.View 
-              entering={FadeInRight.delay(600).duration(800)}
-              style={styles.feature}
+              style={[
+                styles.feature,
+                {
+                  opacity: fadeAnimRight,
+                  transform: [{
+                    translateX: fadeAnimRight.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [150, 0],
+                    }),
+                  }],
+                },
+              ]}
             >
               <Ionicons name="book" size={24} color="#5DADE2" />
               <View style={styles.featureContent}>
@@ -84,8 +147,18 @@ export default function Index() {
 
       <View style={styles.statsSection}>
         <Animated.View 
-          entering={FadeInUp.delay(800).duration(1000)}
-          style={styles.stats}
+          style={[
+            styles.stats,
+            {
+              opacity: fadeAnimUp,
+              transform: [{
+                translateY: fadeAnimUp.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [50, 0],
+                }),
+              }],
+            },
+          ]}
         >
           <View style={styles.statItem}>
             <Text style={styles.statNumber}>50,000+</Text>
@@ -106,8 +179,18 @@ export default function Index() {
 
       <View style={styles.testimonialSection}>
         <Animated.View 
-          entering={FadeInUp.delay(1000).duration(1000)}
-          style={styles.testimonial}
+          style={[
+            styles.testimonial,
+            {
+              opacity: fadeAnimUp,
+              transform: [{
+                translateY: fadeAnimUp.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [50, 0],
+                }),
+              }],
+            },
+          ]}
         >
           <Text style={styles.testimonialText}>
             "SparkShift helped me pass my exam on the first try. The practice questions are spot-on and the analytics helped me focus on my weak areas."

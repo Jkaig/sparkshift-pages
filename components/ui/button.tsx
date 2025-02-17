@@ -1,10 +1,19 @@
 import React from 'react';
-import { Pressable, Text, StyleSheet, ViewStyle, TextStyle, Animated } from 'react-native';
+import {
+  Pressable,
+  Text,
+  StyleSheet,
+  ViewStyle,
+  TextStyle,
+  Animated,
+  View,
+  ActivityIndicator,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { theme } from '@/lib/theme';
 
 interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive';
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
   disabled?: boolean;
@@ -17,7 +26,7 @@ interface ButtonProps {
   children: React.ReactNode;
 }
 
-export const Button = React.forwardRef<Pressable, ButtonProps>(({
+export const Button = React.forwardRef<any, ButtonProps>(({
   variant = 'primary',
   size = 'md',
   fullWidth = false,
@@ -30,86 +39,89 @@ export const Button = React.forwardRef<Pressable, ButtonProps>(({
   textStyle,
   children,
 }, ref) => {
-  const [pressed, setPressed] = React.useState(false);
-  const scaleAnim = React.useRef(new Animated.Value(1)).current;
+  const [isPressed, setIsPressed] = React.useState(false);
+  const animatedScale = React.useRef(new Animated.Value(1)).current;
 
   const handlePressIn = () => {
-    setPressed(true);
-    Animated.spring(scaleAnim, {
+    setIsPressed(true);
+    Animated.timing(animatedScale, {
       toValue: 0.95,
+      duration: 50,
       useNativeDriver: true,
     }).start();
   };
 
   const handlePressOut = () => {
-    setPressed(false);
-    Animated.spring(scaleAnim, {
+    setIsPressed(false);
+    Animated.timing(animatedScale, {
       toValue: 1,
+      duration: 100,
       useNativeDriver: true,
     }).start();
   };
 
-  const getGradientColors = () => {
+  const getGradientColors = (): [string, string] => {
     switch (variant) {
       case 'primary':
-        return theme.colors.primary.gradient;
+        return [theme.colors.primary.gradient[0], theme.colors.primary.gradient[1]];
       case 'secondary':
-        return theme.colors.secondary.gradient;
+        return [theme.colors.secondary.gradient[0], theme.colors.secondary.gradient[1]];
       default:
-        return undefined;
+        return ['#4F46E5', '#7C3AED']; // Default gradient colors
     }
   };
 
-  const buttonStyles = [
+  const buttonStyle = [
     styles.base,
     styles[variant],
     styles[size],
     fullWidth && styles.fullWidth,
     disabled && styles.disabled,
-    pressed && styles.pressed,
     style,
   ];
 
+  type TextStyleVariants =
+    | 'text'
+    | 'textPrimary'
+    | 'textSecondary'
+    | 'textOutline'
+    | 'textGhost'
+    | 'textDestructive';
+
   const textStyles = [
     styles.text,
-    styles[`${variant}Text`],
-    styles[`${size}Text`],
-    disabled && styles.disabledText,
+    styles[(`text${variant.charAt(0).toUpperCase() + variant.slice(1)}`) as TextStyleVariants],
     textStyle,
   ];
+
+  const gradientColors = getGradientColors();
 
   const content = (
     <>
       {loading ? (
-        <ActivityIndicator color={variant === 'outline' ? theme.colors.primary.main : '#FFFFFF'} />
+        <ActivityIndicator color={variant === 'outline' || variant === 'ghost' ? theme.colors.primary.main : '#fff'} />
       ) : (
         <View style={styles.contentContainer}>
           {icon && iconPosition === 'left' && <View style={styles.iconLeft}>{icon}</View>}
-          }
           <Text style={textStyles}>{children}</Text>
           {icon && iconPosition === 'right' && <View style={styles.iconRight}>{icon}</View>}
-          }
         </View>
       )}
     </>
   );
 
   return (
-    <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
+    <Animated.View style={{ transform: [{ scale: animatedScale }] }}>
       <Pressable
         ref={ref}
-        onPress={disabled || loading ? undefined : onPress}
+        style={buttonStyle}
+        onPress={onPress}
+        disabled={disabled || loading}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
-        style={buttonStyles}
       >
         {variant === 'primary' || variant === 'secondary' ? (
-          <LinearGradient
-            colors={getGradientColors()!}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={[styles.gradient, buttonStyles]}
-          >
+          <LinearGradient colors={gradientColors} style={styles.gradient}>
             {content}
           </LinearGradient>
         ) : (
@@ -125,8 +137,74 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: theme.borderRadius.lg,
-    overflow: 'hidden',
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+  },
+  primary: {
+    backgroundColor: theme.colors.primary.main,
+  },
+  secondary: {
+    backgroundColor: theme.colors.secondary.main,
+  },
+  outline: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: theme.colors.primary.main,
+  },
+  ghost: {
+    backgroundColor: 'transparent',
+  },
+  destructive: {
+    backgroundColor: '#DC2626',
+  },
+  sm: {
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+  },
+  md: {
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+  },
+  lg: {
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+  },
+  disabled: {
+    opacity: 0.5,
+  },
+  text: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  textPrimary: {
+    color: '#ffffff',
+  },
+  textSecondary: {
+    color: '#ffffff',
+  },
+  textOutline: {
+    color: theme.colors.primary.main,
+  },
+  textGhost: {
+    color: theme.colors.primary.main,
+  },
+  textDestructive: {
+    color: '#ffffff',
+  },
+  iconLeft: {
+    marginRight: 8,
+  },
+  iconRight: {
+    marginLeft: 8,
+    marginRight: 0,
+  },
+  contentContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   gradient: {
     width: '100%',
@@ -134,81 +212,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  primary: {
-    backgroundColor: theme.colors.primary.main,
-    ...theme.shadows.md,
-  },
-  secondary: {
-    backgroundColor: theme.colors.secondary.main,
-    ...theme.shadows.md,
-  },
-  outline: {
-    backgroundColor: 'transparent',
-    borderWidth: 2,
-    borderColor: theme.colors.primary.main,
-  },
-  ghost: {
-    backgroundColor: 'transparent',
-  },
-  sm: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-  },
-  md: {
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-  },
-  lg: {
-    paddingVertical: 16,
-    paddingHorizontal: 32,
-  },
   fullWidth: {
     width: '100%',
-  },
-  disabled: {
-    opacity: 0.5,
-  },
-  pressed: {
-    opacity: 0.9,
-  },
-  contentContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontWeight: theme.typography.fontWeight.semibold,
-    textAlign: 'center',
-  },
-  primaryText: {
-    color: theme.colors.text.light,
-  },
-  secondaryText: {
-    color: theme.colors.text.light,
-  },
-  outlineText: {
-    color: theme.colors.primary.main,
-  },
-  ghostText: {
-    color: theme.colors.primary.main,
-  },
-  smText: {
-    fontSize: theme.typography.fontSize.sm,
-  },
-  mdText: {
-    fontSize: theme.typography.fontSize.base,
-  },
-  lgText: {
-    fontSize: theme.typography.fontSize.lg,
-  },
-  disabledText: {
-    color: theme.colors.text.secondaryLight,
-  },
-  iconLeft: {
-    marginRight: 8,
-  },
-  iconRight: {
-    marginLeft: 8,
   },
 });
 

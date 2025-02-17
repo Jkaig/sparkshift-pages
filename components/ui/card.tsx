@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, ViewStyle } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import Animated, { FadeIn } from 'react-native-reanimated';
 import { theme } from '@/lib/theme';
 
 interface CardProps {
@@ -16,8 +15,7 @@ export const Card = React.forwardRef<View, CardProps>(({
   children,
 }, ref) => {
   const cardContent = (
-    <Animated.View
-      entering={FadeIn.duration(400)}
+    <View
       style={[
         styles.card,
         variant === 'elevated' && styles.elevated,
@@ -25,13 +23,13 @@ export const Card = React.forwardRef<View, CardProps>(({
       ]}
     >
       {children}
-    </Animated.View>
+    </View>
   );
 
   if (variant === 'gradient') {
     return (
       <LinearGradient
-        colors={theme.colors.background.gradient}
+        colors={['#1a1a1a', '#2a2a2a']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={styles.gradientContainer}

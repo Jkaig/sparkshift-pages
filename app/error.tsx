@@ -1,23 +1,15 @@
+'use client';
+
 import React from 'react';
-import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { Link } from 'expo-router';
-import Animated, { FadeIn } from 'react-native-reanimated';
 
-interface ErrorProps {
-  error: Error;
-  retry?: () => void;
-}
-
-export default function ErrorScreen({ error, retry }: ErrorProps) {
+export default function ErrorScreen({ error, retry }: { error: Error; retry?: () => void }) {
   return (
-    <Animated.View 
-      entering={FadeIn.duration(500)}
-      style={styles.container}
-    >
+    <View style={styles.container}>
       <Text style={styles.title}>Oops!</Text>
       <Text style={styles.subtitle}>Something went wrong</Text>
       <Text style={styles.error}>{error.message}</Text>
-      
       <View style={styles.actions}>
         {retry && (
           <Pressable style={styles.retryButton} onPress={retry}>
@@ -30,11 +22,10 @@ export default function ErrorScreen({ error, retry }: ErrorProps) {
           </Pressable>
         </Link>
       </View>
-
       <Text style={styles.supportText}>
         If this problem persists, please contact our support team
       </Text>
-    </Animated.View>
+    </View>
   );
 }
 

@@ -1,0 +1,12 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/login/page": "app/login/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/login/verify/page": "app/login/verify/page.js",
+  "/journeyman-review/page": "app/journeyman-review/page.js",
+  "/pricing/page": "app/pricing/page.js",
+  "/resources/page": "app/resources/page.js",
+  "/test-prep/page": "app/test-prep/page.js",
+  "/review/page": "app/review/page.js"
+}

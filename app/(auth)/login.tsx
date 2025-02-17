@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, StyleSheet, Animated, TextInput, Pressable } from 'react-native';
 import { Link } from 'expo-router';
 import { routes } from '../../lib/routes';
 import { Input } from '../../components/ui/input';
 import { Button } from '../../components/ui/button';
-import Animated, { FadeInUp } from 'react-native-reanimated';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  }, []);
 
   const handleLogin = () => {
     // TODO: Implement login logic
@@ -16,11 +24,21 @@ export default function LoginScreen() {
   };
 
   return (
-    <Animated.View 
-      entering={FadeInUp.duration(1000)}
-      style={styles.container}
-    >
-      <View style={styles.form}>
+    <View style={styles.container}>
+      <Animated.View 
+        style={[
+          styles.form,
+          {
+            opacity: fadeAnim,
+            transform: [{
+              translateY: fadeAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: [50, 0],
+              }),
+            }],
+          },
+        ]}
+      >
         <Input
           label="Email"
           placeholder="name@example.com"
@@ -30,6 +48,7 @@ export default function LoginScreen() {
           autoComplete="email"
           autoCorrect="off"
         />
+        
         <Input
           label="Password"
           placeholder="Enter your password"
@@ -37,16 +56,18 @@ export default function LoginScreen() {
           onChange={(e) => setPassword(e.target.value)}
           type="password"
         />
-        <Button onClick={handleLogin}>
+        
+        <Button onPress={handleLogin}>
           Log In
         </Button>
+        
         <Link href={routes.auth.signup} asChild>
           <Button variant="outline">
             Create Account
           </Button>
         </Link>
-      </View>
-    </Animated.View>
+      </Animated.View>
+    </View>
   );
 }
 

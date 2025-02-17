@@ -1,21 +1,21 @@
 module.exports = {
   name: process.env.EXPO_PUBLIC_APP_NAME || 'SparkShift',
-  slug: 'sparkshift',
+  slug: 'sparkshift-pages',
   version: process.env.EXPO_PUBLIC_APP_VERSION || '1.0.0',
   orientation: 'portrait',
-  icon: './assets/icon.png',
-  userInterfaceStyle: 'automatic',
+  icon: './assets/app_icon.png',
+  userInterfaceStyle: 'light',
   splash: {
     image: './assets/splash.png',
     resizeMode: 'contain',
-    backgroundColor: '#0A0B1E'
+    backgroundColor: '#ffffff'
   },
   updates: {
     fallbackToCacheTimeout: 0,
     checkAutomatically: 'ON_LOAD'
   },
   assetBundlePatterns: [
-    "assets/*"
+    "**/*"
   ],
   ios: {
     supportsTablet: true,
@@ -27,14 +27,14 @@ module.exports = {
   android: {
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
-      backgroundColor: '#0A0B1E'
+      backgroundColor: '#ffffff'
     },
     package: 'com.sparkshift.app'
   },
   web: {
-    favicon: './assets/favicon.png',
     bundler: 'metro',
     output: 'static',
+    favicon: './assets/app_icon.png',
     name: 'SparkShift - #1 Electrical Exam Prep Platform',
     description: 'Master your electrical certification exam with SparkShift\'s AI-powered practice tests, real-time analytics, and personalized study plans.',
     themeColor: '#0A0B1E',
@@ -64,5 +64,9 @@ module.exports = {
         }
       }
     ]
+  },
+  scheme: 'sparkshift',
+  experiments: {
+    tsconfigPaths: true
   }
 }

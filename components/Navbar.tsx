@@ -1,8 +1,9 @@
+'use client';
+
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable, Image, useWindowDimensions } from 'react-native';
 import { Link } from 'expo-router';
 import { routes } from '../lib/routes';
-import Animated, { FadeInDown } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
 
 export function Navbar() {
@@ -11,10 +12,7 @@ export function Navbar() {
   const isMobile = width < 768;
 
   return (
-    <Animated.View 
-      entering={FadeInDown.duration(500)}
-      style={styles.navbar}
-    >
+    <View style={styles.navbar}>
       <Link href={routes.screens.home} asChild>
         <Pressable style={styles.logoContainer}>
           <Image 
@@ -40,10 +38,7 @@ export function Navbar() {
           </Pressable>
 
           {menuOpen && (
-            <Animated.View 
-              entering={FadeInDown.duration(300)}
-              style={styles.mobileMenu}
-            >
+            <View style={styles.mobileMenu}>
               <Link href={routes.screens.pricing} asChild>
                 <Pressable style={styles.mobileLink}>
                   <Text style={styles.mobileLinkText}>Pricing</Text>
@@ -64,7 +59,7 @@ export function Navbar() {
                   <Text style={styles.loginText}>Login</Text>
                 </Pressable>
               </Link>
-            </Animated.View>
+            </View>
           )}
         </View>
       ) : (
@@ -91,7 +86,7 @@ export function Navbar() {
           </Link>
         </View>
       )}
-    </Animated.View>
+    </View>
   );
 }
 

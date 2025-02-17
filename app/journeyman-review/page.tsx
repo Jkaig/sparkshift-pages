@@ -1,8 +1,9 @@
+'use client';
+
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Pressable, Platform } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
 import * as Linking from 'expo-linking';
-import Animated, { FadeInUp } from 'react-native-reanimated';
 import { FontAwesome } from '@expo/vector-icons';
 
 export default function JourneymanReviewPage() {
@@ -16,7 +17,6 @@ export default function JourneymanReviewPage() {
       if (supported) {
         await Linking.openURL(url);
       } else {
-        // If app URL not supported, open store
         if (Platform.OS === 'ios') {
           Linking.openURL('https://apps.apple.com/app/sparkshift/id123456789');
         } else {
@@ -38,10 +38,7 @@ export default function JourneymanReviewPage() {
 
   return (
     <View style={styles.container}>
-      <Animated.View 
-        entering={FadeInUp.duration(1000)}
-        style={styles.content}
-      >
+      <View style={styles.content}>
         <Text style={styles.title}>Review Ready</Text>
         
         <Text style={styles.description}>
@@ -72,7 +69,7 @@ export default function JourneymanReviewPage() {
         >
           <Text style={styles.openButtonText}>Open in App</Text>
         </Pressable>
-      </Animated.View>
+      </View>
     </View>
   );
 }

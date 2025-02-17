@@ -14,7 +14,7 @@ module.exports = async function (env, argv) {
   // Customize the config before returning it.
   config.output = {
     ...config.output,
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'web-build'),
     publicPath: '/',
     filename: 'static/js/[name].[contenthash:8].js',
     chunkFilename: 'static/js/[name].[contenthash:8].chunk.js'
@@ -28,7 +28,24 @@ module.exports = async function (env, argv) {
     ...config.resolve.fallback,
     "crypto": require.resolve("crypto-browserify"),
     "stream": require.resolve("stream-browserify"),
-    "buffer": require.resolve("buffer/")
+    "buffer": require.resolve("buffer/"),
+    "requestAnimationFrame": require.resolve("raf/polyfill"),
+    "cancelAnimationFrame": require.resolve("raf/polyfill"),
+  };
+
+  // Configure module resolution
+  config.resolve = {
+    ...config.resolve,
+    modules: [
+      path.resolve(__dirname, '.'),
+      path.resolve(__dirname, 'node_modules'),
+      'node_modules'
+    ],
+    alias: {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname),
+      'app': path.resolve(__dirname, 'app')
+    }
   };
 
   // Configure dev server
@@ -49,54 +66,30 @@ module.exports = async function (env, argv) {
     },
   };
 
-  // Add support for expo-router
-  config.resolve.alias = {
-    ...config.resolve.alias,
-    'expo-router': path.resolve(__dirname, 'node_modules/expo-router'),
-    '@': path.resolve(__dirname),
-  };
-
-  // Configure Expo Router context
+  // Add plugins
   config.plugins.push(
+    new webpack.ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
+    }),
     new webpack.DefinePlugin({
-      'process.env.EXPO_ROUTER_APP_ROOT': JSON.stringify('./app'),
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      __DEV__: process.env.NODE_ENV !== 'production' || true,
     })
   );
 
-  // Optimize chunks
-  config.optimization = {
-    ...config.optimization,
-    splitChunks: {
-      chunks: 'all',
-      name: false,
-    },
-    runtimeChunk: {
-      name: entrypoint => `runtime-${entrypoint.name}`,
-    },
-  };
-
-  // Copy static files
-  config.plugins.push(
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: 'public',
-          to: '',
-          globOptions: {
-            ignore: ['**/index.html'],
-          },
-        },
-        {
-          from: '.well-known',
-          to: '.well-known',
-        },
-        {
-          from: 'assets',
-          to: 'assets',
-        },
+  // Add entry point for polyfills
+  const originalEntry = config.entry;
+  config.entry = async () => {
+    const entries = await originalEntry();
+    return {
+      ...entries,
+      main: [
+        path.resolve(__dirname, 'polyfills.js'),
+        path.resolve(__dirname, 'polyfills/global.js'),
+        ...([].concat(entries.main || [])),
       ],
-    })
-  );
+    };
+  };
 
   return config;
 };

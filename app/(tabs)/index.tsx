@@ -1,10 +1,75 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, Pressable, Linking } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, Text, StyleSheet, ScrollView, Image, Pressable, Linking, Animated } from 'react-native';
 import { Link } from 'expo-router';
-import Animated, { FadeInUp } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function HomeScreen() {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const fadeAnim2 = useRef(new Animated.Value(0)).current;
+  const fadeAnim3 = useRef(new Animated.Value(0)).current;
+  const fadeAnim4 = useRef(new Animated.Value(0)).current;
+  const fadeAnim5 = useRef(new Animated.Value(0)).current;
+  const fadeAnim6 = useRef(new Animated.Value(0)).current;
+  const fadeAnim7 = useRef(new Animated.Value(0)).current;
+  const fadeAnim8 = useRef(new Animated.Value(0)).current;
+  const fadeAnim9 = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+    Animated.timing(fadeAnim2, {
+      toValue: 1,
+      duration: 200,
+      delay: 200,
+      useNativeDriver: true,
+    }).start();
+    Animated.timing(fadeAnim3, {
+      toValue: 1,
+      duration: 200,
+      delay: 300,
+      useNativeDriver: true,
+    }).start();
+    Animated.timing(fadeAnim4, {
+      toValue: 1,
+      duration: 200,
+      delay: 400,
+      useNativeDriver: true,
+    }).start();
+    Animated.timing(fadeAnim5, {
+      toValue: 1,
+      duration: 200,
+      delay: 500,
+      useNativeDriver: true,
+    }).start();
+    Animated.timing(fadeAnim6, {
+      toValue: 1,
+      duration: 100,
+      delay: 0,
+      useNativeDriver: true,
+    }).start();
+    Animated.timing(fadeAnim7, {
+      toValue: 1,
+      duration: 100,
+      delay: 100,
+      useNativeDriver: true,
+    }).start();
+    Animated.timing(fadeAnim8, {
+      toValue: 1,
+      duration: 100,
+      delay: 200,
+      useNativeDriver: true,
+    }).start();
+    Animated.timing(fadeAnim9, {
+      toValue: 1,
+      duration: 100,
+      delay: 300,
+      useNativeDriver: true,
+    }).start();
+  }, []);
+
   const openAppStore = () => {
     Linking.openURL('https://apps.apple.com/app/sparkshift/id123456789');
   };
@@ -17,8 +82,18 @@ export default function HomeScreen() {
     <ScrollView style={styles.container}>
       <View style={styles.hero}>
         <Animated.View 
-          entering={FadeInUp.duration(1000)}
-          style={styles.heroContent}
+          style={[
+            styles.heroContent,
+            {
+              opacity: fadeAnim,
+              transform: [{
+                translateY: fadeAnim.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [50, 0],
+                }),
+              }],
+            },
+          ]}
         >
           <Image 
             source={require('../../assets/icon.png')} 
@@ -54,8 +129,18 @@ export default function HomeScreen() {
         </Text>
         <View style={styles.appFeatures}>
           <Animated.View 
-            entering={FadeInUp.delay(200)}
-            style={styles.appFeature}
+            style={[
+              styles.appFeature,
+              {
+                opacity: fadeAnim2,
+                transform: [{
+                  translateY: fadeAnim2.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [50, 0],
+                  }),
+                }],
+              },
+            ]}
           >
             <Ionicons name="phone-portrait" size={32} color="#007AFF" />
             <Text style={styles.featureTitle}>Mobile-First Design</Text>
@@ -64,8 +149,18 @@ export default function HomeScreen() {
             </Text>
           </Animated.View>
           <Animated.View 
-            entering={FadeInUp.delay(300)}
-            style={styles.appFeature}
+            style={[
+              styles.appFeature,
+              {
+                opacity: fadeAnim3,
+                transform: [{
+                  translateY: fadeAnim3.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [50, 0],
+                  }),
+                }],
+              },
+            ]}
           >
             <Ionicons name="flash" size={32} color="#007AFF" />
             <Text style={styles.featureTitle}>Quick Practice</Text>
@@ -74,8 +169,18 @@ export default function HomeScreen() {
             </Text>
           </Animated.View>
           <Animated.View 
-            entering={FadeInUp.delay(400)}
-            style={styles.appFeature}
+            style={[
+              styles.appFeature,
+              {
+                opacity: fadeAnim4,
+                transform: [{
+                  translateY: fadeAnim4.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [50, 0],
+                  }),
+                }],
+              },
+            ]}
           >
             <Ionicons name="trending-up" size={32} color="#007AFF" />
             <Text style={styles.featureTitle}>Progress Tracking</Text>
@@ -85,8 +190,18 @@ export default function HomeScreen() {
           </Animated.View>
         </View>
         <Animated.View 
-          entering={FadeInUp.delay(500)}
-          style={styles.savingsBanner}
+          style={[
+            styles.savingsBanner,
+            {
+              opacity: fadeAnim5,
+              transform: [{
+                translateY: fadeAnim5.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [50, 0],
+                }),
+              }],
+            },
+          ]}
         >
           <Ionicons name="star" size={24} color="#FFD700" />
           <Text style={styles.savingsText}>
@@ -133,8 +248,24 @@ export default function HomeScreen() {
           ].map((testimonial, index) => (
             <Animated.View 
               key={index}
-              entering={FadeInUp.delay(index * 100)}
-              style={styles.testimonialCard}
+              style={[
+                styles.testimonialCard,
+                {
+                  opacity: index === 0 ? fadeAnim6 : index === 1 ? fadeAnim7 : fadeAnim8,
+                  transform: [{
+                    translateY: index === 0 ? fadeAnim6.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [50, 0],
+                    }) : index === 1 ? fadeAnim7.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [50, 0],
+                    }) : fadeAnim8.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [50, 0],
+                    }),
+                  }],
+                },
+              ]}
             >
               <Text style={styles.testimonialText}>{testimonial.text}</Text>
               <Text style={styles.testimonialName}>{testimonial.name}</Text>

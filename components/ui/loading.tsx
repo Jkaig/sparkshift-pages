@@ -1,13 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Animated, { FadeIn } from 'react-native-reanimated';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { theme } from '@/lib/theme';
 
-interface LoadingProps {
+type LoadingProps = {
   size?: 'sm' | 'md' | 'lg';
   text?: string;
   fullScreen?: boolean;
 }
+
+const sizeMap = {
+  sm: 'small',
+  md: 'large',
+  lg: 'large'
+} as const;
 
 export function Loading({ size = 'md', text, fullScreen }: LoadingProps) {
   const containerStyle = [
@@ -15,24 +20,11 @@ export function Loading({ size = 'md', text, fullScreen }: LoadingProps) {
     fullScreen && styles.fullScreen,
   ];
 
-  const spinnerSize = {
-    sm: 24,
-    md: 32,
-    lg: 48,
-  }[size];
-
   return (
-    <Animated.View 
-      entering={FadeIn.duration(300)}
-      style={containerStyle}
-    >
-      <View style={[styles.spinner, { width: spinnerSize, height: spinnerSize }]}>
-        <Animated.View 
-          style={styles.spinnerInner}
-        />
-      </View>
+    <View style={containerStyle}>
+      <ActivityIndicator size={sizeMap[size]} color={theme.colors.primary.main} />
       {text && <Text style={styles.text}>{text}</Text>}
-    </Animated.View>
+    </View>
   );
 }
 
@@ -45,22 +37,6 @@ const styles = StyleSheet.create({
   fullScreen: {
     flex: 1,
     backgroundColor: theme.colors.background.main,
-  },
-  spinner: {
-    borderRadius: 9999,
-    borderWidth: 2,
-    borderColor: theme.colors.primary.light,
-    borderTopColor: 'transparent',
-    animation: 'spin 1s linear infinite',
-  },
-  spinnerInner: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 9999,
-    borderWidth: 2,
-    borderColor: theme.colors.primary.main,
-    borderTopColor: 'transparent',
-    animation: 'spin 0.5s linear infinite reverse',
   },
   text: {
     marginTop: 12,
