@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Pressable, Image, useWindowDimensions } from 'react-native';
+import { View, Text, StyleSheet, Pressable, useWindowDimensions } from 'react-native';
 import { Link } from 'expo-router';
 import { routes } from '../lib/routes';
+import { Ionicons } from '@expo/vector-icons';
+import { BRAND } from '../app/constants';
 
 export function Footer() {
   const { width } = useWindowDimensions();
@@ -10,126 +12,68 @@ export function Footer() {
   return (
     <View style={styles.footer}>
       <View style={styles.content}>
-        <Image 
-          source={require('../assets/icon.png')}
-          style={styles.logo}
-          resizeMode="contain"
-        />
+        <View style={styles.logoContainer}>
+          <Ionicons name="flash" size={32} color="#3498DB" />
+          <Text style={styles.logoText}>{BRAND.NAME}</Text>
+        </View>
         <Text style={styles.copyright}>
-          {new Date().getFullYear()} SparkShift. All rights reserved.
+          {new Date().getFullYear()} {BRAND.NAME}. All rights reserved.
         </Text>
       </View>
       
-      <View style={[styles.sections, isMobile && styles.sectionsMobile]}>
-        <View style={[styles.section, isMobile && styles.sectionMobile]}>
-          <Text style={styles.title}>Product</Text>
-          <Link href={routes.screens.pricing} asChild>
-            <Pressable style={styles.linkContainer}>
-              <Text style={styles.link}>Pricing</Text>
+      <View style={styles.links}>
+        {routes.map((route) => (
+          <Link key={route.path} href={route.path} asChild>
+            <Pressable style={styles.link}>
+              <Text style={styles.linkText}>{route.name}</Text>
             </Pressable>
           </Link>
-          <Link href={routes.screens.resources} asChild>
-            <Pressable style={styles.linkContainer}>
-              <Text style={styles.link}>Resources</Text>
-            </Pressable>
-          </Link>
-        </View>
-        
-        <View style={[styles.section, isMobile && styles.sectionMobile]}>
-          <Text style={styles.title}>Company</Text>
-          <Link href={routes.screens.about} asChild>
-            <Pressable style={styles.linkContainer}>
-              <Text style={styles.link}>About</Text>
-            </Pressable>
-          </Link>
-          <Link href={routes.screens.contact} asChild>
-            <Pressable style={styles.linkContainer}>
-              <Text style={styles.link}>Contact</Text>
-            </Pressable>
-          </Link>
-        </View>
-        
-        <View style={[styles.section, isMobile && styles.sectionMobile]}>
-          <Text style={styles.title}>Legal</Text>
-          <Link href={routes.screens.privacy} asChild>
-            <Pressable style={styles.linkContainer}>
-              <Text style={styles.link}>Privacy Policy</Text>
-            </Pressable>
-          </Link>
-          <Link href={routes.screens.terms} asChild>
-            <Pressable style={styles.linkContainer}>
-              <Text style={styles.link}>Terms of Service</Text>
-            </Pressable>
-          </Link>
-        </View>
+        ))}
       </View>
-
-      {isMobile && (
-        <Text style={styles.mobileDisclaimer}>
-          SparkShift is available on Web, iOS, and Android
-        </Text>
-      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   footer: {
-    backgroundColor: '#0A0B1E',
-    padding: 40,
-    borderTopWidth: 1,
-    borderTopColor: '#1A1B3E',
+    backgroundColor: '#f5f5f5',
+    padding: 20,
+    width: '100%',
   },
   content: {
+    flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 40,
+    justifyContent: 'space-between',
+    marginBottom: 20,
   },
   logo: {
-    width: 48,
-    height: 48,
-    marginBottom: 16,
+    width: 100,
+    height: 40,
   },
   copyright: {
-    color: '#5DADE2',
+    color: '#666',
     fontSize: 14,
-    textAlign: 'center',
   },
-  sections: {
+  links: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center',
-    gap: 48,
-  },
-  sectionsMobile: {
-    flexDirection: 'column',
-    gap: 32,
-  },
-  section: {
-    minWidth: 160,
-  },
-  sectionMobile: {
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  linkContainer: {
-    padding: 8,
+    gap: 20,
   },
   link: {
-    color: '#5DADE2',
-    fontSize: 14,
-    textAlign: 'center',
+    padding: 10,
   },
-  mobileDisclaimer: {
-    color: '#5DADE2',
-    fontSize: 12,
-    textAlign: 'center',
-    marginTop: 32,
-    opacity: 0.8,
+  linkText: {
+    color: '#333',
+    fontSize: 16,
+  },
+  logoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  logoText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#3498DB',
   },
 });

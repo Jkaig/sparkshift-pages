@@ -3,38 +3,31 @@ module.exports = {
   slug: 'sparkshift-pages',
   version: process.env.EXPO_PUBLIC_APP_VERSION || '1.0.0',
   orientation: 'portrait',
-  icon: './assets/app_icon.png',
+  icon: 'https://placehold.co/1024x1024?text=SparkShift',
   userInterfaceStyle: 'light',
   splash: {
-    image: './assets/splash.png',
+    image: 'https://placehold.co/2048x2048?text=SparkShift',
     resizeMode: 'contain',
-    backgroundColor: '#ffffff'
-  },
-  updates: {
-    fallbackToCacheTimeout: 0,
-    checkAutomatically: 'ON_LOAD'
+    backgroundColor: '#0A0B1E'
   },
   assetBundlePatterns: [
-    "**/*"
+    "assets/*"
   ],
   ios: {
     supportsTablet: true,
-    bundleIdentifier: 'com.sparkshift.app',
-    config: {
-      usesNonExemptEncryption: false
-    }
+    bundleIdentifier: 'com.sparkshift.app'
   },
   android: {
     adaptiveIcon: {
-      foregroundImage: './assets/adaptive-icon.png',
-      backgroundColor: '#ffffff'
+      foregroundImage: 'https://placehold.co/1024x1024?text=SparkShift',
+      backgroundColor: '#0A0B1E'
     },
     package: 'com.sparkshift.app'
   },
   web: {
     bundler: 'metro',
     output: 'static',
-    favicon: './assets/app_icon.png',
+    favicon: 'https://placehold.co/32x32?text=S',
     name: 'SparkShift - #1 Electrical Exam Prep Platform',
     description: 'Master your electrical certification exam with SparkShift\'s AI-powered practice tests, real-time analytics, and personalized study plans.',
     themeColor: '#0A0B1E',
@@ -69,4 +62,4 @@ module.exports = {
   experiments: {
     tsconfigPaths: true
   }
-}
+};

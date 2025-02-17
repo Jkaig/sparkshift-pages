@@ -1,10 +1,9 @@
-'use client';
-
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable, Image, useWindowDimensions } from 'react-native';
+import { View, Text, StyleSheet, Pressable, useWindowDimensions } from 'react-native';
 import { Link } from 'expo-router';
 import { routes } from '../lib/routes';
 import { Ionicons } from '@expo/vector-icons';
+import { BRAND } from '../app/constants';
 
 export function Navbar() {
   const { width } = useWindowDimensions();
@@ -15,73 +14,50 @@ export function Navbar() {
     <View style={styles.navbar}>
       <Link href={routes.screens.home} asChild>
         <Pressable style={styles.logoContainer}>
-          <Image 
-            source={require('../assets/icon.png')}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-          <Text style={styles.logoText}>SparkShift</Text>
+          <Ionicons name="flash" size={32} color="#3498DB" />
+          <Text style={styles.logoText}>{BRAND.NAME}</Text>
         </Pressable>
       </Link>
 
       {isMobile ? (
-        <View style={styles.mobileNav}>
-          <Pressable 
-            style={styles.menuButton}
-            onPress={() => setMenuOpen(!menuOpen)}
-          >
-            <Ionicons 
-              name={menuOpen ? "close" : "menu"} 
-              size={24} 
-              color="#FFFFFF" 
-            />
-          </Pressable>
-
-          {menuOpen && (
-            <View style={styles.mobileMenu}>
-              <Link href={routes.screens.pricing} asChild>
-                <Pressable style={styles.mobileLink}>
-                  <Text style={styles.mobileLinkText}>Pricing</Text>
-                </Pressable>
-              </Link>
-              <Link href={routes.screens.resources} asChild>
-                <Pressable style={styles.mobileLink}>
-                  <Text style={styles.mobileLinkText}>Resources</Text>
-                </Pressable>
-              </Link>
-              <Link href={routes.screens.contact} asChild>
-                <Pressable style={styles.mobileLink}>
-                  <Text style={styles.mobileLinkText}>Contact</Text>
-                </Pressable>
-              </Link>
-              <Link href="/login" asChild>
-                <Pressable style={styles.mobileLoginButton}>
-                  <Text style={styles.loginText}>Login</Text>
-                </Pressable>
-              </Link>
-            </View>
-          )}
-        </View>
+        <Pressable onPress={() => setMenuOpen(!menuOpen)} style={styles.menuButton}>
+          <Ionicons name={menuOpen ? "close" : "menu"} size={24} color="black" />
+        </Pressable>
       ) : (
-        <View style={styles.links}>
-          <Link href={routes.screens.pricing} asChild>
-            <Pressable style={styles.link}>
-              <Text style={styles.linkText}>Pricing</Text>
+        <View style={styles.navLinks}>
+          <Link href={routes.screens.home} asChild>
+            <Pressable style={styles.navLink}>
+              <Text style={styles.navLinkText}>Home</Text>
             </Pressable>
           </Link>
-          <Link href={routes.screens.resources} asChild>
-            <Pressable style={styles.link}>
-              <Text style={styles.linkText}>Resources</Text>
+          <Link href={routes.screens.about} asChild>
+            <Pressable style={styles.navLink}>
+              <Text style={styles.navLinkText}>About</Text>
             </Pressable>
           </Link>
           <Link href={routes.screens.contact} asChild>
-            <Pressable style={styles.link}>
-              <Text style={styles.linkText}>Contact</Text>
+            <Pressable style={styles.navLink}>
+              <Text style={styles.navLinkText}>Contact</Text>
             </Pressable>
           </Link>
-          <Link href="/login" asChild>
-            <Pressable style={styles.loginButton}>
-              <Text style={styles.loginText}>Login</Text>
+        </View>
+      )}
+
+      {isMobile && menuOpen && (
+        <View style={styles.mobileMenu}>
+          <Link href={routes.screens.home} asChild>
+            <Pressable style={styles.mobileNavLink}>
+              <Text style={styles.mobileNavLinkText}>Home</Text>
+            </Pressable>
+          </Link>
+          <Link href={routes.screens.about} asChild>
+            <Pressable style={styles.mobileNavLink}>
+              <Text style={styles.mobileNavLinkText}>About</Text>
+            </Pressable>
+          </Link>
+          <Link href={routes.screens.contact} asChild>
+            <Pressable style={styles.mobileNavLink}>
+              <Text style={styles.mobileNavLinkText}>Contact</Text>
             </Pressable>
           </Link>
         </View>
@@ -96,51 +72,32 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#0A0B1E',
+    backgroundColor: '#ffffff',
     borderBottomWidth: 1,
-    borderBottomColor: '#1A1B3E',
-    zIndex: 100,
+    borderBottomColor: '#e5e5e5',
   },
   logoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: 8,
   },
   logo: {
     width: 32,
     height: 32,
   },
   logoText: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: '#FFFFFF',
   },
-  links: {
+  navLinks: {
     flexDirection: 'row',
-    alignItems: 'center',
     gap: 24,
   },
-  link: {
+  navLink: {
     padding: 8,
   },
-  linkText: {
+  navLinkText: {
     fontSize: 16,
-    color: '#5DADE2',
-  },
-  loginButton: {
-    backgroundColor: '#3498DB',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-  },
-  loginText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '500',
-  },
-  // Mobile styles
-  mobileNav: {
-    position: 'relative',
   },
   menuButton: {
     padding: 8,
@@ -148,31 +105,17 @@ const styles = StyleSheet.create({
   mobileMenu: {
     position: 'absolute',
     top: '100%',
+    left: 0,
     right: 0,
-    backgroundColor: '#16213E',
-    padding: 16,
-    borderRadius: 8,
-    minWidth: 200,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 5,
-  },
-  mobileLink: {
-    padding: 12,
+    backgroundColor: '#ffffff',
     borderBottomWidth: 1,
-    borderBottomColor: '#1A1B3E',
+    borderBottomColor: '#e5e5e5',
+    padding: 16,
   },
-  mobileLinkText: {
-    fontSize: 16,
-    color: '#5DADE2',
-  },
-  mobileLoginButton: {
-    backgroundColor: '#3498DB',
+  mobileNavLink: {
     padding: 12,
-    borderRadius: 8,
-    marginTop: 8,
-    alignItems: 'center',
+  },
+  mobileNavLinkText: {
+    fontSize: 16,
   },
 });

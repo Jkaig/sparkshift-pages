@@ -1,5 +1,13 @@
-import { analytics } from '../firebase';
-import { logEvent } from 'firebase/analytics';
+import { getAnalytics, logEvent } from 'firebase/analytics';
+import { app } from './firebase';
+
+let analytics: ReturnType<typeof getAnalytics> | null = null;
+
+export const initializeAnalytics = async () => {
+  if (typeof window !== 'undefined') {
+    analytics = getAnalytics(app);
+  }
+};
 
 export const trackEvent = (eventName: string, params?: Record<string, any>) => {
   if (analytics) {
