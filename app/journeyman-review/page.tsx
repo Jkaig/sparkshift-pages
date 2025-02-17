@@ -1,27 +1,25 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Pressable, Platform } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Platform, Image } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
-import { Image } from 'expo-image';
 import * as Linking from 'expo-linking';
 import Animated, { FadeInUp } from 'react-native-reanimated';
 
 export default function JourneymanReviewPage() {
-  const { id } = useLocalSearchParams();
+  const { id } = useLocalSearchParams<{ id: string }>();
 
   const openApp = async () => {
     try {
-      // Try to open the app with the review ID
-      const url = `sparkshift://review?evaluationId=${id}`;
-      const canOpen = await Linking.canOpenURL(url);
-      
-      if (canOpen) {
+      const url = `sparkshift://journeyman-review/${id}`;
+      const supported = await Linking.canOpenURL(url);
+
+      if (supported) {
         await Linking.openURL(url);
       } else {
-        // If can't open, redirect to appropriate store
+        // If app URL not supported, open store
         if (Platform.OS === 'ios') {
-          await Linking.openURL('https://apps.apple.com/app/sparkshift/id123456789');
+          Linking.openURL('https://apps.apple.com/app/sparkshift/id123456789');
         } else {
-          await Linking.openURL('https://play.google.com/store/apps/details?id=com.sparkshift.app');
+          Linking.openURL('https://play.google.com/store/apps/details?id=com.sparkshift.app');
         }
       }
     } catch (error) {
@@ -30,10 +28,12 @@ export default function JourneymanReviewPage() {
   };
 
   useEffect(() => {
-    if (id) {
-      openApp();
+    if (!id) {
+      router.replace('/');
     }
   }, [id]);
+
+  if (!id) return null;
 
   return (
     <View style={styles.container}>
@@ -44,7 +44,7 @@ export default function JourneymanReviewPage() {
         <Image
           source={require('@/assets/app_icon.png')}
           style={styles.logo}
-          contentFit="contain"
+          resizeMode="contain"
         />
         
         <Text style={styles.title}>Review Ready</Text>
@@ -61,7 +61,7 @@ export default function JourneymanReviewPage() {
             <Image
               source={require('@/assets/app-store-badge.png')}
               style={styles.storeBadge}
-              contentFit="contain"
+              resizeMode="contain"
             />
           </Pressable>
           
@@ -72,7 +72,7 @@ export default function JourneymanReviewPage() {
             <Image
               source={require('@/assets/play-store-badge.png')}
               style={styles.storeBadge}
-              contentFit="contain"
+              resizeMode="contain"
             />
           </Pressable>
         </View>
@@ -81,12 +81,8 @@ export default function JourneymanReviewPage() {
           style={styles.openButton}
           onPress={openApp}
         >
-          <Text style={styles.openButtonText}>Open in SparkShift App</Text>
+          <Text style={styles.openButtonText}>Open in App</Text>
         </Pressable>
-
-        <Text style={styles.note}>
-          Already have the app? Click "Open in SparkShift App" or try refreshing this page.
-        </Text>
       </Animated.View>
     </View>
   );
@@ -96,19 +92,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#1a1a1a',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
   },
   content: {
+    flex: 1,
+    padding: 20,
     alignItems: 'center',
-    maxWidth: 500,
-    width: '100%',
+    justifyContent: 'center',
   },
   logo: {
     width: 120,
     height: 120,
-    marginBottom: 32,
+    marginBottom: 24,
   },
   title: {
     fontSize: 32,
@@ -141,18 +135,17 @@ const styles = StyleSheet.create({
   openButton: {
     backgroundColor: '#007AFF',
     paddingHorizontal: 24,
-    paddingVertical: 16,
-    borderRadius: 12,
-    marginBottom: 16,
+    paddingVertical: 12,
+    borderRadius: 8,
+    ...Platform.select({
+      web: {
+        cursor: 'pointer',
+      },
+    }),
   },
   openButtonText: {
     color: '#ffffff',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '600',
-  },
-  note: {
-    fontSize: 14,
-    color: '#888888',
-    textAlign: 'center',
   },
 });

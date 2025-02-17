@@ -1,16 +1,47 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import Animated, { FadeInUp } from 'react-native-reanimated';
-import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
-import { PerformanceMetrics, Achievement } from '@/lib/services/analytics';
+
+interface PerformanceMetrics {
+  overallScore: number;
+  rank: {
+    state: number;
+    national: number;
+    totalUsers: number;
+  };
+  timeMetrics: {
+    averageTimePerQuestion: number;
+    nationalAverageTime: number;
+    timePercentile: number;
+  };
+  topicBreakdown: {
+    [key: string]: {
+      score: number;
+      nationalAverage: number;
+      percentile: number;
+      improvement: number;
+    };
+  };
+  achievements: Achievement[];
+}
+
+interface Achievement {
+  id: string;
+  icon: string;
+  title: string;
+  description: string;
+  unlockedAt?: Date;
+  progress?: number;
+  requiredProgress?: number;
+}
 
 export default function TestSummaryScreen() {
   const { metrics } = useLocalSearchParams<{ metrics: string }>();
-  const performanceMetrics: PerformanceMetrics = JSON.parse(metrics);
+  const performanceMetrics: PerformanceMetrics = metrics ? JSON.parse(metrics) : null;
 
   const renderPercentileIndicator = (percentile: number) => {
     let color = '#DC2626'; // Red for low percentile
@@ -38,12 +69,12 @@ export default function TestSummaryScreen() {
       <View style={styles.achievementContent}>
         <Text style={styles.achievementTitle}>{achievement.title}</Text>
         <Text style={styles.achievementDescription}>{achievement.description}</Text>
-        {achievement.progress !== undefined && (
+        {achievement.progress !== undefined && achievement.requiredProgress !== undefined && (
           <View style={styles.progressBar}>
             <View 
               style={[
                 styles.progressFill,
-                { width: `${(achievement.progress / achievement.requiredProgress!) * 100}%` }
+                { width: `${(achievement.progress / achievement.requiredProgress) * 100}%` }
               ]}
             />
           </View>
@@ -52,13 +83,18 @@ export default function TestSummaryScreen() {
     </Animated.View>
   );
 
+  if (!performanceMetrics) {
+    router.replace('/test-prep/setup');
+    return null;
+  }
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Image
           source={require('@/assets/app_icon.png')}
           style={styles.logo}
-          contentFit="contain"
+          resizeMode="contain"
         />
         <Text style={styles.title}>Test Summary</Text>
       </View>
@@ -68,7 +104,7 @@ export default function TestSummaryScreen() {
         style={styles.content}
       >
         <Card style={styles.scoreCard}>
-          <CardContent>
+          <View style={styles.cardContent}>
             <Text style={styles.scoreTitle}>Overall Performance</Text>
             <Text style={styles.scoreValue}>{performanceMetrics.overallScore}%</Text>
             <View style={styles.ranks}>
@@ -84,11 +120,11 @@ export default function TestSummaryScreen() {
                 <Text style={styles.rankTotal}>of {performanceMetrics.rank.totalUsers}</Text>
               </View>
             </View>
-          </CardContent>
+          </View>
         </Card>
 
         <Card style={styles.metricsCard}>
-          <CardContent>
+          <View style={styles.cardContent}>
             <Text style={styles.sectionTitle}>Time Performance</Text>
             <View style={styles.metric}>
               <View style={styles.metricHeader}>
@@ -104,11 +140,11 @@ export default function TestSummaryScreen() {
                 </Text>
               </View>
             </View>
-          </CardContent>
+          </View>
         </Card>
 
         <Card style={styles.topicsCard}>
-          <CardContent>
+          <View style={styles.cardContent}>
             <Text style={styles.sectionTitle}>Topic Breakdown</Text>
             {Object.entries(performanceMetrics.topicBreakdown).map(([topic, data]) => (
               <View key={topic} style={styles.topicItem}>
@@ -129,26 +165,26 @@ export default function TestSummaryScreen() {
                 </View>
               </View>
             ))}
-          </CardContent>
+          </View>
         </Card>
 
         <Card style={styles.achievementsCard}>
-          <CardContent>
+          <View style={styles.cardContent}>
             <Text style={styles.sectionTitle}>Achievements</Text>
             {performanceMetrics.achievements.map(renderAchievement)}
-          </CardContent>
+          </View>
         </Card>
 
         <View style={styles.actions}>
           <Button
-            onClick={() => router.push('/test-prep/setup')}
+            onPress={() => router.push('/test-prep/setup')}
             style={styles.actionButton}
           >
             Take Another Test
           </Button>
           <Button
             variant="outline"
-            onClick={() => router.push('/test-prep/analytics')}
+            onPress={() => router.push('/test-prep/analytics')}
             style={styles.actionButton}
           >
             View Detailed Analytics
@@ -182,6 +218,9 @@ const styles = StyleSheet.create({
   content: {
     padding: 20,
     gap: 20,
+  },
+  cardContent: {
+    padding: 16,
   },
   scoreCard: {
     backgroundColor: '#1E293B',

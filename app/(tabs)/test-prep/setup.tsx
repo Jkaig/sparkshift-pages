@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import { router } from 'expo-router';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import Animated, { FadeInUp } from 'react-native-reanimated';
-import { Image } from 'expo-image';
 
 const states = [
   'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut',
@@ -27,12 +26,12 @@ const durations = [
 ];
 
 export default function TestSetupScreen() {
-  const [state, setState] = useState('');
-  const [duration, setDuration] = useState('');
+  const [selectedState, setSelectedState] = useState<string>('');
+  const [selectedDuration, setSelectedDuration] = useState<string>('');
   const [loading, setLoading] = useState(false);
 
   const handleStartTest = async () => {
-    if (!state || !duration) {
+    if (!selectedState || !selectedDuration) {
       return;
     }
 
@@ -42,12 +41,12 @@ export default function TestSetupScreen() {
       router.push({
         pathname: '/test-prep/quiz',
         params: {
-          state,
-          duration,
+          state: selectedState,
+          duration: selectedDuration,
         }
       });
     } catch (error) {
-      console.error('Error starting test:', error);
+      console.error('Failed to start test:', error);
     } finally {
       setLoading(false);
     }
@@ -59,7 +58,7 @@ export default function TestSetupScreen() {
         <Image
           source={require('@/assets/app_icon.png')}
           style={styles.logo}
-          contentFit="contain"
+          resizeMode="contain"
         />
         <Text style={styles.title}>Test Setup</Text>
         <Text style={styles.subtitle}>Customize your practice test</Text>
@@ -70,13 +69,13 @@ export default function TestSetupScreen() {
         style={styles.content}
       >
         <Card>
-          <CardContent>
+          <View style={styles.cardContent}>
             <View style={styles.form}>
               <View style={styles.field}>
                 <Text style={styles.label}>Select Your State</Text>
                 <Select
-                  value={state}
-                  onValueChange={setState}
+                  value={selectedState}
+                  onValueChange={setSelectedState}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Choose state" />
@@ -94,8 +93,8 @@ export default function TestSetupScreen() {
               <View style={styles.field}>
                 <Text style={styles.label}>Test Duration</Text>
                 <Select
-                  value={duration}
-                  onValueChange={setDuration}
+                  value={selectedDuration}
+                  onValueChange={setSelectedDuration}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Choose duration" />
@@ -121,14 +120,14 @@ export default function TestSetupScreen() {
               </View>
 
               <Button
-                onClick={handleStartTest}
-                disabled={!state || !duration || loading}
+                onPress={handleStartTest}
+                disabled={!selectedState || !selectedDuration || loading}
                 style={styles.button}
               >
                 {loading ? 'Preparing Test...' : 'Start Practice Test'}
               </Button>
             </View>
-          </CardContent>
+          </View>
         </Card>
       </Animated.View>
     </ScrollView>
@@ -162,6 +161,9 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
+  },
+  cardContent: {
+    padding: 16,
   },
   form: {
     gap: 24,
