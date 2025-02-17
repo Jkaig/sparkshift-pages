@@ -1,8 +1,6 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import Link from 'next/link'
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { Link } from 'expo-router';
 
 interface Plan {
   name: string;
@@ -99,92 +97,201 @@ const faqs: Faq[] = [
 
 export default function PricingPage() {
   return (
-    <div className="container py-12 space-y-12">
-      <section className="text-center space-y-4">
-        <Badge variant="outline" className="mb-4">Limited Time Offer</Badge>
-        <h1 className="text-4xl font-bold">Start Your Exam Prep Journey Today</h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Less than $1 a day to prepare for your electrician exam
-        </p>
-      </section>
+    <ScrollView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Start Your Exam Prep Journey Today</Text>
+        <Text style={styles.subtitle}>Less than $1 a day to prepare for your electrician exam</Text>
+      </View>
 
-      <section>
-        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {plans.map((plan) => (
-            <Card 
-              key={plan.name} 
-              className={`${plan.popular ? "border-primary shadow-lg scale-105" : ""} 
-                         ${plan.special ? "border-blue-400 shadow-lg" : ""}`}
-            >
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle>{plan.name}</CardTitle>
-                    <CardDescription>{plan.description}</CardDescription>
-                  </div>
-                  {plan.popular && <Badge>Most Popular</Badge>}
-                  {plan.special && <Badge variant="secondary">Special Offer</Badge>}
-                </div>
-                <div className="mt-4">
-                  <span className="text-4xl font-bold">{plan.price}</span>
-                  <span className="text-muted-foreground">{plan.period}</span>
-                  {plan.trial && (
-                    <p className="text-sm text-muted-foreground mt-1">{plan.trial}</p>
-                  )}
-                </div>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3 mb-6">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-center">
-                      <svg
-                        className="w-4 h-4 mr-3 text-green-500"
-                        fill="none"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path d="M5 13l4 4L19 7" />
-                      </svg>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Button 
-                  className="w-full text-lg py-6" 
-                  variant={plan.popular ? "primary" : "outline"}
-                >
-                  <Link href={plan.special ? "/login/verify" : "/login"}>{plan.cta}</Link>
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
+      <View style={styles.plansContainer}>
+        {plans.map((plan) => (
+          <View key={plan.name} style={styles.planCard}>
+            <View style={styles.planHeader}>
+              <Text style={styles.planName}>{plan.name}</Text>
+              {plan.popular && <Text style={styles.badge}>Most Popular</Text>}
+              {plan.special && <Text style={styles.badge}>Special Offer</Text>}
+            </View>
+            <Text style={styles.planPrice}>{plan.price}{plan.period}</Text>
+            {plan.trial && (
+              <Text style={styles.planTrial}>{plan.trial}</Text>
+            )}
+            <Text style={styles.planDescription}>{plan.description}</Text>
+            
+            <View style={styles.featuresList}>
+              {plan.features.map((feature, featureIndex) => (
+                <Text key={featureIndex} style={styles.feature}>
+                  • {feature}
+                </Text>
+              ))}
+            </View>
 
-      <section className="max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold text-center mb-6">Frequently Asked Questions</h2>
-        <Accordion type="single" collapsible>
-          {faqs.map((faq, index) => (
-            <AccordionItem key={index} value={`item-${index}`}>
-              <AccordionTrigger>{faq.question}</AccordionTrigger>
-              <AccordionContent>{faq.answer}</AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </section>
+            <Link href={plan.special ? "/login/verify" : "/login"} asChild>
+              <Pressable style={styles.button}>
+                <Text style={styles.buttonText}>{plan.cta}</Text>
+              </Pressable>
+            </Link>
+          </View>
+        ))}
+      </View>
 
-      <section className="text-center space-y-4 max-w-2xl mx-auto">
-        <h2 className="text-2xl font-bold">100% Risk-Free Guarantee</h2>
-        <p className="text-muted-foreground">
+      <View style={styles.faqContainer}>
+        <Text style={styles.faqTitle}>Frequently Asked Questions</Text>
+        {faqs.map((faq, index) => (
+          <View key={index} style={styles.faqItem}>
+            <Text style={styles.faqQuestion}>{faq.question}</Text>
+            <Text style={styles.faqAnswer}>{faq.answer}</Text>
+          </View>
+        ))}
+      </View>
+
+      <View style={styles.guaranteeContainer}>
+        <Text style={styles.guaranteeTitle}>100% Risk-Free Guarantee</Text>
+        <Text style={styles.guaranteeText}>
           Try our exam prep risk-free. If you're not satisfied within the first 14 days, we'll refund your subscription - no questions asked.
-        </p>
-        <Button variant="outline" asChild>
-          <Link href="/contact">Need help choosing? Contact us</Link>
-        </Button>
-      </section>
-    </div>
-  )
+        </Text>
+        <Link href="/contact" asChild>
+          <Pressable style={styles.guaranteeButton}>
+            <Text style={styles.guaranteeButtonText}>Need help choosing? Contact us</Text>
+          </Pressable>
+        </Link>
+      </View>
+    </ScrollView>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  header: {
+    padding: 20,
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+  },
+  plansContainer: {
+    padding: 20,
+  },
+  planCard: {
+    backgroundColor: 'white',
+    borderRadius: 12,
+    padding: 20,
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  planHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  planName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  badge: {
+    fontSize: 16,
+    color: '#0066cc',
+    fontWeight: 'bold',
+    backgroundColor: '#ddf0ff',
+    padding: 5,
+    borderRadius: 5,
+  },
+  planPrice: {
+    fontSize: 20,
+    color: '#0066cc',
+    marginBottom: 10,
+  },
+  planTrial: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 10,
+  },
+  planDescription: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 20,
+  },
+  featuresList: {
+    marginBottom: 20,
+  },
+  feature: {
+    fontSize: 16,
+    marginBottom: 8,
+    color: '#333',
+  },
+  button: {
+    backgroundColor: '#0066cc',
+    padding: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  faqContainer: {
+    padding: 20,
+  },
+  faqTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  faqItem: {
+    marginBottom: 20,
+  },
+  faqQuestion: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  faqAnswer: {
+    fontSize: 16,
+    color: '#666',
+  },
+  guaranteeContainer: {
+    padding: 20,
+    alignItems: 'center',
+  },
+  guaranteeTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  guaranteeText: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  guaranteeButton: {
+    backgroundColor: '#0066cc',
+    padding: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  guaranteeButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});

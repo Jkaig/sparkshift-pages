@@ -1,17 +1,16 @@
 import { useState, useRef } from 'react';
-import { useRouter } from 'next/router';
+import { View, Text, StyleSheet, Pressable, TextInput } from 'react-native';
+import { useRouter } from 'expo-router';
 import { signInWithGoogle, signInWithApple, sendEmailSignInLink, checkSubscriptionStatus } from '@/lib/services/auth';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { LinearGradient } from 'expo-linear-gradient';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function SubscriptionVerify() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [verificationSent, setVerificationSent] = useState(false);
-  const emailInputRef = useRef<HTMLInputElement>(null);
+  const emailInputRef = useRef<TextInput>(null);
   const router = useRouter();
 
   const handleGoogleSignIn = async () => {
@@ -54,12 +53,11 @@ export default function SubscriptionVerify() {
     }
   };
 
-  const handleEmailSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleEmailSignIn = async () => {
     try {
       setLoading(true);
       setError('');
-      const email = emailInputRef.current?.value;
+      const email = emailInputRef.current?.props.value;
       if (!email) {
         throw new Error('Please enter your email');
       }
@@ -73,80 +71,154 @@ export default function SubscriptionVerify() {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Verify Your Subscription</CardTitle>
-        <CardDescription>
-          Sign in with your Sparkshift Mobile account to get the special pricing
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        {error && (
-          <Alert variant="destructive">
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
-        )}
-        
-        {verificationSent ? (
-          <Alert>
-            <AlertDescription>
+    <View style={styles.container}>
+      <LinearGradient
+        colors={['#4c669f', '#3b5998', '#192f6a']}
+        style={styles.gradientBackground}
+      >
+        <View style={styles.content}>
+          <Text style={styles.title}>Verify Your Subscription</Text>
+          <Text style={styles.description}>
+            Sign in with your Sparkshift Mobile account to get the special pricing
+          </Text>
+
+          {error && (
+            <Text style={styles.error}>{error}</Text>
+          )}
+          
+          {verificationSent ? (
+            <Text style={styles.error}>
               Check your email for a verification link. You can close this window.
-            </AlertDescription>
-          </Alert>
-        ) : (
-          <>
-            <div className="space-y-4">
-              <Button
-                variant="outline"
-                className="w-full"
+            </Text>
+          ) : (
+            <View style={styles.form}>
+              <TextInput
+                ref={emailInputRef}
+                style={styles.input}
+                placeholder="Enter your email"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+
+              <Pressable
+                style={[styles.button, styles.emailButton]}
+                onPress={handleEmailSignIn}
                 disabled={loading}
-                onClick={handleGoogleSignIn}
               >
-                Continue with Google
-              </Button>
-              
-              <Button
-                variant="outline"
-                className="w-full"
+                <FontAwesome name="envelope" size={20} color="white" />
+                <Text style={styles.buttonText}>Send Verification Link</Text>
+              </Pressable>
+
+              <View style={styles.divider}>
+                <View style={styles.dividerLine} />
+                <Text style={styles.dividerText}>or</Text>
+                <View style={styles.dividerLine} />
+              </View>
+
+              <Pressable
+                style={[styles.button, styles.googleButton]}
+                onPress={handleGoogleSignIn}
                 disabled={loading}
-                onClick={handleAppleSignIn}
               >
-                Continue with Apple
-              </Button>
-              
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-background px-2 text-muted-foreground">
-                    Or continue with email
-                  </span>
-                </div>
-              </div>
-              
-              <form onSubmit={handleEmailSignIn} className="space-y-4">
-                <Input
-                  ref={emailInputRef}
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  error={error || undefined}
-                />
-                <Button
-                  type="submit"
-                  className="w-full"
-                  disabled={loading}
-                >
-                  {loading ? 'Sending...' : 'Send Verification Link'}
-                </Button>
-              </form>
-            </div>
-          </>
-        )}
-      </CardContent>
-    </Card>
+                <FontAwesome name="google" size={20} color="white" />
+                <Text style={styles.buttonText}>Continue with Google</Text>
+              </Pressable>
+
+              <Pressable
+                style={[styles.button, styles.appleButton]}
+                onPress={handleAppleSignIn}
+                disabled={loading}
+              >
+                <FontAwesome name="apple" size={20} color="white" />
+                <Text style={styles.buttonText}>Continue with Apple</Text>
+              </Pressable>
+            </View>
+          )}
+        </View>
+      </LinearGradient>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  gradientBackground: {
+    flex: 1,
+  },
+  content: {
+    flex: 1,
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  description: {
+    fontSize: 16,
+    color: 'white',
+    textAlign: 'center',
+    marginBottom: 30,
+  },
+  form: {
+    width: '100%',
+    maxWidth: 400,
+  },
+  input: {
+    backgroundColor: 'white',
+    borderRadius: 8,
+    padding: 15,
+    marginBottom: 20,
+    fontSize: 16,
+  },
+  button: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 12,
+    gap: 10,
+  },
+  emailButton: {
+    backgroundColor: '#0066cc',
+  },
+  googleButton: {
+    backgroundColor: '#db4437',
+  },
+  appleButton: {
+    backgroundColor: '#000',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  divider: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  dividerLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+  },
+  dividerText: {
+    color: 'white',
+    paddingHorizontal: 10,
+  },
+  error: {
+    color: '#ff6b6b',
+    textAlign: 'center',
+    marginTop: 10,
+  },
+});

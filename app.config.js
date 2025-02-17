@@ -47,14 +47,7 @@ module.exports = {
     }
   },
   plugins: [
-    'expo-router',
-    'expo-image',
-    [
-      'expo-updates',
-      {
-        username: 'sparkshift'
-      }
-    ]
+    'expo-router'
   ],
   extra: {
     eas: {

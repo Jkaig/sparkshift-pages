@@ -14,11 +14,6 @@ export default function ErrorScreen({ error, retry }: ErrorProps) {
       entering={FadeIn.duration(500)}
       style={styles.container}
     >
-      <Image 
-        source={require('../assets/error-illustration.png')}
-        style={styles.illustration}
-        resizeMode="contain"
-      />
       <Text style={styles.title}>Oops!</Text>
       <Text style={styles.subtitle}>Something went wrong</Text>
       <Text style={styles.error}>{error.message}</Text>
@@ -50,11 +45,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
     backgroundColor: '#0A0B1E',
-  },
-  illustration: {
-    width: 200,
-    height: 200,
-    marginBottom: 32,
   },
   title: {
     fontSize: 32,

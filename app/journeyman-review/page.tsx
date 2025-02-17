@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Pressable, Platform, Image } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Platform } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
 import * as Linking from 'expo-linking';
 import Animated, { FadeInUp } from 'react-native-reanimated';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function JourneymanReviewPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -41,39 +42,27 @@ export default function JourneymanReviewPage() {
         entering={FadeInUp.duration(1000)}
         style={styles.content}
       >
-        <Image
-          source={require('@/assets/app_icon.png')}
-          style={styles.logo}
-          resizeMode="contain"
-        />
-        
         <Text style={styles.title}>Review Ready</Text>
         
         <Text style={styles.description}>
           Your journeyman evaluation review is ready in the SparkShift app.
         </Text>
 
-        <View style={styles.storeButtons}>
-          <Pressable 
+        <View style={styles.buttonContainer}>
+          <Pressable
             style={styles.storeButton}
             onPress={() => Linking.openURL('https://apps.apple.com/app/sparkshift/id123456789')}
           >
-            <Image
-              source={require('@/assets/app-store-badge.png')}
-              style={styles.storeBadge}
-              resizeMode="contain"
-            />
+            <FontAwesome name="apple" size={24} color="white" />
+            <Text style={styles.buttonText}>Download on the App Store</Text>
           </Pressable>
-          
-          <Pressable 
+
+          <Pressable
             style={styles.storeButton}
             onPress={() => Linking.openURL('https://play.google.com/store/apps/details?id=com.sparkshift.app')}
           >
-            <Image
-              source={require('@/assets/play-store-badge.png')}
-              style={styles.storeBadge}
-              resizeMode="contain"
-            />
+            <FontAwesome name="android" size={24} color="white" />
+            <Text style={styles.buttonText}>Get it on Google Play</Text>
           </Pressable>
         </View>
 
@@ -99,11 +88,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  logo: {
-    width: 120,
-    height: 120,
-    marginBottom: 24,
-  },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
@@ -118,19 +102,22 @@ const styles = StyleSheet.create({
     marginBottom: 32,
     lineHeight: 24,
   },
-  storeButtons: {
-    flexDirection: 'row',
+  buttonContainer: {
     gap: 16,
-    marginBottom: 32,
-    flexWrap: 'wrap',
-    justifyContent: 'center',
   },
   storeButton: {
-    height: 48,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#000',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    gap: 10,
   },
-  storeBadge: {
-    height: '100%',
-    width: 162,
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   openButton: {
     backgroundColor: '#007AFF',

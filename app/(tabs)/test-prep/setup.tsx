@@ -68,7 +68,7 @@ export default function TestSetupScreen() {
         entering={FadeInUp.duration(500)}
         style={styles.content}
       >
-        <Card>
+        <View style={styles.card}>
           <View style={styles.cardContent}>
             <View style={styles.form}>
               <View style={styles.field}>
@@ -81,9 +81,9 @@ export default function TestSetupScreen() {
                     <SelectValue placeholder="Choose state" />
                   </SelectTrigger>
                   <SelectContent>
-                    {states.map((s) => (
-                      <SelectItem key={s} value={s}>
-                        {s}
+                    {states.map((state) => (
+                      <SelectItem key={state} value={state}>
+                        {state}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -100,35 +100,27 @@ export default function TestSetupScreen() {
                     <SelectValue placeholder="Choose duration" />
                   </SelectTrigger>
                   <SelectContent>
-                    {durations.map((d) => (
-                      <SelectItem key={d.value} value={d.value}>
-                        {d.label}
+                    {durations.map((duration) => (
+                      <SelectItem key={duration.value} value={duration.value}>
+                        {duration.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </View>
 
-              <View style={styles.info}>
-                <Text style={styles.infoText}>
-                  Your test will be customized based on:
-                </Text>
-                <Text style={styles.infoItem}>• Your state's specific requirements</Text>
-                <Text style={styles.infoItem}>• Latest NEC code updates</Text>
-                <Text style={styles.infoItem}>• Your previous performance</Text>
-                <Text style={styles.infoItem}>• Common exam topics</Text>
-              </View>
-
               <Button
                 onPress={handleStartTest}
                 disabled={!selectedState || !selectedDuration || loading}
-                style={styles.button}
+                style={styles.startButton}
               >
-                {loading ? 'Preparing Test...' : 'Start Practice Test'}
+                <Text style={styles.buttonText}>
+                  {loading ? 'Starting...' : 'Start Test'}
+                </Text>
               </Button>
             </View>
           </View>
-        </Card>
+        </View>
       </Animated.View>
     </ScrollView>
   );
@@ -137,36 +129,50 @@ export default function TestSetupScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a1a',
+    backgroundColor: '#f5f5f5',
   },
   header: {
     padding: 20,
     alignItems: 'center',
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
   },
   logo: {
     width: 80,
     height: 80,
-    marginBottom: 20,
+    marginBottom: 16,
   },
   title: {
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: 'bold',
-    color: '#ffffff',
+    color: '#1a1a1a',
     marginBottom: 8,
   },
   subtitle: {
-    fontSize: 18,
-    color: '#cccccc',
-    marginBottom: 24,
+    fontSize: 16,
+    color: '#666',
   },
   content: {
     padding: 20,
   },
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
   cardContent: {
-    padding: 16,
+    padding: 20,
   },
   form: {
-    gap: 24,
+    gap: 20,
   },
   field: {
     gap: 8,
@@ -176,23 +182,16 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#1a1a1a',
   },
-  info: {
-    backgroundColor: '#f8fafc',
-    padding: 16,
+  startButton: {
+    marginTop: 20,
+    backgroundColor: '#0066cc',
+    paddingVertical: 16,
     borderRadius: 8,
-    gap: 8,
+    alignItems: 'center',
   },
-  infoText: {
+  buttonText: {
+    color: '#fff',
     fontSize: 16,
-    fontWeight: '600',
-    color: '#1a1a1a',
-    marginBottom: 8,
-  },
-  infoItem: {
-    fontSize: 14,
-    color: '#4b5563',
-  },
-  button: {
-    marginTop: 16,
+    fontWeight: 'bold',
   },
 });
