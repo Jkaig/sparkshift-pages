@@ -7,7 +7,7 @@ module.exports = withExpo({
     unoptimized: true,
   },
   basePath: '',
-  assetPrefix: '',
+  assetPrefix: '/',
   webpack: (config, { isServer }) => {
     config.module.rules.push({
       test: /\.(woff|woff2|eot|ttf|otf)$/i,
