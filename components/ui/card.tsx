@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet, ViewStyle } from 'react-native';
+import * as React from 'react';
+import { View, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { theme } from '@/lib/theme';
 
@@ -8,6 +8,27 @@ interface CardProps {
   style?: ViewStyle;
   children: React.ReactNode;
 }
+
+interface CardSubComponentProps {
+  style?: ViewStyle | TextStyle;
+  children: React.ReactNode;
+}
+
+export const CardHeader = React.forwardRef<View, CardSubComponentProps>(({ style, children }, ref) => (
+  <View ref={ref} style={[styles.header, style]}>{children}</View>
+));
+
+export const CardTitle = React.forwardRef<Text, CardSubComponentProps>(({ style, children }, ref) => (
+  <Text ref={ref} style={[styles.title, style]}>{children}</Text>
+));
+
+export const CardDescription = React.forwardRef<Text, CardSubComponentProps>(({ style, children }, ref) => (
+  <Text ref={ref} style={[styles.description, style]}>{children}</Text>
+));
+
+export const CardContent = React.forwardRef<View, CardSubComponentProps>(({ style, children }, ref) => (
+  <View ref={ref} style={[styles.content, style]}>{children}</View>
+));
 
 export const Card = React.forwardRef<View, CardProps>(({
   variant = 'default',
@@ -43,6 +64,22 @@ export const Card = React.forwardRef<View, CardProps>(({
 });
 
 const styles = StyleSheet.create({
+  header: {
+    padding: theme.spacing.md,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: theme.colors.text.light,
+  },
+  description: {
+    fontSize: 14,
+    color: theme.colors.text.secondaryLight,
+    marginTop: 4,
+  },
+  content: {
+    padding: theme.spacing.md,
+  },
   card: {
     backgroundColor: theme.colors.background.card,
     borderRadius: theme.borderRadius.lg,

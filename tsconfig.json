@@ -19,6 +19,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "noEmit": true
   },
   "include": [

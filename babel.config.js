@@ -4,17 +4,16 @@ module.exports = function(api) {
     presets: ['babel-preset-expo'],
     plugins: [
       'react-native-reanimated/plugin',
-      ['@babel/plugin-transform-runtime',
-        {
-          useESModules: true,
-        },
-      ],
-      [
-        'module-resolver',
-        {
-          root: ['./'],
-          alias: {
-            '@': './',
+      ['@babel/plugin-transform-runtime', {
+        useESModules: true,
+      }],
+      ['module-resolver', {
+        root: ['.'],
+        alias: {
+          '@': '.',
+          'app': './app',
+          'react-native-web': './node_modules/react-native-web',
+            'react-native': 'react-native-web'
           },
           extensions: [
             '.ios.ts',

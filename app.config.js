@@ -1,4 +1,14 @@
 module.exports = {
+  web: {
+    bundler: 'webpack',
+    favicon: './assets/favicon.png',
+    name: 'SparkShift',
+    build: {
+      babel: {
+        include: ['@expo/vector-icons', 'react-native-web']
+      }
+    }
+  },
   name: process.env.EXPO_PUBLIC_APP_NAME || 'SparkShift',
   slug: 'sparkshift-pages',
   version: process.env.EXPO_PUBLIC_APP_VERSION || '1.0.0',

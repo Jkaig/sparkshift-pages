@@ -1,43 +1,68 @@
 const { getDefaultConfig } = require('@expo/metro-config');
 const path = require('path');
 
-const config = getDefaultConfig(__dirname, {
-  isCSSEnabled: true
-});
+const defaultConfig = getDefaultConfig(__dirname);
 
-// Add support for expo-router and web platform
-config.resolver.assetExts.push('cjs');
-config.resolver.sourceExts = [...config.resolver.sourceExts, 'mjs', 'cjs'];
-
-// Configure asset resolution
-config.resolver.assetExts = [
-  ...config.resolver.assetExts,
-  'png',
-  'jpg',
-  'jpeg',
-  'gif',
-  'webp',
-  'ttf',
-  'otf',
-  'woff',
-  'woff2'
-];
-
-// Add polyfills and asset directories
-config.resolver.extraNodeModules = {
-  ...config.resolver.extraNodeModules,
-  'process': require.resolve('process/browser'),
-  'buffer': require.resolve('buffer'),
-  'crypto': require.resolve('crypto-browserify'),
-  'stream': require.resolve('stream-browserify'),
-  'assets': path.resolve(__dirname, './assets'),
+const config = {
+  ...defaultConfig,
+  resolver: {
+    ...defaultConfig.resolver,
+    assetExts: [
+      ...defaultConfig.resolver.assetExts,
+      'png',
+      'jpg',
+      'jpeg',
+      'gif',
+      'webp',
+      'ttf',
+      'otf',
+      'woff',
+      'woff2',
+      'eot',
+      'svg',
+      'mp4',
+      'webm',
+      'wav',
+      'mp3',
+      'm4a',
+      'cjs'
+    ],
+    sourceExts: [
+      ...defaultConfig.resolver.sourceExts,
+      'mjs',
+      'cjs',
+      'web.js',
+      'web.ts',
+      'web.jsx',
+      'web.tsx'
+    ],
+    extraNodeModules: {
+      'react-native-web': path.resolve(__dirname, 'node_modules/react-native-web'),
+      'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
+      'process': require.resolve('process/browser'),
+      'buffer': require.resolve('buffer'),
+      'crypto': require.resolve('crypto-browserify'),
+      'stream': require.resolve('stream-browserify'),
+      'assets': path.resolve(__dirname, './assets')
+    }
+  },
+  transformer: {
+    ...defaultConfig.transformer,
+    assetPlugins: ['expo-asset/tools/hashAssetFiles'],
+    minifierConfig: {
+      keep_classnames: true,
+      keep_fnames: true,
+      mangle: {
+        keep_classnames: true,
+        keep_fnames: true
+      }
+    }
+  },
+  watchFolders: [
+    ...(defaultConfig.watchFolders || []),
+    path.resolve(__dirname, './assets'),
+    path.resolve(__dirname, './polyfills')
+  ]
 };
-
-// Add the assets directory to the watchFolders
-config.watchFolders = [
-  ...(config.watchFolders || []),
-  path.resolve(__dirname, './assets'),
-  path.resolve(__dirname, './polyfills'),
-];
 
 module.exports = config;
